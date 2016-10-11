@@ -10,12 +10,12 @@ module.exports = {
         host: 'coppia-mysql.c2nenncbrekn.us-west-2.rds.amazonaws.com',
         port: 3306,
         database: 'coppia',
-        user: 'coppia_admin',
-        password: 'squid2009'
+        user: 'xxxx',
+        password: 'xxxx'
     },
     key: {
         privateKey: 'BbZJjyoXAdr8BUZuiKKARWimKfrSmQ6fv8kZ7OFfc',
-        issuer: 'METALHEAD',
+        issuer: 'coppia.co',
         tokenExpiry: 1 * 30 * 1000 * 60 //1 hour
     },
     email: {
