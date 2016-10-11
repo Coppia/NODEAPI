@@ -12,14 +12,17 @@ var snippets = require('./routes/snippets');
 var customers = require('./routes/customers');
 var mysql = require('mysql');
 var connection = require('express-myconnection');
+var config = require('./config/config');
 
 var app = express();
+app.config = config;
 
 app.use(connection(mysql, {
-    host: 'localhost',
-    user: 'root',
-    password: 'squid2009',
-    database: 'coppia'
+    host: config.database.host,
+    user: config.database.user,
+    password: config.database.password,
+    port: config.database.port,
+    database: config.database.database
 }, 'request'));
 
 // view engine setup
