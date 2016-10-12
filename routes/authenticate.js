@@ -1,6 +1,6 @@
 var express = require('express');
 var jwt    = require('jsonwebtoken'); 
-var config = require('../config/config');
+var bcrypt = require('bcrypt-nodejs');
 
 var router = express.Router();
 
@@ -34,7 +34,7 @@ router.post('/', function(req, res, next) {
                         if (returnUser != username) {
                             res.json({ success: false, message: 'Authentication failed. Wrong username.' });
                         } else {
-                            if (returnPassword != password) {
+                            if (!bcrypt.compareSync(password, returnPassword)) {
                                 res.json({ success: false, message: 'Authentication failed. Wrong password.' });
                             } else {
                                 var token = jwt.sign({
