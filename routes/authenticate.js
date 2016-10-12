@@ -16,7 +16,8 @@ router.post('/', function(req, res, next) {
         req.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection error: ', err);
-                return next(err);
+                return res.json({ success: false, message: 'Failed to connect to MySQL.' });   
+                //return next(err);
             }
             else {
                 conn.query('SELECT id, username, password FROM users WHERE username = ?', username, function(err, rows, fields) {
