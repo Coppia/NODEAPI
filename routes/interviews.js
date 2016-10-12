@@ -4,6 +4,7 @@ var router = express.Router();
 // GET INTERVIEWS
 router.get('/', function(req, res, next) {
     try {
+        console.log('secret: ' + req.app.get('jwtkey'));
         req.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection error: ', err);

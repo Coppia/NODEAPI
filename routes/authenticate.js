@@ -2,13 +2,12 @@ var express = require('express');
 var jwt    = require('jsonwebtoken'); 
 var config = require('../config/config');
 
-var app = express();
-app.config = config;
 var router = express.Router();
 
 /* GET home page. */
 router.post('/', function(req, res, next) {
     try {
+        var secret = req.app.get('jwtkey');
         var request = req.body;
 
         var username = request.username;
@@ -38,18 +37,16 @@ router.post('/', function(req, res, next) {
                             if (returnPassword != password) {
                                 res.json({ success: false, message: 'Authentication failed. Wrong password.' });
                             } else {
-                                // if user is found and password is right
-                                // create a token
-                                //var token = jwt.sign({ issuer: 'coppia.co' }, config.secret.value);
-                                var token = jwt.sign({ issuer: 'coppia.co' }, config.secret.value);
+                                var token = jwt.sign({
+                                    iss:  'coppia',
+                                    agent: req.headers['user-agent'],
+                                    exp:   Math.floor(new Date().getTime()/1000) + 7*24*60*60 // Note: in seconds!
+                                }, secret);  // secret is defined in the environment variable JWT_SECRET
                                 
-
                                 res.json({ success: true, message: 'Enjoy your token!', token: token });
                             }   
                         }
-                    }
-                    
-                    
+                    }  
                 });
             }
         });

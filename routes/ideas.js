@@ -1,9 +1,7 @@
+var app = require('../app');
 var express = require('express');
 var jwt    = require('jsonwebtoken'); 
 var config = require('../config/config');
-
-var app = express();
-app.config = config;
 
 var router = express.Router();
 
@@ -13,8 +11,7 @@ router.use(function(req, res, next) {
 
   // decode token
   if (token) {
-
-    var secret = config.secret.value;
+    var secret = req.app.get('jwtkey');
 
     // verifies secret and checks exp
     jwt.verify(token, secret, function(err, decoded) {      
@@ -162,6 +159,5 @@ router.post('/idea_snippet/', function(req, res, next) {
         return next(ex);
     }
 });
-
 
 module.exports = router;
