@@ -3,34 +3,34 @@ var jwt    = require('jsonwebtoken');
 
 var router = express.Router();
 
-router.use(function(req, res, next) {
-  // check header or url parameters or post parameters for token
-  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+// router.use(function(req, res, next) {
+//   // check header or url parameters or post parameters for token
+//   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
-  // decode token
-  if (token) {
-    var secret = req.app.get('jwtkey');
+//   // decode token
+//   if (token) {
+//     var secret = req.app.get('jwtkey');
 
-    // verifies secret and checks exp
-    jwt.verify(token, secret, function(err, decoded) {      
-      if (err) {
-        return res.json({ success: false, message: 'Failed to authenticate token.' });    
-      } else {
-        // if everything is good, save to request for use in other routes
-        req.decoded = decoded;    
-        next();
-      }
-    });
+//     // verifies secret and checks exp
+//     jwt.verify(token, secret, function(err, decoded) {      
+//       if (err) {
+//         return res.json({ success: false, message: 'Failed to authenticate token.' });    
+//       } else {
+//         // if everything is good, save to request for use in other routes
+//         req.decoded = decoded;    
+//         next();
+//       }
+//     });
 
-  } else {
-    // if there is no token
-    // return an error
-    return res.status(403).send({ 
-        success: false, 
-        message: 'No token provided.' 
-    });
-  }
-});
+//   } else {
+//     // if there is no token
+//     // return an error
+//     return res.status(403).send({ 
+//         success: false, 
+//         message: 'No token provided.' 
+//     });
+//   }
+// });
 
 // GET IDEAS
 router.get('/', function(req, res, next) {
@@ -39,7 +39,8 @@ router.get('/', function(req, res, next) {
         req.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection error: ', err);
-                return next(err);
+                return res.json({ success: false, message: 'Failed to connect to MySQL.' });   
+                //return next(err);
             }
             else {
                 conn.query('SELECT id, title, goal, status, create_user, create_datetime, update_user, update_datetime FROM ideas', function(err, rows, fields) {
