@@ -1,10 +1,41 @@
 var express = require('express');
+var jwt    = require('jsonwebtoken'); 
+var config = require('../config/config');
+
+var app = express();
+app.config = config;
+
 var router = express.Router();
 
-/* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.send('IDEAS: respond with a resource');
-// });
+router.use(function(req, res, next) {
+  // check header or url parameters or post parameters for token
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  // decode token
+  if (token) {
+
+    var secret = config.secret.value;
+
+    // verifies secret and checks exp
+    jwt.verify(token, secret, function(err, decoded) {      
+      if (err) {
+        return res.json({ success: false, message: 'Failed to authenticate token.' });    
+      } else {
+        // if everything is good, save to request for use in other routes
+        req.decoded = decoded;    
+        next();
+      }
+    });
+
+  } else {
+    // if there is no token
+    // return an error
+    return res.status(403).send({ 
+        success: false, 
+        message: 'No token provided.' 
+    });
+  }
+});
 
 // GET IDEAS
 router.get('/', function(req, res, next) {
@@ -34,7 +65,8 @@ router.get('/', function(req, res, next) {
 // GET IDEA BY idea_id
 router.get('/:idea_id', function(req, res, next) {
     try {
-        var ideaId = req.param('idea_id');
+        var request = req.params;
+        var idea_id = request.idea_id;
 
         req.getConnection(function(err, conn) {
             if (err) {
@@ -42,7 +74,7 @@ router.get('/:idea_id', function(req, res, next) {
                 return next(err);
             }
             else {
-                conn.query('SELECT id, title, goal, status, create_user, create_datetime, update_user, update_datetime FROM ideas WHERE id = ?', ideaId, function(err, rows, fields) {
+                conn.query('SELECT id, title, goal, status, create_user, create_datetime, update_user, update_datetime FROM ideas WHERE id = ?', idea_id, function(err, rows, fields) {
                     if (err) {
                         console.error('SQL Error: ', err);
                         return next(err);
@@ -61,8 +93,8 @@ router.get('/:idea_id', function(req, res, next) {
 // CREATE IDEA
 router.post('/', function(req, res, next) {
     try {
-        var reqObj = req.body;
-        console.log(reqObj);
+        var request = req.body;
+        console.log(request);
         req.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection Error: ', err);
@@ -71,11 +103,11 @@ router.post('/', function(req, res, next) {
             else {
                 var insertSql = "INSERT INTO ideas SET ?";
                 var insertValues = {
-                    "title" : reqObj.title,
-                    "goal" : reqObj.goal,
-                    "status" : reqObj.status,
-                    "create_user" : reqObj.create_user,
-                    "update_user" : reqObj.create_user
+                    "title" : request.title,
+                    "goal" : request.goal,
+                    "status" : request.status,
+                    "create_user" : request.create_user,
+                    "update_user" : request.create_user
                 };
 
                 var query = conn.query(insertSql, insertValues, function(err, result) {
@@ -84,8 +116,8 @@ router.post('/', function(req, res, next) {
                         return next(err);
                     }
                     console.log(result);
-                    var IdeaId = result.insertId;
-                    res.json({"IdeaId":IdeaId});
+                    var idea_id = result.insertId;
+                    res.json({"idea_id":idea_id});
                 });
             }
         });
@@ -99,8 +131,8 @@ router.post('/', function(req, res, next) {
 // CREATE INTERVIEW CUSTOMER
 router.post('/idea_snippet/', function(req, res, next) {
     try {
-        var reqObj = req.body;
-        console.log(reqObj);
+        var request = req.body;
+        console.log(request);
         req.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection Error: ', err);
@@ -109,8 +141,8 @@ router.post('/idea_snippet/', function(req, res, next) {
             else {
                 var insertSql = "INSERT INTO idea_snippet SET ?";
                 var insertValues = {
-                    "idea_id" : reqObj.idea_id,
-                    "snippet_id" : reqObj.snippet_id
+                    "idea_id" : request.idea_id,
+                    "snippet_id" : request.snippet_id
                 };
 
                 var query = conn.query(insertSql, insertValues, function(err, result) {
@@ -119,8 +151,8 @@ router.post('/idea_snippet/', function(req, res, next) {
                         return next(err);
                     }
                     console.log(result);
-                    var InterviewSnippetId = result.insertId;
-                    res.json({"InterviewSnippetId":InterviewSnippetId});
+                    var interview_snippet_id = result.insertId;
+                    res.json({"interview_snippet_id":interview_snippet_id});
                 });
             }
         });

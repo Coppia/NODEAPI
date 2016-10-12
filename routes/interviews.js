@@ -29,7 +29,10 @@ router.get('/', function(req, res, next) {
 // GET INTERVIEW BY interview_id
 router.get('/:interview_id', function(req, res, next) {
     try {
-        var interviewId = req.param('interview_id');
+        var request = req.params;
+        
+        var interview_id = request.interview_id;
+        console.log(interview_id);
 
         req.getConnection(function(err, conn) {
             if (err) {
@@ -37,7 +40,7 @@ router.get('/:interview_id', function(req, res, next) {
                 return next(err);
             }
             else {
-                conn.query('SELECT id, title, notes, create_user, create_datetime, update_user, update_datetime FROM interviews WHERE id = ?', interviewId, function(err, rows, fields) {
+                conn.query('SELECT id, title, notes, create_user, create_datetime, update_user, update_datetime FROM interviews WHERE id = ?', [interview_id], function(err, rows, fields) {
                     if (err) {
                         console.error('SQL Error: ', err);
                         return next(err);
@@ -56,8 +59,8 @@ router.get('/:interview_id', function(req, res, next) {
 // CREATE INTERVIEW
 router.post('/', function(req, res, next) {
     try {
-        var reqObj = req.body;
-        console.log(reqObj);
+        var request = req.body;
+        console.log(request);
         req.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection Error: ', err);
@@ -66,10 +69,10 @@ router.post('/', function(req, res, next) {
             else {
                 var insertSql = "INSERT INTO interviews SET ?";
                 var insertValues = {
-                    "title" : reqObj.title,
-                    "notes" : reqObj.notes,
-                    "create_user" : reqObj.create_user,
-                    "update_user" : reqObj.create_user
+                    "title" : request.title,
+                    "notes" : request.notes,
+                    "create_user" : request.create_user,
+                    "update_user" : request.create_user
                 };
 
                 var query = conn.query(insertSql, insertValues, function(err, result) {
@@ -78,8 +81,8 @@ router.post('/', function(req, res, next) {
                         return next(err);
                     }
                     console.log(result);
-                    var InterviewId = result.insertId;
-                    res.json({"InterviewId":InterviewId});
+                    var interview_id = result.insertId;
+                    res.json({"interview_id":interview_id});
                 });
             }
         });
@@ -93,8 +96,8 @@ router.post('/', function(req, res, next) {
 // CREATE INTERVIEW CUSTOMER
 router.post('/interview_customer/', function(req, res, next) {
     try {
-        var reqObj = req.body;
-        console.log(reqObj);
+        var request = req.body;
+        console.log(request);
         req.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection Error: ', err);
@@ -103,8 +106,8 @@ router.post('/interview_customer/', function(req, res, next) {
             else {
                 var insertSql = "INSERT INTO interview_customer SET ?";
                 var insertValues = {
-                    "interview_id" : reqObj.interview_id,
-                    "customer_id" : reqObj.customer_id
+                    "interview_id" : request.interview_id,
+                    "customer_id" : request.customer_id
                 };
 
                 var query = conn.query(insertSql, insertValues, function(err, result) {
@@ -113,8 +116,8 @@ router.post('/interview_customer/', function(req, res, next) {
                         return next(err);
                     }
                     console.log(result);
-                    var InterviewCustomerId = result.insertId;
-                    res.json({"InterviewCustomerId":InterviewCustomerId});
+                    var interview_customer_id = result.insertId;
+                    res.json({"interview_customer_id":interview_customer_id});
                 });
             }
         });

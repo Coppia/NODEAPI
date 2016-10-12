@@ -10,8 +10,11 @@ module.exports = {
         host: 'coppia-mysql.c2nenncbrekn.us-west-2.rds.amazonaws.com',
         port: 3306,
         database: 'coppia',
-        user: 'xxxx',
-        password: 'xxxx'
+        user: 'xxx',
+        password: 'xxx'
+    },
+    secret: {
+        value: 'coppia.coisthebestsaasplatformforinteviews'
     },
     key: {
         privateKey: 'BbZJjyoXAdr8BUZuiKKARWimKfrSmQ6fv8kZ7OFfc',

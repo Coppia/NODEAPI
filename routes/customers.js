@@ -29,7 +29,8 @@ router.get('/', function(req, res, next) {
 // GET CUSTOMERS BY :id
 router.get('/:customer_id', function(req, res, next) {
     try {
-        var customerId = req.param('customer_id');
+        var request = req.params;
+        var customer_id = request.customer_id;
 
         req.getConnection(function(err, conn) {
             if (err) {
@@ -37,7 +38,7 @@ router.get('/:customer_id', function(req, res, next) {
                 return next(err);
             }
             else {
-                conn.query('SELECT id, first_name, last_name, email, image_link, create_user, create_datetime, update_user, update_datetime FROM customers WHERE id = ?', customerId, function(err, rows, fields) {
+                conn.query('SELECT id, first_name, last_name, email, image_link, create_user, create_datetime, update_user, update_datetime FROM customers WHERE id = ?', customer_id, function(err, rows, fields) {
                     if (err) {
                         console.error('SQL Error: ', err);
                         return next(err);
@@ -56,8 +57,8 @@ router.get('/:customer_id', function(req, res, next) {
 // CREATE CUSTOMER
 router.post('/', function(req, res, next) {
     try {
-        var reqObj = req.body;
-        console.log(reqObj);
+        var request = req.body;
+        console.log(request);
         req.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection Error: ', err);
@@ -66,12 +67,12 @@ router.post('/', function(req, res, next) {
             else {
                 var insertSql = "INSERT INTO customers SET ?";
                 var insertValues = {
-                    "first_name" : reqObj.first_name,
-                    "last_name" : reqObj.last_name,
-                    "email" : reqObj.email,
-                    "image_link" : reqObj.image_link,
-                    "create_user" : reqObj.create_user,
-                    "update_user" : reqObj.create_user
+                    "first_name" : request.first_name,
+                    "last_name" : request.last_name,
+                    "email" : request.email,
+                    "image_link" : request.image_link,
+                    "create_user" : request.create_user,
+                    "update_user" : request.create_user
                 };
 
                 var query = conn.query(insertSql, insertValues, function(err, result) {
@@ -80,8 +81,8 @@ router.post('/', function(req, res, next) {
                         return next(err);
                     }
                     console.log(result);
-                    var CustomerId = result.insertId;
-                    res.json({"CustomerId":CustomerId});
+                    var customer_id = result.insertId;
+                    res.json({"customer_id":customer_id});
                 });
             }
         });
