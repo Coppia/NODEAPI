@@ -9,9 +9,9 @@ module.exports = {
     database: {
         host: 'us-cdbr-iron-east-04.cleardb.net',
         port: 3306,
-        database: 'heroku_784e2906e8bab8d',
-        user: 'bf5e988a764f51',
-        password: 'e855508e'
+        database: 'heroku_5e29cda4bc25bfc',
+        user: 'b250f82d179f63',
+        password: '8cc620f9'
 
         // host: 'coppia-mysql.c2nenncbrekn.us-west-2.rds.amazonaws.com',
         // port: 3306,
