@@ -170,8 +170,8 @@ router.post('/idea_snippet/', function(req, res, next) {
                         console.error('SQL Error: ', err);
                         return next(err);
                     }
-                    var interview_snippet_id = result.insertId;
-                    res.json({"interview_snippet_id":interview_snippet_id});
+                    var idea_snippet_id = result.insertId;
+                    res.json({"idea_snippet_id":idea_snippet_id});
                 });
             }
         });
