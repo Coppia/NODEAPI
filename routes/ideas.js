@@ -35,7 +35,7 @@ router.use(function(req, res, next) {
 // GET IDEAS
 router.get('/', function(req, res, next) {
     try {
-        console.log('decoded: ' + req.decoded);
+        //console.log('decoded: ' + req.decoded);
         req.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection error: ', err);
