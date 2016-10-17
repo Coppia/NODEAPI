@@ -10,7 +10,7 @@ const saltRounds = 10;
 router.get('/', function(req, res, next) {
     try {
         var secret = req.app.get('jwtkey');
-        var request = req.body;
+        var request = req.headers;
 
         var username = request.username;
         var password = request.password;
