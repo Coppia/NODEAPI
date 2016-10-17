@@ -89,6 +89,7 @@ router.get('/:snippet_id', function(req, res, next) {
 // CREATE SNIPPET BY INTERVIEW ID
 router.post('/', function(req, res, next) {
     try {
+        var currdatetime = new Date();
         var request = req.body;
 
         req.getConnection(function(err, conn) {
@@ -102,7 +103,9 @@ router.post('/', function(req, res, next) {
                     "text" : request.text,
                     "interview_id" : request.interview_id,
                     "create_user" : request.create_user,
-                    "update_user" : request.create_user
+                    "create_datetime" : currdatetime,
+                    "update_user" : request.create_user,
+                    "update_datetime" : currdatetime
                 };
 
                 var query = conn.query(insertSql, insertValues, function(err, result) {

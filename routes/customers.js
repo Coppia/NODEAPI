@@ -88,6 +88,7 @@ router.get('/:customer_id', function(req, res, next) {
 // CREATE CUSTOMER
 router.post('/', function(req, res, next) {
     try {
+        var currdatetime = new Date();
         var request = req.body;
 
         req.getConnection(function(err, conn) {
@@ -103,7 +104,9 @@ router.post('/', function(req, res, next) {
                     "email" : request.email,
                     "image_link" : request.image_link,
                     "create_user" : request.create_user,
-                    "update_user" : request.create_user
+                    "create_datetime" : currdatetime,
+                    "update_user" : request.create_user,
+                    "update_datetime" : currdatetime
                 };
 
                 var query = conn.query(insertSql, insertValues, function(err, result) {
