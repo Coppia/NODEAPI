@@ -90,7 +90,7 @@ router.get('/:snippet_id', function(req, res, next) {
 router.post('/', function(req, res, next) {
     try {
         var request = req.body;
-        console.log(request);
+
         req.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection Error: ', err);
@@ -99,7 +99,7 @@ router.post('/', function(req, res, next) {
             else {
                 var insertSql = "INSERT INTO snippets SET ?";
                 var insertValues = {
-                    "text" : reqObj.text,
+                    "text" : request.text,
                     "interview_id" : request.interview_id,
                     "create_user" : request.create_user,
                     "update_user" : request.create_user
@@ -110,7 +110,7 @@ router.post('/', function(req, res, next) {
                         console.error('SQL Error: ', err);
                         return next(err);
                     }
-                    console.log(result);
+
                     var snippet_id = result.insertId;
                     res.json({"snippet_id":snippet_id});
                 });

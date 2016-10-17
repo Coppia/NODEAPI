@@ -33,9 +33,34 @@ router.use(function(req, res, next) {
 });
 
 // GET IDEAS
+router.get('/dashboard/', function(req, res, next) {
+    try {
+        req.getConnection(function(err, conn) {
+            if (err) {
+                console.error('SQL Connection error: ', err);
+                return res.json({ success: false, message: 'Failed to connect to MySQL.' });   
+                //return next(err);
+            }
+            else {
+                conn.query('SELECT id, title, goal, status, create_user, create_datetime, update_user, update_datetime FROM ideas', function(err, rows, fields) {
+                    if (err) {
+                        console.error('SQL Error: ', err);
+                        return next(err);
+                    }
+                    res.json(rows);
+                });
+            }
+        });
+    }
+    catch(ex) {
+        console.error("Internal error: ", ex);
+        return next(ex);
+    }
+});
+
+// GET IDEAS
 router.get('/', function(req, res, next) {
     try {
-        //console.log('decoded: ' + req.decoded);
         req.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection error: ', err);
@@ -91,7 +116,6 @@ router.get('/:idea_id', function(req, res, next) {
 router.post('/', function(req, res, next) {
     try {
         var request = req.body;
-        console.log(request);
         req.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection Error: ', err);
@@ -112,7 +136,6 @@ router.post('/', function(req, res, next) {
                         console.error('SQL Error: ', err);
                         return next(err);
                     }
-                    console.log(result);
                     var idea_id = result.insertId;
                     res.json({"idea_id":idea_id});
                 });
@@ -129,7 +152,7 @@ router.post('/', function(req, res, next) {
 router.post('/idea_snippet/', function(req, res, next) {
     try {
         var request = req.body;
-        console.log(request);
+
         req.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection Error: ', err);
@@ -147,7 +170,6 @@ router.post('/idea_snippet/', function(req, res, next) {
                         console.error('SQL Error: ', err);
                         return next(err);
                     }
-                    console.log(result);
                     var interview_snippet_id = result.insertId;
                     res.json({"interview_snippet_id":interview_snippet_id});
                 });
