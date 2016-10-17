@@ -100,7 +100,13 @@ router.get('/:idea_id', function(req, res, next) {
                         console.error('SQL Error: ', err);
                         return res.json({ success: false, message: 'SQL Error occurred: ' + err }); 
                     }
-                    res.json(rows);
+
+                    if (rows) {
+                        res.json(rows);
+                    } else {
+                        return res.json({ success: true, message: 'No rows found' }); 
+                    }
+                    
                 });
             }
         });
