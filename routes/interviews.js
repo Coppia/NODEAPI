@@ -61,9 +61,7 @@ router.get('/', function(req, res, next) {
 router.get('/:interview_id', function(req, res, next) {
     try {
         var request = req.params;
-        
         var interview_id = request.interview_id;
-        console.log(interview_id);
 
         req.getConnection(function(err, conn) {
             if (err) {
@@ -91,7 +89,7 @@ router.get('/:interview_id', function(req, res, next) {
 router.post('/', function(req, res, next) {
     try {
         var request = req.body;
-        console.log(request);
+      
         req.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection Error: ', err);
@@ -111,7 +109,7 @@ router.post('/', function(req, res, next) {
                         console.error('SQL Error: ', err);
                         return next(err);
                     }
-                    console.log(result);
+                  
                     var interview_id = result.insertId;
                     res.json({"interview_id":interview_id});
                 });
@@ -128,7 +126,7 @@ router.post('/', function(req, res, next) {
 router.post('/interview_customer/', function(req, res, next) {
     try {
         var request = req.body;
-        console.log(request);
+      
         req.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection Error: ', err);
@@ -146,7 +144,7 @@ router.post('/interview_customer/', function(req, res, next) {
                         console.error('SQL Error: ', err);
                         return next(err);
                     }
-                    console.log(result);
+               
                     var interview_customer_id = result.insertId;
                     res.json({"interview_customer_id":interview_customer_id});
                 });

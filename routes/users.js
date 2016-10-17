@@ -65,7 +65,7 @@ router.post('/', function(req, res, next) {
                         console.error('SQL Error: ', err);
                         return next(err);
                     }
-                    console.log(result);
+                
                     var user_id = result.insertId;
                     res.json({"user_id":user_id});
                 });

@@ -89,7 +89,7 @@ router.get('/:customer_id', function(req, res, next) {
 router.post('/', function(req, res, next) {
     try {
         var request = req.body;
-        console.log(request);
+
         req.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection Error: ', err);
@@ -111,7 +111,7 @@ router.post('/', function(req, res, next) {
                         console.error('SQL Error: ', err);
                         return next(err);
                     }
-                    console.log(result);
+            
                     var customer_id = result.insertId;
                     res.json({"customer_id":customer_id});
                 });
