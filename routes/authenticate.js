@@ -80,7 +80,7 @@ router.post('/', function(req, res, next) {
                 var insertSql = "INSERT INTO users SET ?";
                 var insertValues = {
                     "username" : username,
-                    "password" : password
+                    "password" : hash
                 };
 
                 var query = conn.query(insertSql, insertValues, function(err, result) {
