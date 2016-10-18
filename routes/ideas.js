@@ -32,7 +32,7 @@ router.use(function(req, res, next) {
   }
 });
 
-// GET IDEAS
+// GET ALL IDEAS
 router.get('/', function(req, res, next) {
     try {
         req.getConnection(function(err, conn) {
