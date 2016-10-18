@@ -5,14 +5,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var morgan      = require('morgan');
-var routes = require('./routes/index');
-var dashboard = require('./routes/dashboard');
+var index = require('./routes/index');
 var users = require('./routes/users');
 var ideas = require('./routes/ideas');
 var interviews = require('./routes/interviews');
 var snippets = require('./routes/snippets');
 var customers = require('./routes/customers');
 var authenticate = require('./routes/authenticate');
+var dashboard = require('./routes/dashboard');
 var mysql = require('mysql');
 var connection = require('express-myconnection');
 var config = require('./config/config');
@@ -44,14 +44,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/api/v1/dashboard', dashboard);
+app.use('/', index);
 app.use('/api/v1/users', users);
 app.use('/api/v1/ideas', ideas);
 app.use('/api/v1/interviews', interviews);
 app.use('/api/v1/snippets', snippets);
 app.use('/api/v1/customers', customers);
 app.use('/api/v1/authenticate', authenticate);
+//app.use('/api/v1/dashboard', dashboard);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
