@@ -33,32 +33,6 @@ router.use(function(req, res, next) {
 });
 
 // GET IDEAS
-router.get('/dashboard/', function(req, res, next) {
-    try {
-        req.getConnection(function(err, conn) {
-            if (err) {
-                console.error('SQL Connection error: ', err);
-                return res.json({ success: false, message: 'Failed to connect to MySQL.' });   
-                //return next(err);
-            }
-            else {
-                conn.query('SELECT id, title, goal, status, create_user, create_datetime, update_user, update_datetime FROM ideas', function(err, rows, fields) {
-                    if (err) {
-                        console.error('SQL Error: ', err);
-                        return res.json({ success: false, message: 'SQL Error occurred: ' + err }); 
-                    }
-                    res.json(rows);
-                });
-            }
-        });
-    }
-    catch(ex) {
-        console.error("Internal error: ", ex);
-        return res.json({ success: false, message: 'Internal Error occurred: ' + ex }); 
-    }
-});
-
-// GET IDEAS
 router.get('/', function(req, res, next) {
     try {
         req.getConnection(function(err, conn) {
