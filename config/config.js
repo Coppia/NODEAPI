@@ -13,10 +13,10 @@ module.exports = {
         user: 'b250f82d179f63',
         password: '8cc620f9'
 
-        // host: 'coppia-mysql.c2nenncbrekn.us-west-2.rds.amazonaws.com',
+        // host: 'localhost',
         // port: 3306,
         // database: 'coppia',
-        // user: 'coppia_admin',
+        // user: 'root',
         // password: 'squid2009'
     },
     secret: {
