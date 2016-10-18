@@ -38,13 +38,13 @@ router.get('/', function(req, res, next) {
         req.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection error: ', err);
-                return res.json({ success: false, message: 'Failed to connect to MySQL.' });   
+                return next(err); 
             }
             else {
                 conn.query('SELECT id, title, goal, status, create_user, create_datetime, update_user, update_datetime FROM ideas', function(err, rows, fields) {
                     if (err) {
                         console.error('SQL Error: ', err);
-                        return res.json({ success: false, message: 'SQL Error occurred: ' + err }); 
+                        return next(err);
                     }
                     res.json(rows);
                 });
@@ -53,7 +53,7 @@ router.get('/', function(req, res, next) {
     }
     catch(ex) {
         console.error("Internal error: ", ex);
-        return res.json({ success: false, message: 'Internal Error occurred: ' + ex }); 
+        return next(ex);
     }
 });
 
@@ -66,13 +66,13 @@ router.get('/:idea_id', function(req, res, next) {
         req.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection error: ', err);
-                return res.json({ success: false, message: 'SQL Connection error: ' + err }); 
+                return next(err);
             }
             else {
                 conn.query('SELECT id, title, goal, status, create_user, create_datetime, update_user, update_datetime FROM ideas WHERE id = ?', idea_id, function(err, rows, fields) {
                     if (err) {
                         console.error('SQL Error: ', err);
-                        return res.json({ success: false, message: 'SQL Error occurred: ' + err }); 
+                        return next(err);
                     }
                     res.json(rows);
                 });
@@ -81,7 +81,7 @@ router.get('/:idea_id', function(req, res, next) {
     }
     catch(ex) {
         console.error("Internal error: ", ex);
-        return res.json({ success: false, message: 'Internal Error occurred: ' + ex }); 
+        return next(ex);
     }
 });
 
@@ -93,7 +93,7 @@ router.post('/', function(req, res, next) {
         req.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection Error: ', err);
-                return res.json({ success: false, message: 'SQL Connection Error occurred: ' + err }); 
+                return next(err);
             }
             else {
                 var insertSql = "INSERT INTO ideas SET ?";
@@ -110,7 +110,7 @@ router.post('/', function(req, res, next) {
                 var query = conn.query(insertSql, insertValues, function(err, result) {
                     if (err) {
                         console.error('SQL Error: ', err);
-                        return res.json({ success: false, message: 'SQL Error occurred: ' + err }); 
+                        return next(err);
                     }
                     var idea_id = result.insertId;
                     res.json({"idea_id":idea_id});
@@ -120,7 +120,7 @@ router.post('/', function(req, res, next) {
     }
     catch(ex) {
         console.error('Internal Error: ' + ex);
-        return res.json({ success: false, message: 'Internal Error occurred: ' + ex }); 
+        return next(ex);
     }
 });
 
@@ -132,7 +132,7 @@ router.post('/idea_snippet/', function(req, res, next) {
         req.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection Error: ', err);
-                return res.json({ success: false, message: 'SQL Connection Error occurred: ' + err }); 
+                return next(err);
             }
             else {
                 var insertSql = "INSERT INTO idea_snippet SET ?";
@@ -144,7 +144,7 @@ router.post('/idea_snippet/', function(req, res, next) {
                 var query = conn.query(insertSql, insertValues, function(err, result) {
                     if (err) {
                         console.error('SQL Error: ', err);
-                        return res.json({ success: false, message: 'SQL Error occurred: ' + err }); 
+                        return next(err);
                     }
                     var idea_snippet_id = result.insertId;
                     res.json({"idea_snippet_id":idea_snippet_id});
@@ -154,7 +154,7 @@ router.post('/idea_snippet/', function(req, res, next) {
     }
     catch(ex) {
         console.error('Internal Error: ' + ex);
-        return res.json({ success: false, message: 'Internal Error occurred: ' + ex }); 
+        return next(ex);
     }
 });
 
