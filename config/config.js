@@ -4,7 +4,7 @@ module.exports = {
     },
     server: {
             host: 'localhost',
-            port: 7002
+            port: 8080
     },
     database: {
         host: 'us-cdbr-iron-east-04.cleardb.net',
