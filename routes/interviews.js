@@ -85,7 +85,7 @@ router.get('/:interview_id', function(req, res, next) {
     }
 });
 
-// CREATE INTERVIEW
+// POST INTERVIEW
 router.post('/', function(req, res, next) {
     try {
         var currdatetime = new Date();
@@ -125,7 +125,7 @@ router.post('/', function(req, res, next) {
     }
 });
 
-// CREATE INTERVIEW CUSTOMER
+// POST INTERVIEW CUSTOMER
 router.post('/interview_customer/', function(req, res, next) {
     try {
         var request = req.body;
@@ -150,6 +150,95 @@ router.post('/interview_customer/', function(req, res, next) {
                
                     var interview_customer_id = result.insertId;
                     res.json({"interview_customer_id":interview_customer_id});
+                });
+            }
+        });
+    }
+    catch(ex) {
+        console.error('Internal Error: ' + ex);
+        return next(ex);
+    }
+});
+
+// UPDATE INTERVIEW BY interview_id
+router.put('/:interview_id', function(req, res, next) {
+    try {
+        var currdatetime = new Date();
+        var interview_id = req.params.interview_id;
+        var request = req.body;
+
+        req.getConnection(function(err, conn) {
+            if (err) {
+                console.error('SQL Connection Error: ', err);
+                return next(err);
+            }
+            else {
+                var updateSql = "UPDATE interviews SET ? WHERE ?";
+                var updateValues = {
+                     "title" : request.title,
+                    "notes" : request.notes,
+                    "update_user" : request.update_user,
+                    "update_datetime" : currdatetime
+                };
+                var whereValue = {
+                    "id" : interview_id
+                };
+
+                var query = conn.query(updateSql, [updateValues, whereValue], function(err, result) {
+                    if (err) {
+                        console.error('SQL Error: ', err);
+                        return next(err);
+                    }
+                    res.json(result);
+                });
+            }
+        });
+    }
+    catch(ex) {
+        console.error('Internal Error: ' + ex);
+        return next(ex);
+    }
+});
+
+//DELETE IDEA BY idea_id
+router.delete('/:interview_id', function(req, res, next) {
+    try {
+        var currdatetime = new Date();
+        var interview_id = req.params.interview_id;
+        var request = req.body;
+
+        req.getConnection(function(err, conn) {
+            if (err) {
+                console.error('SQL Connection Error: ', err);
+                return next(err);
+            }
+            else {
+                var deleteSql1 = "DELETE FROM interview_customer WHERE ?";
+                
+                var whereValue = {
+                    "id" : interview_id
+                };
+
+                var query = conn.query(deleteSql1, whereValue, function(err, result) {
+                    if (err) {
+                        console.error('SQL Error: ', err);
+                        return next(err);
+                    }
+
+                    var deleteSql2 = "DELETE FROM interviews WHERE ?";
+                
+                    var whereValue = {
+                        "id" : interview_id
+                    };
+
+                    var query2 = conn.query(deleteSql2, whereValue, function(err, result) {
+                        if (err) {
+                            console.error('SQL Error: ' + err);
+                            return next(err);
+                        }
+
+                        res.json(result);
+                    });
                 });
             }
         });
