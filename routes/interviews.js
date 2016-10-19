@@ -216,7 +216,7 @@ router.delete('/:interview_id', function(req, res, next) {
                 var deleteSql1 = "DELETE FROM interview_customer WHERE ?";
                 
                 var whereValue = {
-                    "id" : interview_id
+                    "interview_id" : interview_id
                 };
 
                 var query = conn.query(deleteSql1, whereValue, function(err, result) {

@@ -215,7 +215,7 @@ router.delete('/:idea_id', function(req, res, next) {
                 var deleteSql1 = "DELETE FROM idea_snippet WHERE ?";
                 
                 var whereValue = {
-                    "id" : idea_id
+                    "idea_id" : idea_id
                 };
 
                 var query = conn.query(deleteSql1, whereValue, function(err, result) {

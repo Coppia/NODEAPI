@@ -126,4 +126,92 @@ router.post('/', function(req, res, next) {
     }
 });
 
+// UPDATE SNIPPETS BY snippet_id
+router.put('/:snippet_id', function(req, res, next) {
+    try {
+        var currdatetime = new Date();
+        var snippet_id = req.params.snippet_id;
+        var request = req.body;
+
+        req.getConnection(function(err, conn) {
+            if (err) {
+                console.error('SQL Connection Error: ', err);
+                return next(err);
+            }
+            else {
+                var updateSql = "UPDATE snippets SET ? WHERE ?";
+                var updateValues = {
+                    "text" : request.text,
+                    "update_user" : request.update_user,
+                    "update_datetime" : currdatetime
+                };
+                var whereValue = {
+                    "id" : snippet_id
+                };
+
+                var query = conn.query(updateSql, [updateValues, whereValue], function(err, result) {
+                    if (err) {
+                        console.error('SQL Error: ', err);
+                        return next(err);
+                    }
+                    res.json(result);
+                });
+            }
+        });
+    }
+    catch(ex) {
+        console.error('Internal Error: ' + ex);
+        return next(ex);
+    }
+});
+
+//DELETE SNIPPETS BY snippet_id
+router.delete('/:snippet_id', function(req, res, next) {
+    try {
+        var currdatetime = new Date();
+        var snippet_id = req.params.snippet_id;
+        var request = req.body;
+
+        req.getConnection(function(err, conn) {
+            if (err) {
+                console.error('SQL Connection Error: ', err);
+                return next(err);
+            }
+            else {
+                var deleteSql1 = "DELETE FROM idea_snippet WHERE ?";
+                
+                var whereValue = {
+                    "snippet_id" : snippet_id
+                };
+
+                var query = conn.query(deleteSql1, whereValue, function(err, result) {
+                    if (err) {
+                        console.error('SQL Error: ', err);
+                        return next(err);
+                    }
+
+                    var deleteSql2 = "DELETE FROM snippets WHERE ?";
+                
+                    var whereValue = {
+                        "id" : snippet_id
+                    };
+
+                    var query2 = conn.query(deleteSql2, whereValue, function(err, result) {
+                        if (err) {
+                            console.error('SQL Error: ' + err);
+                            return next(err);
+                        }
+
+                        res.json(result);
+                    });
+                });
+            }
+        });
+    }
+    catch(ex) {
+        console.error('Internal Error: ' + ex);
+        return next(ex);
+    }
+});
+
 module.exports = router;

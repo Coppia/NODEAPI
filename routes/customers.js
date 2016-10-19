@@ -127,4 +127,95 @@ router.post('/', function(req, res, next) {
     }
 });
 
+// UPDATE CUSTOMER BY customer_id
+router.put('/:customer_id', function(req, res, next) {
+    try {
+        var currdatetime = new Date();
+        var customer_id = req.params.customer_id;
+        var request = req.body;
+
+        req.getConnection(function(err, conn) {
+            if (err) {
+                console.error('SQL Connection Error: ', err);
+                return next(err);
+            }
+            else {
+                var updateSql = "UPDATE customers SET ? WHERE ?";
+                var updateValues = {
+                    "first_name" : request.first_name,
+                    "last_name" : request.last_name,
+                    "email" : request.email,
+                    "image_link" : request.image_link,
+                    "update_user" : request.update_user,
+                    "update_datetime" : currdatetime
+                };
+                var whereValue = {
+                    "id" : customer_id
+                };
+
+                var query = conn.query(updateSql, [updateValues, whereValue], function(err, result) {
+                    if (err) {
+                        console.error('SQL Error: ', err);
+                        return next(err);
+                    }
+                    res.json(result);
+                });
+            }
+        });
+    }
+    catch(ex) {
+        console.error('Internal Error: ' + ex);
+        return next(ex);
+    }
+});
+
+//DELETE CUSTOMER BY customer_id
+router.delete('/:customer_id', function(req, res, next) {
+    try {
+        var currdatetime = new Date();
+        var customer_id = req.params.customer_id;
+        var request = req.body;
+
+        req.getConnection(function(err, conn) {
+            if (err) {
+                console.error('SQL Connection Error: ', err);
+                return next(err);
+            }
+            else {
+                var deleteSql1 = "DELETE FROM interview_customer WHERE ?";
+                
+                var whereValue = {
+                    "customer_id" : customer_id
+                };
+
+                var query = conn.query(deleteSql1, whereValue, function(err, result) {
+                    if (err) {
+                        console.error('SQL Error: ', err);
+                        return next(err);
+                    }
+
+                    var deleteSql2 = "DELETE FROM customers WHERE ?";
+                
+                    var whereValue = {
+                        "id" : customer_id
+                    };
+
+                    var query2 = conn.query(deleteSql2, whereValue, function(err, result) {
+                        if (err) {
+                            console.error('SQL Error: ' + err);
+                            return next(err);
+                        }
+
+                        res.json(result);
+                    });
+                });
+            }
+        });
+    }
+    catch(ex) {
+        console.error('Internal Error: ' + ex);
+        return next(ex);
+    }
+});
+
 module.exports = router;
