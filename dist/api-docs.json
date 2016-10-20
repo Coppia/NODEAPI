@@ -425,30 +425,37 @@
     },
     "definitions": {
         "idea": {
+            "required": [
+                "id",
+                "title",
+                "goal",
+                "status",
+                "create_user",
+                "create_datetime",
+                "update_user",
+                "update_datetime"
+            ],
             "properties": {
                 "id": {
-                    "required":true,
-                    "type": "integer",
+                    "type": "number",
+                    "format" : "Int32",
                     "example": "12"
                 },
                 "title": {
-                    "required":true,
                     "type": "string",
                     "example": "Need to improve onboarding in order to increase activation"
                 },
                 "goal": {
-                    "required":true,
                     "type": "string",
                     "example": "Increase activation rate at least by 20%"
                 },
                 "status": {
-                    "required":true,
                     "type": "string",
                     "example": "UNTESTED"
                 },
                 "create_user": {
-                    "required":true,
-                    "type": "integer",
+                    "type": "number",
+                    "format" : "Int32",
                     "example": "1"
                 },
                 "create_datetime": {
@@ -457,12 +464,13 @@
                     "example": "2016-10-17T23:10:23.000Z"
                 },
                 "update_user": {
-                    "required":true,
-                    "type": "integer",
+                    "type": "number",
+                    "format" : "Int32",
                     "example": "1"
                 },
                 "update_datetime": {
-                    "type": "datetime",
+                    "type": "string",
+                    "format" : "datetime",
                     "example": "2016-10-17T23:10:23.000Z"
                 }
             }
@@ -470,7 +478,8 @@
         "create_idea": {
             "properties": {
                 "idea_id": {
-                    "type" : "integer",
+                    "type" : "number",
+                    "format" : "Int32",
                     "example" : "2"
                 }
             }
@@ -478,7 +487,8 @@
         "update_idea": {
             "properties": {
                 "idea_id": {
-                    "type" : "integer",
+                    "type" : "number",
+                    "format" : "Int32",
                     "example" : "13"
                 }
             }
@@ -486,7 +496,8 @@
          "delete_idea": {
             "properties": {
                 "idea_id": {
-                    "type" : "integer",
+                    "type" : "number",
+                    "format": "Int32",
                     "example" : "12"
                 }
             }
@@ -494,7 +505,8 @@
         "create_idea_snippet": {
             "properties": {
                 "idea_snippet_id": {
-                    "type" : "integer",
+                    "type" : "number",
+                    "format" : "Int32",
                     "example" : "4"
                 }
             }
@@ -508,40 +520,47 @@
             }
         },
         "interview": {
+            "required": [
+                "id",
+                "title",
+                "notes",
+                "create_user",
+                "create_datetime",
+                "update_user",
+                "update_datetime"
+            ],
             "properties": {
                 "id": {
-                    "required":true,
-                    "type": "integer",
+                    "type": "number",
+                    "format": "Int32",
                     "example": "6"
                 },
                 "title": {
-                    "required":true,
                     "type": "string",
                     "example": "Reporting Discovery w/Charlotte"
                 },
                 "notes": {
-                    "required":true,
                     "type": "string",
                     "example": "Industrial distributor for padlocks. Padlocks are very custom items. Shackle lengths, master keys, a lot of customization that goes into ordering padlocks. Can you explain this keying to me? Using chat would help reduce the phone traffic. Those conversations are relatively quick. They have 5 people with the company. They all take turns answering calls and 3 people are on Pure Chat every day."
                 },
                 "create_user": {
-                    "required":true,
-                    "type": "integer",
+                    "type": "number",
+                    "format" : "Int32",
                     "example": "1"
                 },
                 "create_datetime": {
-                    "required":true,
-                    "type": "datetime",
+                    "type": "string",
+                    "format" : "datetime",
                     "example": "2016-10-17T23:10:23.000Z"
                 },
                 "update_user": {
-                    "required":true,
-                    "type": "integer",
+                    "type": "number",
+                    "format" : "Int32",
                     "example": "1"
                 },
                 "update_datetime": {
-                    "required":true,
-                    "type": "datetime",
+                    "type": "string",
+                    "format" : "datetime",
                     "example": "2016-10-17T23:10:23.000Z"
                 }
             }
@@ -549,7 +568,8 @@
         "create_interview": {
             "properties": {
                 "interview_id": {
-                    "type" : "integer",
+                    "type" : "number",
+                    "format" : "Int32",
                     "example" : "3"
                 }
             }
@@ -557,7 +577,8 @@
          "update_interview": {
             "properties": {
                 "interview_id": {
-                    "type" : "integer",
+                    "type" : "number",
+                    "format" : "Int32",
                     "example" : "8"
                 }
             }
@@ -565,7 +586,8 @@
          "delete_interview": {
             "properties": {
                 "interview_id": {
-                    "type" : "integer",
+                    "type" : "number",
+                    "format" : "Int32",
                     "example" : "6"
                 }
             }
@@ -573,7 +595,8 @@
         "create_interview_customer": {
             "properties": {
                 "interview_customer_id": {
-                    "type" : "integer",
+                    "type" : "number",
+                    "format" : "Int32",
                     "example" : "44"
                 }
             }
