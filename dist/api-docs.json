@@ -24,6 +24,10 @@
         {
             "name": "Customers", 
             "description": "API for Customer"
+        },
+        {
+            "name": "Snippets", 
+            "description": "API for Snippets"
         }
     ],
     "schemes": [
