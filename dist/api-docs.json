@@ -481,7 +481,7 @@
                 "idea_id": {
                     "required": true,
                     "type" : "integer",
-                    "example" : "13"
+                    "example" : "2"
                 }
             }
         },
