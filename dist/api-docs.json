@@ -6,6 +6,7 @@
         "description": "API Documentation for Coppia.co API calls",
         "termsOfService": "http://swagger.io/terms/"
     },
+    "host" : "www.coppia.co",
     "basePath": "/",
     "tags" : [
         {
@@ -29,10 +30,15 @@
     "paths": {
         "/api/v1/ideas/": {
             "get": {
-                "tags": ["Ideas"],
+                "tags": [
+                    "Ideas"
+                ],
                 "description": "Returns a list of idea object",
-                "operationId": "find",
+                "operationId": "GetIdeas",
                 "produces": [
+                    "application/json"
+                ],
+                "consumes": [
                     "application/json"
                 ],
                 "parameters": [],
@@ -42,20 +48,32 @@
                         "schema": {
                             "$ref": "#/definitions/idea"
                         }
+                    },
+                    "403": {
+                        "description": "Validation error or Server Failure",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
                     }
                 }
             },
             "post":{
-                "tags": ["Ideas"],
+                "tags": [
+                    "Ideas"
+                ],
                 "description": "Creates a new idea object",
-                "operationId": "create",
+                "operationId": "CreateIdea",
                 "produces": [
+                    "application/json"
+                ],
+                "consumes": [
                     "application/json"
                 ],
                 "parameters": [
                     {
                         "name": "title",
                         "in": "body",
+                        "paramType" : "body",
                         "description": "Title for the Idea",
                         "required": true,
                         "type": "string"
@@ -63,6 +81,7 @@
                     {
                         "name": "goal",
                         "in": "body",
+                        "paramType" : "body",
                         "description": "Goal for the Idea",
                         "required": true,
                         "type": "string"
@@ -70,6 +89,7 @@
                     {
                         "name": "status",
                         "in": "body",
+                        "paramType" : "body",
                         "description": "Status for the Idea",
                         "required": true,
                         "type": "string"
@@ -77,9 +97,11 @@
                     {
                         "name": "create_user",
                         "in": "body",
+                        "paramType" : "body",
                         "description": "id for the logged in user",
                         "required": true,
-                        "type": "integer"
+                        "type": "number",
+                        "format" : "Int32"
                     }
                 ],
                 "responses": {
@@ -87,6 +109,12 @@
                         "description": "Success response When creating a new idea object",
                         "schema": {
                             "$ref": "#/definitions/create_idea"
+                        }
+                    },
+                    "403": {
+                        "description": "Validation error or Server Failure",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
                         }
                     }
                 }
@@ -511,11 +539,11 @@
                 }
             }
         },
-        "400error" : {
+        "Error" : {
             "properties": {
                 "message": {
                     "type": "string",
-                    "example" : "400 Bad Request"
+                    "example" : "403 Bad Request"
                 }
             }
         },
