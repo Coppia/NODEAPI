@@ -64,7 +64,6 @@
                     {
                         "name": "title",
                         "in": "body",
-                        "paramType" : "body",
                         "description": "Title for the Idea",
                         "required": true,
                         "type": "string"
@@ -72,7 +71,6 @@
                     {
                         "name": "goal",
                         "in": "body",
-                        "paramType" : "body",
                         "description": "Goal for the Idea",
                         "required": true,
                         "type": "string"
@@ -80,7 +78,6 @@
                     {
                         "name": "status",
                         "in": "body",
-                        "paramType" : "body",
                         "description": "Status for the Idea",
                         "required": true,
                         "type": "string"
@@ -88,7 +85,6 @@
                     {
                         "name": "create_user",
                         "in": "body",
-                        "paramType" : "body",
                         "description": "id for the logged in user",
                         "required": true,
                         "type": "number",
@@ -523,7 +519,6 @@
                     {
                         "name": "customer_id",
                         "in": "path",
-                        "paramType" : "path",
                         "description": "id of the Customer to return",
                         "required": true,
                         "type": "integer"
@@ -551,7 +546,6 @@
                     {
                         "name": "customer_id",
                         "in": "path",
-                        "paramType" : "path",
                         "description": "id for the customer to update",
                         "required": true,
                         "type": "integer"
@@ -559,7 +553,6 @@
                     {
                         "name": "first_name",
                         "in": "body",
-                        "paramType" : "body",
                         "description": "First Name of the Customer",
                         "required": true,
                         "type": "string"
@@ -567,7 +560,6 @@
                     {
                         "name": "last_name",
                         "in": "body",
-                        "paramType" : "body",
                         "description": "Last Name of the Customer",
                         "required": true,
                         "type": "string"
@@ -575,7 +567,6 @@
                     {
                         "name": "email",
                         "in": "body",
-                        "paramType" : "body",
                         "description": "Email Address of the Customer",
                         "required": true,
                         "type": "string"
@@ -583,7 +574,6 @@
                     {
                         "name": "image_link",
                         "in": "body",
-                        "paramType" : "body",
                         "description": "Image/Avatar url of the Customer",
                         "required": true,
                         "type": "string"
@@ -591,7 +581,6 @@
                     {
                         "name": "update_user",
                         "in": "body",
-                        "paramType" : "body",
                         "description": "id for the logged in user",
                         "required": true,
                         "type": "integer"
@@ -619,7 +608,6 @@
                     {
                         "name": "customer_id",
                         "in": "path",
-                        "paramType" : "path",
                         "description": "customer_id of the Customer to be deleted from the database.",
                         "required": true,
                         "type": "integer"
