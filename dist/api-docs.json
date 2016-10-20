@@ -37,9 +37,6 @@
                 "produces": [
                     "application/json"
                 ],
-                "consumes": [
-                    "application/json"
-                ],
                 "parameters": [],
                 "responses": {
                     "200": {
@@ -56,16 +53,13 @@
                     }
                 }
             },
-            "post":{
+            "post": {
                 "tags": [
                     "Ideas"
                 ],
                 "description": "Creates a new idea object",
                 "operationId": "CreateIdea",
                 "produces": [
-                    "application/json"
-                ],
-                "consumes": [
                     "application/json"
                 ],
                 "parameters": [
