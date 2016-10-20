@@ -124,7 +124,7 @@
             "get":{
                 "tags": ["Ideas"],
                 "description": "Returns a single idea object",
-                "operationId": "findById",
+                "operationId": "GetIdeaById",
                 "produces": [
                     "application/json"
                 ],
@@ -143,13 +143,19 @@
                         "schema": {
                             "$ref": "#/definitions/idea"
                         }
+                    },
+                    "403": {
+                        "description": "Validation error or Server Failure",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
                     }
                 }
             },
             "put":{
                 "tags": ["Ideas"],
                 "description": "Returns a success message for the updated idea object",
-                "operationId": "updateById",
+                "operationId": "UpdateIdeaById",
                 "produces": [
                     "application/json"
                 ],
@@ -197,6 +203,12 @@
                         "schema": {
                             "$ref": "#/definitions/update_idea"
                         }
+                    },
+                    "403": {
+                        "description": "Validation error or Server Failure",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
                     }
                 }
             },
@@ -221,6 +233,12 @@
                         "description": "Success response for the delete operation",
                         "schema":{
                             "$ref":"#/definitions/delete_idea"
+                        }
+                    },
+                    "403": {
+                        "description": "Validation error or Server Failure",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
                         }
                     }
                 }
@@ -256,6 +274,12 @@
                         "schema": {
                             "$ref": "#/definitions/create_idea_snippet"
                         }
+                    },
+                    "403": {
+                        "description": "Validation error or Server Failure",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
                     }
                 }
             }
@@ -274,6 +298,12 @@
                         "description": "Interview object returned in list",
                         "schema": {
                             "$ref": "#/definitions/interview"
+                        }
+                    },
+                    "403": {
+                        "description": "Validation error or Server Failure",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
                         }
                     }
                 }
@@ -314,6 +344,12 @@
                         "schema": {
                             "$ref": "#/definitions/create_interview"
                         }
+                    },
+                    "403": {
+                        "description": "Validation error or Server Failure",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
                     }
                 }
             }
@@ -340,6 +376,12 @@
                         "description": "Returns single Interview object",
                         "schema": {
                             "$ref": "#/definitions/interview"
+                        }
+                    },
+                    "403": {
+                        "description": "Validation error or Server Failure",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
                         }
                     }
                 }
@@ -387,6 +429,12 @@
                         "schema": {
                             "$ref": "#/definitions/update_interview"
                         }
+                    },
+                    "403": {
+                        "description": "Validation error or Server Failure",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
                     }
                 }
             },
@@ -411,6 +459,12 @@
                         "description": "Success response for the deleted Interview",
                         "schema":{
                             "$ref":"#/definitions/delete_interview"
+                        }
+                    },
+                    "403": {
+                        "description": "Validation error or Server Failure",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
                         }
                     }
                 }
@@ -445,6 +499,12 @@
                         "description": "When creating a new interview_customer association, the id for the newly created intervew_customer will be returned",
                         "schema": {
                             "$ref": "#/definitions/create_interview_customer"
+                        }
+                    },
+                    "403": {
+                        "description": "Validation error or Server Failure",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
                         }
                     }
                 }
