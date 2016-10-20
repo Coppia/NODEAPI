@@ -1,10 +1,15 @@
 {
     "swagger": "2.0",
     "info": {
-        "version": "1.0.0",
         "title": "Coppia.co API Documentation",
         "description": "API Documentation for Coppia.co API calls",
-        "termsOfService": "http://swagger.io/terms/"
+        "termsOfService": "http://swagger.io/terms/",
+        "contact" : {
+            "name" : "Coppia API Support",
+            "url" : "www.coppia.co/support",
+            "email" : "eric@coppia.co"
+        },
+        "version": "1.0.0"
     },
     "basePath": "/",
     "tags" : [
@@ -87,8 +92,8 @@
                         "in": "body",
                         "description": "id for the logged in user",
                         "required": true,
-                        "type": "number",
-                        "format" : "Int32"
+                        "type": "integer",
+                        "format" : "int32"
                     }
                 ],
                 "responses": {
@@ -115,7 +120,8 @@
                         "in": "path",
                         "description": "id of the Idea to return from the database",
                         "required": true,
-                        "type": "integer"
+                        "type": "integer",
+                        "format" : "int32"
                     }
                 ],
                 "responses": {
@@ -140,7 +146,8 @@
                         "in": "path",
                         "description": "id of the Idea to update",
                         "required": true,
-                        "type": "integer"
+                        "type": "integer",
+                        "format" : "int32"
                     },
                     {
                         "name": "title",
@@ -169,7 +176,8 @@
                         "description": "id for the logged in user",
                         "required": true,
                         "optional" : false,
-                        "type": "integer"
+                        "type": "integer",
+                        "format" : "int32"
                     }
                 ],
                 "responses": {
@@ -194,7 +202,8 @@
                         "in": "path",
                         "description": "id of the Idea to delete",
                         "required": true,
-                        "type": "integer"
+                        "type": "integer",
+                        "format" : "int32"
                     }
                 ],
                 "responses": {
@@ -221,14 +230,16 @@
                         "in": "body",
                         "description": "id for the idea to associate",
                         "required": true,
-                        "type": "integer"
+                        "type": "integer",
+                        "format" : "int32"
                     },
                     {
                         "name": "snippet_id",
                         "in": "body",
                         "description": "id for the snippet to associate",
                         "required": true,
-                        "type": "integer"
+                        "type": "integer",
+                        "format" : "int32"
                     }
                 ],
                 "responses": {
@@ -286,7 +297,8 @@
                         "in": "body",
                         "description": "User Id for the logged in user",
                         "required": true,
-                        "type": "string"
+                        "type": "integer",
+                        "format" : "int32"
                     }
                 ],
                 "responses": {
@@ -313,7 +325,8 @@
                         "in": "path",
                         "description": "id for the Interview user wants to get",
                         "required": true,
-                        "type": "integer"
+                        "type": "integer",
+                        "format" : "int32"
                     }
                 ],
                 "responses": {
@@ -338,7 +351,8 @@
                         "in": "path",
                         "description": "id for the Interview to update",
                         "required": true,
-                        "type": "integer"
+                        "type": "integer",
+                        "format" : "int32"
                     },
                     {
                         "name": "title",
@@ -359,7 +373,8 @@
                         "in": "body",
                         "description": "id for the logged in user",
                         "required": true,
-                        "type": "integer"
+                        "type": "integer",
+                        "format" : "int32"
                     }
                 ],
                 "responses": {
@@ -384,7 +399,8 @@
                         "in": "path",
                         "description": "interview_id for the Interview to be deleted from the database. This will remove the association in the inteview_customer table as well",
                         "required": true,
-                        "type": "integer"
+                        "type": "integer",
+                        "format" : "int32"
                     }
                 ],
                 "responses": {
@@ -411,14 +427,16 @@
                         "in": "body",
                         "description": "id for the interview to associate",
                         "required": true,
-                        "type": "integer"
+                        "type": "integer",
+                        "format" : "int32"
                     },
                     {
                         "name": "customer_id",
                         "in": "body",
                         "description": "id for the customer to associate",
                         "required": true,
-                        "type": "integer"
+                        "type": "integer",
+                        "format" : "int32"
                     }
                 ],
                 "responses": {
@@ -492,7 +510,8 @@
                         "in": "body",
                         "description": "User Id for the logged in user",
                         "required": true,
-                        "type": "string"
+                        "type": "integer",
+                        "format" : "int32"
                     }
                 ],
                 "responses": {
@@ -521,7 +540,8 @@
                         "in": "path",
                         "description": "id of the Customer to return",
                         "required": true,
-                        "type": "integer"
+                        "type": "integer",
+                        "format" : "int32"
                     }
                 ],
                 "responses": {
@@ -548,7 +568,8 @@
                         "in": "path",
                         "description": "id for the customer to update",
                         "required": true,
-                        "type": "integer"
+                        "type": "integer",
+                        "format" : "int32"
                     },
                     {
                         "name": "first_name",
@@ -583,7 +604,8 @@
                         "in": "body",
                         "description": "id for the logged in user",
                         "required": true,
-                        "type": "integer"
+                        "type": "integer",
+                        "format" : "int32"
                     }
                 ],
                 "responses": {
@@ -610,7 +632,8 @@
                         "in": "path",
                         "description": "customer_id of the Customer to be deleted from the database.",
                         "required": true,
-                        "type": "integer"
+                        "type": "integer",
+                        "format" : "int32"
                     }
                 ],
                 "responses": {
@@ -638,8 +661,8 @@
             ],
             "properties": {
                 "id": {
-                    "type": "number",
-                    "format" : "Int32",
+                    "type": "integer",
+                    "format" : "int32",
                     "example": "12"
                 },
                 "title": {
@@ -655,23 +678,23 @@
                     "example": "UNTESTED"
                 },
                 "create_user": {
-                    "type": "number",
-                    "format" : "Int32",
+                    "type": "integer",
+                    "format" : "int32",
                     "example": "1"
                 },
                 "create_datetime": {
                     "type": "string",
-                    "format" : "datetime",
+                    "format" : "date-time",
                     "example": "2016-10-17T23:10:23.000Z"
                 },
                 "update_user": {
-                    "type": "number",
-                    "format" : "Int32",
+                    "type": "integer",
+                    "format" : "int32",
                     "example": "1"
                 },
                 "update_datetime": {
                     "type": "string",
-                    "format" : "datetime",
+                    "format" : "date-time",
                     "example": "2016-10-17T23:10:23.000Z"
                 }
             }
@@ -679,8 +702,8 @@
         "create_idea": {
             "properties": {
                 "idea_id": {
-                    "type" : "number",
-                    "format" : "Int32",
+                    "type": "integer",
+                    "format" : "int32",
                     "example" : "2"
                 }
             }
@@ -688,8 +711,8 @@
         "update_idea": {
             "properties": {
                 "idea_id": {
-                    "type" : "number",
-                    "format" : "Int32",
+                    "type": "integer",
+                    "format" : "int32",
                     "example" : "13"
                 }
             }
@@ -697,8 +720,8 @@
          "delete_idea": {
             "properties": {
                 "idea_id": {
-                    "type" : "number",
-                    "format": "Int32",
+                    "type": "integer",
+                    "format" : "int32",
                     "example" : "12"
                 }
             }
@@ -706,8 +729,8 @@
         "create_idea_snippet": {
             "properties": {
                 "idea_snippet_id": {
-                    "type" : "number",
-                    "format" : "Int32",
+                    "type": "integer",
+                    "format" : "int32",
                     "example" : "4"
                 }
             }
@@ -732,8 +755,8 @@
             ],
             "properties": {
                 "id": {
-                    "type": "number",
-                    "format": "Int32",
+                    "type": "integer",
+                    "format" : "int32",
                     "example": "6"
                 },
                 "title": {
@@ -745,23 +768,23 @@
                     "example": "Industrial distributor for padlocks. Padlocks are very custom items. Shackle lengths, master keys, a lot of customization that goes into ordering padlocks. Can you explain this keying to me? Using chat would help reduce the phone traffic. Those conversations are relatively quick. They have 5 people with the company. They all take turns answering calls and 3 people are on Pure Chat every day."
                 },
                 "create_user": {
-                    "type": "number",
-                    "format" : "Int32",
+                    "type": "integer",
+                    "format" : "int32",
                     "example": "1"
                 },
                 "create_datetime": {
                     "type": "string",
-                    "format" : "datetime",
+                    "format" : "date-time",
                     "example": "2016-10-17T23:10:23.000Z"
                 },
                 "update_user": {
-                    "type": "number",
-                    "format" : "Int32",
+                    "type": "integer",
+                    "format" : "int32",
                     "example": "1"
                 },
                 "update_datetime": {
                     "type": "string",
-                    "format" : "datetime",
+                    "format" : "date-time",
                     "example": "2016-10-17T23:10:23.000Z"
                 }
             }
@@ -769,8 +792,8 @@
         "create_interview": {
             "properties": {
                 "interview_id": {
-                    "type" : "number",
-                    "format" : "Int32",
+                    "type": "integer",
+                    "format" : "int32",
                     "example" : "3"
                 }
             }
@@ -778,8 +801,8 @@
          "update_interview": {
             "properties": {
                 "interview_id": {
-                    "type" : "number",
-                    "format" : "Int32",
+                    "type": "integer",
+                    "format" : "int32",
                     "example" : "8"
                 }
             }
@@ -787,8 +810,8 @@
          "delete_interview": {
             "properties": {
                 "interview_id": {
-                    "type" : "number",
-                    "format" : "Int32",
+                    "type": "integer",
+                    "format" : "int32",
                     "example" : "6"
                 }
             }
@@ -796,8 +819,8 @@
         "create_interview_customer": {
             "properties": {
                 "interview_customer_id": {
-                    "type" : "number",
-                    "format" : "Int32",
+                    "type": "integer",
+                    "format" : "int32",
                     "example" : "44"
                 }
             }
@@ -816,8 +839,8 @@
             ],
             "properties": {
                 "id": {
-                    "type": "number",
-                    "format": "Int32",
+                    "type": "integer",
+                    "format" : "int32",
                     "example": "6"
                 },
                 "first_name": {
@@ -837,23 +860,23 @@
                     "example": "https://d1ts43dypk8bqh.cloudfront.net/v1/avatars/88a1184e-964b-495b-86fc-92c2867c5427"
                 },
                 "create_user": {
-                    "type": "number",
-                    "format" : "Int32",
+                    "type": "integer",
+                    "format" : "int32",
                     "example": "1"
                 },
                 "create_datetime": {
                     "type": "string",
-                    "format" : "datetime",
+                    "format" : "date-time",
                     "example": "2016-10-17T23:10:23.000Z"
                 },
                 "update_user": {
-                    "type": "number",
-                    "format" : "Int32",
+                    "type": "integer",
+                    "format" : "int32",
                     "example": "1"
                 },
                 "update_datetime": {
                     "type": "string",
-                    "format" : "datetime",
+                    "format" : "date-time",
                     "example": "2016-10-17T23:10:23.000Z"
                 }
             }
@@ -861,8 +884,8 @@
         "create_customer": {
             "properties": {
                 "customer_id": {
-                    "type" : "number",
-                    "format" : "Int32",
+                    "type": "integer",
+                    "format" : "int32",
                     "example" : "3"
                 }
             }
@@ -870,8 +893,8 @@
          "update_customer": {
             "properties": {
                 "customer_id": {
-                    "type" : "number",
-                    "format" : "Int32",
+                    "type": "integer",
+                    "format" : "int32",
                     "example" : "8"
                 }
             }
@@ -879,8 +902,8 @@
          "delete_customer": {
             "properties": {
                 "customer_id": {
-                    "type" : "number",
-                    "format" : "Int32",
+                    "type": "integer",
+                    "format" : "int32",
                     "example" : "6"
                 }
             }
