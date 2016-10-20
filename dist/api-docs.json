@@ -452,7 +452,8 @@
                     "example": "1"
                 },
                 "create_datetime": {
-                    "type": "datetime",
+                    "type": "string",
+                    "format" : "datetime",
                     "example": "2016-10-17T23:10:23.000Z"
                 },
                 "update_user": {
