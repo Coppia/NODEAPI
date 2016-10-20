@@ -6,7 +6,6 @@
         "description": "API Documentation for Coppia.co API calls",
         "termsOfService": "http://swagger.io/terms/"
     },
-    "host" : "www.coppia.co",
     "basePath": "/",
     "tags" : [
         {
