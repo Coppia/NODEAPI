@@ -45,8 +45,7 @@
                 "operationId": "GetIdeas",
                 "produces": [
                     "application/json"
-                ],
-                "parameters": [],
+                ],      
                 "responses": {
                     "200": {
                         "description": "Success response when returning a list of ideas",
@@ -62,6 +61,9 @@
                 ],
                 "description": "Creates a new idea object",
                 "operationId": "CreateIdea",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -645,6 +647,179 @@
                     }
                 }
             }
+        },
+        "/api/v1/snippets/": {
+            "get": {
+                "tags": [
+                    "Snippets"
+                ],
+                "description": "Return list of Snippets",
+                "operationId": "GetSnippets",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Snippet object returned in list",
+                        "schema": {
+                            "$ref": "#/definitions/snippet"
+                        }
+                    }
+                }
+            },
+            "post":{
+                "tags": [
+                    "Snippets"
+                ],
+                "description": "Creates a new Snippet",
+                "operationId": "CreateSnippet",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "text",
+                        "in": "body",
+                        "description": "Text of the Snippet",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "interview_id",
+                        "in": "body",
+                        "description": "interview_id for the Snippet",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "create_user",
+                        "in": "body",
+                        "description": "User Id for the logged in user",
+                        "required": true,
+                        "type": "integer",
+                        "format" : "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "When creating a new snippet, the id for the newly created snippet will be returned",
+                        "schema": {
+                            "$ref": "#/definitions/create_snippet"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/snippets/{snippet_id}": {
+            "get":{
+                "tags": [
+                    "Snippets"
+                ],
+                "description": "Returns a single Snippet object",
+                "operationId": "GetSnippetById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "snippet_id",
+                        "in": "path",
+                        "description": "id of the Snippet to return",
+                        "required": true,
+                        "type": "integer",
+                        "format" : "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns single Snippet object",
+                        "schema": {
+                            "$ref": "#/definitions/snippet"
+                        }
+                    }
+                }
+            },
+            "put":{
+                "tags": [
+                    "Snippets"
+                ],
+                "description": "Returns a success message with count of snippet updates",
+                "operationId": "UpdateSnippetById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "snippet_id",
+                        "in": "path",
+                        "description": "id for the snippet to update",
+                        "required": true,
+                        "type": "integer",
+                        "format" : "int32"
+                    },
+                    {
+                        "name": "text",
+                        "in": "body",
+                        "description": "Text of the Snippet",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "interview_id",
+                        "in": "body",
+                        "description": "interview_id for the Snippet",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "update_user",
+                        "in": "body",
+                        "description": "id for the logged in user",
+                        "required": true,
+                        "type": "integer",
+                        "format" : "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response when calling to update a Snippet",
+                        "schema": {
+                            "$ref": "#/definitions/update_snippet"
+                        }
+                    }
+                }
+            },
+            "delete":{
+                "tags":[
+                    "Snippets"
+                ],
+                "description":"Deletes a snippet from the database",
+                "operationId":"DeleteSnippet",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters":[
+                    {
+                        "name": "snippet_id",
+                        "in": "path",
+                        "description": "snippet_id of the Snippet to be deleted from the database.",
+                        "required": true,
+                        "type": "integer",
+                        "format" : "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response for the deleted Snippet",
+                        "schema":{
+                            "$ref":"#/definitions/delete_snippet"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -902,6 +1077,80 @@
          "delete_customer": {
             "properties": {
                 "customer_id": {
+                    "type": "integer",
+                    "format" : "int32",
+                    "example" : "6"
+                }
+            }
+        },
+        "snippet": {
+            "required": [
+                "id",
+                "text",
+                "interview_id",
+                "create_user",
+                "create_datetime",
+                "update_user",
+                "update_datetime"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format" : "int32",
+                    "example": "6"
+                },
+                "text": {
+                    "type": "string",
+                    "example": "Eric"
+                },
+                "interview_id": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": "Hillenbrand"
+                },
+                "create_user": {
+                    "type": "integer",
+                    "format" : "int32",
+                    "example": "1"
+                },
+                "create_datetime": {
+                    "type": "string",
+                    "format" : "date-time",
+                    "example": "2016-10-17T23:10:23.000Z"
+                },
+                "update_user": {
+                    "type": "integer",
+                    "format" : "int32",
+                    "example": "1"
+                },
+                "update_datetime": {
+                    "type": "string",
+                    "format" : "date-time",
+                    "example": "2016-10-17T23:10:23.000Z"
+                }
+            }
+        },
+        "create_snippet": {
+            "properties": {
+                "snippet_id": {
+                    "type": "integer",
+                    "format" : "int32",
+                    "example" : "3"
+                }
+            }
+        },
+         "update_snippet": {
+            "properties": {
+                "snippet_id": {
+                    "type": "integer",
+                    "format" : "int32",
+                    "example" : "8"
+                }
+            }
+        },
+         "delete_snippet": {
+            "properties": {
+                "snippet_id": {
                     "type": "integer",
                     "format" : "int32",
                     "example" : "6"
