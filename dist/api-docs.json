@@ -452,7 +452,6 @@
                     "example": "1"
                 },
                 "create_datetime": {
-                    "required":true,
                     "type": "datetime",
                     "example": "2016-10-17T23:10:23.000Z"
                 },
@@ -462,7 +461,6 @@
                     "example": "1"
                 },
                 "update_datetime": {
-                    "required":true,
                     "type": "datetime",
                     "example": "2016-10-17T23:10:23.000Z"
                 }
