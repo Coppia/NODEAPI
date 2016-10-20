@@ -38,7 +38,7 @@ router.get('/', function(req, res, next) {
   res.send('USERS: respond with a resource');
 });
 
-// CREATE USER
+// CREATE NEW USER
 router.post('/', function(req, res, next) {
     try {
         var request = req.body;
@@ -46,14 +46,15 @@ router.post('/', function(req, res, next) {
         var username = request.username;
         var password = request.password;
 
-        var hash = bcrypt.hashSync(password);
-
         req.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection Error: ', err);
+                console.error('SQL Connection error: ', err); 
                 return next(err);
             }
             else {
+                var salt = bcrypt.genSaltSync(saltRounds);
+                var hash = bcrypt.hashSync(password, salt);
+
                 var insertSql = "INSERT INTO users SET ?";
                 var insertValues = {
                     "username" : username,
@@ -65,15 +66,15 @@ router.post('/', function(req, res, next) {
                         console.error('SQL Error: ', err);
                         return next(err);
                     }
-                
                     var user_id = result.insertId;
+                    
                     res.json({"user_id":user_id});
                 });
             }
         });
     }
     catch(ex) {
-        console.error('Internal Error: ' + ex);
+        console.error("Internal error: ", ex);
         return next(ex);
     }
 });

@@ -17,8 +17,12 @@ var mysql = require('mysql');
 var connection = require('express-myconnection');
 var config = require('./config/config');
 var jwt    = require('jsonwebtoken'); 
+var argv = require('minimist')(process.argv.slice(2));
+var swagger = require("swagger-node-express");
 
 var app = express();
+var subpath = express();
+
 app.config = config;
 
 app.use(connection(mysql, {
@@ -43,6 +47,42 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//API DOCUMENTATION - SWAGGER
+app.use("/v1", subpath);
+
+swagger.setAppHandler(subpath);
+app.use(express.static('dist'));
+
+swagger.setApiInfo({
+    title: "Coppia API",
+    description: "API to do something, manage something...",
+    termsOfServiceUrl: "",
+    contact: "eric@coppia.co",
+    license: "",
+    licenseUrl: ""
+});
+
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/dist/index.html');
+});
+
+ // Set api-doc path
+swagger.configureSwaggerPaths('', 'api-docs', '');
+
+// Configure the API domain
+var domain = 'localhost';
+if(argv.domain !== undefined)
+    domain = argv.domain;
+// else
+//     console.log('No --domain=xxx specified, taking default hostname "localhost".')
+
+// Set and display the application URL
+var applicationUrl = 'http://' + domain;
+//console.log('snapJob API running on ' + applicationUrl);
+
+
+swagger.configure(applicationUrl, '1.0.0');
 
 app.use('/', routes);
 app.use('/api/v1/users', users);

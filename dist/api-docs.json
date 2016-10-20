@@ -1,0 +1,336 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Coppia.co API Documentation",
+        "description": "API Documentation for Coppia.co API calls",
+        "termsOfService": "http://swagger.io/terms/"
+    },
+    "basePath": "/",
+    "tags" : [
+        {
+            "name": "Ideas", 
+            "description": "API Calls for the Ideas table"
+        }
+    ],
+    "schemes": [
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/api/v1/ideas/": {
+            "get": {
+                "tags": ["Ideas"],
+                "description": "Get all Ideas",
+                "operationId": "find",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Response when calling all Ideas",
+                        "schema": {
+                            "$ref": "#/definitions/Idea"
+                        }
+                    }
+                }
+            },
+            "post":{
+                "tags": [ "Ideas"],
+                "description": "Create a new Idea",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "body",
+                        "description": "Title for the Idea",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "goal",
+                        "in": "body",
+                        "description": "Goal for the Idea",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "status",
+                        "in": "body",
+                        "description": "Status for the Idea",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "create_user",
+                        "in": "body",
+                        "description": "User Id for the logged in user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "When creating a new Idea, the ID for the newly created Idea will be returned",
+                        "schema": {
+                            "$ref": "#/definitions/createIdea"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/ideas/{idea_id}": {
+            "get":{
+                "tags": [ "Ideas"],
+                "description": "Returns a single Idea",
+                "operationId": "findById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idea_id",
+                        "in": "path",
+                        "description": "ID to fetch a single Idea from database",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Response when calling to get a single Idea",
+                        "schema": {
+                            "$ref": "#/definitions/Idea"
+                        }
+                    }
+                }
+            },
+            "put":{
+                "tags": [ "Ideas"],
+                "description": "Returns a success message with count of items updates",
+                "operationId": "updateById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idea_id",
+                        "in": "path",
+                        "description": "ID of the Idea to update",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "title",
+                        "in": "body",
+                        "description": "Title for the Idea",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "goal",
+                        "in": "body",
+                        "description": "Goal for the Idea",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "status",
+                        "in": "body",
+                        "description": "Status for the Idea",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "update_user",
+                        "in": "body",
+                        "description": "User Id for the logged in user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Response when calling to update an Idea",
+                        "schema": {
+                            "$ref": "#/definitions/updateIdea"
+                        }
+                    }
+                }
+            },
+            "delete":{
+                "tags":["Ideas"],
+                "description":"Deletes an idea from the database",
+                "operationId":"delete",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters":[
+                    {
+                        "name": "idea_id",
+                        "in": "path",
+                        "description": "idea_id to delete",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete response",
+                        "schema":{
+                            "$ref":"#/definitions/idea_delete_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/ideas/idea_snippet/": {
+            "post":{
+                "tags": [ "Ideas"],
+                "description": "Create a new Idea Snippet Association",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idea_id",
+                        "in": "body",
+                        "description": "idea_id for the Idea that is associated",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "snippet_id",
+                        "in": "body",
+                        "description": "snippet_id for the Snippet that is associated",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "When creating a new Idea Snippet association, the ID for the newly created idea_snippet will be returned",
+                        "schema": {
+                            "$ref": "#/definitions/createIdeaSnippet"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "create": {
+            "properties": {
+                "eventId": {
+                    "required":true,
+                    "type": "string",
+                    "example": "mathmaticial"
+                },
+                "numberRequired": {
+                    "required":true,
+                    "type":"integer",
+                    "format": "int64",
+                    "example": 500
+                } 
+            }
+        },
+        "createIdea": {
+            "properties": {
+                "idea_id": {
+                    "required": true,
+                    "type" : "integer",
+                    "example" : "13"
+                }
+            }
+        },
+        "createIdeaSnippet": {
+            "properties": {
+                "idea_snippet_id": {
+                    "required": true,
+                    "type" : "integer",
+                    "example" : "4"
+                }
+            }
+        },
+        "updateIdea": {
+            "properties": {
+                "idea_id": {
+                    "required": true,
+                    "type" : "integer",
+                    "example" : "13"
+                }
+            }
+        },
+        "Idea": {
+            "properties": {
+                "id": {
+                    "required":true,
+                    "type": "integer",
+                    "example": "12"
+                },
+                "title": {
+                    "required":true,
+                    "type": "string",
+                    "example": "Need to improve onboarding in order to increase activation"
+                },
+                "goal": {
+                    "required":true,
+                    "type": "string",
+                    "example": "Increase activation rate at least by 20%"
+                },
+                "status": {
+                    "required":true,
+                    "type": "string",
+                    "example": "UNTESTED"
+                },
+                "create_user": {
+                    "required":true,
+                    "type": "integer",
+                    "example": "1"
+                },
+                "create_datetime": {
+                    "required":true,
+                    "type": "datettime",
+                    "example": "2016-10-17T23:10:23.000Z"
+                },
+                "update_user": {
+                    "required":true,
+                    "type": "integer",
+                    "example": "1"
+                },
+                "update_datetime": {
+                    "required":true,
+                    "type": "datettime",
+                    "example": "2016-10-17T23:10:23.000Z"
+                }
+            }
+        },
+        "idea_delete_response": {
+            "properties": {
+                "idea_id": {
+                    "required": true,
+                    "type" : "integer",
+                    "example" : "12"
+                }
+            }
+        },
+        "400error" : {
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example" : "400 Bad Request"
+                }
+            }
+        }
+    }
+}

@@ -60,44 +60,4 @@ router.get('/', function(req, res, next) {
     }
 });
 
-router.post('/', function(req, res, next) {
-    try {
-        var request = req.body;
-
-        var username = request.username;
-        var password = request.password;
-
-        req.getConnection(function(err, conn) {
-            if (err) {
-                console.error('SQL Connection error: ', err);
-                return res.json({ success: false, message: 'Failed to connect to MySQL.' });   
-                //return next(err);
-            }
-            else {
-                var salt = bcrypt.genSaltSync(saltRounds);
-                var hash = bcrypt.hashSync(password, salt);
-
-                var insertSql = "INSERT INTO users SET ?";
-                var insertValues = {
-                    "username" : username,
-                    "password" : hash
-                };
-
-                var query = conn.query(insertSql, insertValues, function(err, result) {
-                    if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
-                    }
-                    var user_id = result.insertId;
-                    res.json({"user_id":user_id});
-                });
-            }
-        });
-    }
-    catch(ex) {
-        console.error("Internal error: ", ex);
-        return next(ex);
-    }
-});
-
 module.exports = router;
