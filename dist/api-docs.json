@@ -48,12 +48,6 @@
                         "schema": {
                             "$ref": "#/definitions/idea"
                         }
-                    },
-                    "403": {
-                        "description": "Validation error or Server Failure",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
                     }
                 }
             },
@@ -107,12 +101,6 @@
                         "schema": {
                             "$ref": "#/definitions/create_idea"
                         }
-                    },
-                    "403": {
-                        "description": "Validation error or Server Failure",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
                     }
                 }
             }
@@ -139,12 +127,6 @@
                         "description": "Success response when returning a single idea object",
                         "schema": {
                             "$ref": "#/definitions/idea"
-                        }
-                    },
-                    "403": {
-                        "description": "Validation error or Server Failure",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
                         }
                     }
                 }
@@ -200,12 +182,6 @@
                         "schema": {
                             "$ref": "#/definitions/update_idea"
                         }
-                    },
-                    "403": {
-                        "description": "Validation error or Server Failure",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
                     }
                 }
             },
@@ -230,12 +206,6 @@
                         "description": "Success response for the delete operation",
                         "schema":{
                             "$ref":"#/definitions/delete_idea"
-                        }
-                    },
-                    "403": {
-                        "description": "Validation error or Server Failure",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
                         }
                     }
                 }
@@ -271,12 +241,6 @@
                         "schema": {
                             "$ref": "#/definitions/create_idea_snippet"
                         }
-                    },
-                    "403": {
-                        "description": "Validation error or Server Failure",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
                     }
                 }
             }
@@ -295,12 +259,6 @@
                         "description": "Interview object returned in list",
                         "schema": {
                             "$ref": "#/definitions/interview"
-                        }
-                    },
-                    "403": {
-                        "description": "Validation error or Server Failure",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
                         }
                     }
                 }
@@ -341,12 +299,6 @@
                         "schema": {
                             "$ref": "#/definitions/create_interview"
                         }
-                    },
-                    "403": {
-                        "description": "Validation error or Server Failure",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
                     }
                 }
             }
@@ -373,12 +325,6 @@
                         "description": "Returns single Interview object",
                         "schema": {
                             "$ref": "#/definitions/interview"
-                        }
-                    },
-                    "403": {
-                        "description": "Validation error or Server Failure",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
                         }
                     }
                 }
@@ -426,12 +372,6 @@
                         "schema": {
                             "$ref": "#/definitions/update_interview"
                         }
-                    },
-                    "403": {
-                        "description": "Validation error or Server Failure",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
                     }
                 }
             },
@@ -456,12 +396,6 @@
                         "description": "Success response for the deleted Interview",
                         "schema":{
                             "$ref":"#/definitions/delete_interview"
-                        }
-                    },
-                    "403": {
-                        "description": "Validation error or Server Failure",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
                         }
                     }
                 }
@@ -497,12 +431,6 @@
                         "schema": {
                             "$ref": "#/definitions/create_interview_customer"
                         }
-                    },
-                    "403": {
-                        "description": "Validation error or Server Failure",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
                     }
                 }
             }
@@ -521,12 +449,6 @@
                         "description": "Customer object returned in list",
                         "schema": {
                             "$ref": "#/definitions/customer"
-                        }
-                    },
-                    "403": {
-                        "description": "Validation error or Server Failure",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
                         }
                     }
                 }
@@ -583,12 +505,6 @@
                         "schema": {
                             "$ref": "#/definitions/create_customer"
                         }
-                    },
-                    "403": {
-                        "description": "Validation error or Server Failure",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
                     }
                 }
             }
@@ -618,12 +534,6 @@
                         "description": "Returns single Customer object",
                         "schema": {
                             "$ref": "#/definitions/customer"
-                        }
-                    },
-                    "403": {
-                        "description": "Validation error or Server Failure",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
                         }
                     }
                 }
@@ -693,12 +603,6 @@
                         "schema": {
                             "$ref": "#/definitions/update_customer"
                         }
-                    },
-                    "403": {
-                        "description": "Validation error or Server Failure",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
                     }
                 }
             },
@@ -726,12 +630,6 @@
                         "description": "Success response for the deleted Customer",
                         "schema":{
                             "$ref":"#/definitions/delete_customer"
-                        }
-                    },
-                    "403": {
-                        "description": "Validation error or Server Failure",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
                         }
                     }
                 }
