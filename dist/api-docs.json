@@ -10,7 +10,11 @@
     "tags" : [
         {
             "name": "Ideas", 
-            "description": "API Calls for the Ideas table"
+            "description": "API for Ideas section of site"
+        },
+        {
+            "name": "Interviews", 
+            "description": "API for Interview section of site"
         }
     ],
     "schemes": [
@@ -26,7 +30,7 @@
         "/api/v1/ideas/": {
             "get": {
                 "tags": ["Ideas"],
-                "description": "Get all Ideas",
+                "description": "Returns a list of idea object",
                 "operationId": "find",
                 "produces": [
                     "application/json"
@@ -34,16 +38,16 @@
                 "parameters": [],
                 "responses": {
                     "200": {
-                        "description": "Response when calling all Ideas",
+                        "description": "Success response when returning a list of ideas",
                         "schema": {
-                            "$ref": "#/definitions/Idea"
+                            "$ref": "#/definitions/idea"
                         }
                     }
                 }
             },
             "post":{
-                "tags": [ "Ideas"],
-                "description": "Create a new Idea",
+                "tags": ["Ideas"],
+                "description": "Creates a new idea object",
                 "operationId": "create",
                 "produces": [
                     "application/json"
@@ -73,16 +77,16 @@
                     {
                         "name": "create_user",
                         "in": "body",
-                        "description": "User Id for the logged in user",
+                        "description": "id for the logged in user",
                         "required": true,
-                        "type": "string"
+                        "type": "integer"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "When creating a new Idea, the ID for the newly created Idea will be returned",
+                        "description": "Success response When creating a new idea object",
                         "schema": {
-                            "$ref": "#/definitions/createIdea"
+                            "$ref": "#/definitions/create_idea"
                         }
                     }
                 }
@@ -90,8 +94,8 @@
         },
         "/api/v1/ideas/{idea_id}": {
             "get":{
-                "tags": [ "Ideas"],
-                "description": "Returns a single Idea",
+                "tags": ["Ideas"],
+                "description": "Returns a single idea object",
                 "operationId": "findById",
                 "produces": [
                     "application/json"
@@ -100,23 +104,23 @@
                     {
                         "name": "idea_id",
                         "in": "path",
-                        "description": "ID to fetch a single Idea from database",
+                        "description": "id of the Idea to return from the database",
                         "required": true,
                         "type": "integer"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Response when calling to get a single Idea",
+                        "description": "Success response when returning a single idea object",
                         "schema": {
-                            "$ref": "#/definitions/Idea"
+                            "$ref": "#/definitions/idea"
                         }
                     }
                 }
             },
             "put":{
-                "tags": [ "Ideas"],
-                "description": "Returns a success message with count of items updates",
+                "tags": ["Ideas"],
+                "description": "Returns a success message for the updated idea object",
                 "operationId": "updateById",
                 "produces": [
                     "application/json"
@@ -125,7 +129,7 @@
                     {
                         "name": "idea_id",
                         "in": "path",
-                        "description": "ID of the Idea to update",
+                        "description": "id of the Idea to update",
                         "required": true,
                         "type": "integer"
                     },
@@ -153,23 +157,24 @@
                     {
                         "name": "update_user",
                         "in": "body",
-                        "description": "User Id for the logged in user",
+                        "description": "id for the logged in user",
                         "required": true,
-                        "type": "string"
+                        "optional" : false,
+                        "type": "integer"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Response when calling to update an Idea",
+                        "description": "Success response when calling to update an Idea",
                         "schema": {
-                            "$ref": "#/definitions/updateIdea"
+                            "$ref": "#/definitions/update_idea"
                         }
                     }
                 }
             },
             "delete":{
                 "tags":["Ideas"],
-                "description":"Deletes an idea from the database",
+                "description":"Deletes an idea object from the database. This will also remove the idea_snippet association as well (if any)",
                 "operationId":"delete",
                 "produces": [
                     "application/json"
@@ -178,16 +183,16 @@
                     {
                         "name": "idea_id",
                         "in": "path",
-                        "description": "idea_id to delete",
+                        "description": "id of the Idea to delete",
                         "required": true,
                         "type": "integer"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "delete response",
+                        "description": "Success response for the delete operation",
                         "schema":{
-                            "$ref":"#/definitions/idea_delete_response"
+                            "$ref":"#/definitions/delete_idea"
                         }
                     }
                 }
@@ -195,8 +200,8 @@
         },
         "/api/v1/ideas/idea_snippet/": {
             "post":{
-                "tags": [ "Ideas"],
-                "description": "Create a new Idea Snippet Association",
+                "tags": ["Ideas"],
+                "description": "Creates a new idea_snippet association",
                 "operationId": "create",
                 "produces": [
                     "application/json"
@@ -205,23 +210,213 @@
                     {
                         "name": "idea_id",
                         "in": "body",
-                        "description": "idea_id for the Idea that is associated",
+                        "description": "id for the idea to associate",
                         "required": true,
                         "type": "integer"
                     },
                     {
                         "name": "snippet_id",
                         "in": "body",
-                        "description": "snippet_id for the Snippet that is associated",
+                        "description": "id for the snippet to associate",
                         "required": true,
                         "type": "integer"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "When creating a new Idea Snippet association, the ID for the newly created idea_snippet will be returned",
+                        "description": "When creating a new idea_snippet association, the id for the newly created idea_snippet will be returned",
                         "schema": {
-                            "$ref": "#/definitions/createIdeaSnippet"
+                            "$ref": "#/definitions/create_idea_snippet"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/interviews/": {
+            "get": {
+                "tags": ["Interviews"],
+                "description": "Return list of Interviews",
+                "operationId": "find",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Interview object returned in list",
+                        "schema": {
+                            "$ref": "#/definitions/interview"
+                        }
+                    }
+                }
+            },
+            "post":{
+                "tags": ["Interviews"],
+                "description": "Creates a new Inteview",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "body",
+                        "description": "Title for the Interview",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "notes",
+                        "in": "body",
+                        "description": "Notes for the Interview",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "create_user",
+                        "in": "body",
+                        "description": "User Id for the logged in user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "When creating a new interview, the id for the newly created Interview will be returned",
+                        "schema": {
+                            "$ref": "#/definitions/create_interview"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/interviews/{interview_id}": {
+            "get":{
+                "tags": ["Interviews"],
+                "description": "Returns a single Interview object",
+                "operationId": "findById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "interview_id",
+                        "in": "path",
+                        "description": "id for the Interview user wants to get",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns single Interview object",
+                        "schema": {
+                            "$ref": "#/definitions/interview"
+                        }
+                    }
+                }
+            },
+            "put":{
+                "tags": ["Interviews"],
+                "description": "Returns a success message with count of interviews updates",
+                "operationId": "updateById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "interview_id",
+                        "in": "path",
+                        "description": "id for the Interview to update",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "title",
+                        "in": "body",
+                        "description": "title for the Interview",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "notes",
+                        "in": "body",
+                        "description": "notes for the Interview",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "update_user",
+                        "in": "body",
+                        "description": "id for the logged in user",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response when calling to update an Interview",
+                        "schema": {
+                            "$ref": "#/definitions/update_interview"
+                        }
+                    }
+                }
+            },
+            "delete":{
+                "tags":["Interviews"],
+                "description":"Deletes an interview from the database",
+                "operationId":"delete",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters":[
+                    {
+                        "name": "interview_id",
+                        "in": "path",
+                        "description": "interview_id for the Interview to be deleted from the database. This will remove the association in the inteview_customer table as well",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response for the deleted Interview",
+                        "schema":{
+                            "$ref":"#/definitions/delete_interview"
+                        }
+                    }
+                }
+            }
+        },
+         "/api/v1/interviews/interview_customer/": {
+            "post":{
+                "tags": ["Interviews"],
+                "description": "Creates a new interview_customer association",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "interview_id",
+                        "in": "body",
+                        "description": "id for the interview to associate",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "customer_id",
+                        "in": "body",
+                        "description": "id for the customer to associate",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "When creating a new interview_customer association, the id for the newly created intervew_customer will be returned",
+                        "schema": {
+                            "$ref": "#/definitions/create_interview_customer"
                         }
                     }
                 }
@@ -229,22 +424,59 @@
         }
     },
     "definitions": {
-        "create": {
+        "idea": {
             "properties": {
-                "eventId": {
+                "id": {
                     "required":true,
-                    "type": "string",
-                    "example": "mathmaticial"
+                    "optional" : false,
+                    "type": "integer",
+                    "example": "12"
                 },
-                "numberRequired": {
+                "title": {
                     "required":true,
-                    "type":"integer",
-                    "format": "int64",
-                    "example": 500
-                } 
+                    "optional" : false,
+                    "type": "string",
+                    "example": "Need to improve onboarding in order to increase activation"
+                },
+                "goal": {
+                    "required":true,
+                    "optional" : false,
+                    "type": "string",
+                    "example": "Increase activation rate at least by 20%"
+                },
+                "status": {
+                    "required":true,
+                    "optional" : false,
+                    "type": "string",
+                    "example": "UNTESTED"
+                },
+                "create_user": {
+                    "required":true,
+                    "optional" : false,
+                    "type": "integer",
+                    "example": "1"
+                },
+                "create_datetime": {
+                    "required":true,
+                    "optional" : false,
+                    "type": "datetime",
+                    "example": "2016-10-17T23:10:23.000Z"
+                },
+                "update_user": {
+                    "required":true,
+                    "optional" : false,
+                    "type": "integer",
+                    "example": "1"
+                },
+                "update_datetime": {
+                    "required":true,
+                    "optional" : false,
+                    "type": "datetime",
+                    "example": "2016-10-17T23:10:23.000Z"
+                }
             }
         },
-        "createIdea": {
+        "create_idea": {
             "properties": {
                 "idea_id": {
                     "required": true,
@@ -253,7 +485,25 @@
                 }
             }
         },
-        "createIdeaSnippet": {
+        "update_idea": {
+            "properties": {
+                "idea_id": {
+                    "required": true,
+                    "type" : "integer",
+                    "example" : "13"
+                }
+            }
+        },
+         "delete_idea": {
+            "properties": {
+                "idea_id": {
+                    "required": true,
+                    "type" : "integer",
+                    "example" : "12"
+                }
+            }
+        },
+        "create_idea_snippet": {
             "properties": {
                 "idea_snippet_id": {
                     "required": true,
@@ -262,36 +512,30 @@
                 }
             }
         },
-        "updateIdea": {
+        "400error" : {
             "properties": {
-                "idea_id": {
-                    "required": true,
-                    "type" : "integer",
-                    "example" : "13"
+                "message": {
+                    "type": "string",
+                    "example" : "400 Bad Request"
                 }
             }
         },
-        "Idea": {
+        "interview": {
             "properties": {
                 "id": {
                     "required":true,
                     "type": "integer",
-                    "example": "12"
+                    "example": "6"
                 },
                 "title": {
                     "required":true,
                     "type": "string",
-                    "example": "Need to improve onboarding in order to increase activation"
+                    "example": "Reporting Discovery w/Charlotte"
                 },
-                "goal": {
+                "notes": {
                     "required":true,
                     "type": "string",
-                    "example": "Increase activation rate at least by 20%"
-                },
-                "status": {
-                    "required":true,
-                    "type": "string",
-                    "example": "UNTESTED"
+                    "example": "Industrial distributor for padlocks. Padlocks are very custom items. Shackle lengths, master keys, a lot of customization that goes into ordering padlocks. Can you explain this keying to me? Using chat would help reduce the phone traffic. Those conversations are relatively quick. They have 5 people with the company. They all take turns answering calls and 3 people are on Pure Chat every day."
                 },
                 "create_user": {
                     "required":true,
@@ -300,7 +544,7 @@
                 },
                 "create_datetime": {
                     "required":true,
-                    "type": "datettime",
+                    "type": "datetime",
                     "example": "2016-10-17T23:10:23.000Z"
                 },
                 "update_user": {
@@ -310,25 +554,44 @@
                 },
                 "update_datetime": {
                     "required":true,
-                    "type": "datettime",
+                    "type": "datetime",
                     "example": "2016-10-17T23:10:23.000Z"
                 }
             }
         },
-        "idea_delete_response": {
+        "create_interview": {
             "properties": {
-                "idea_id": {
+                "interview_id": {
                     "required": true,
                     "type" : "integer",
-                    "example" : "12"
+                    "example" : "3"
                 }
             }
         },
-        "400error" : {
+         "update_interview": {
             "properties": {
-                "message": {
-                    "type": "string",
-                    "example" : "400 Bad Request"
+                "interview_id": {
+                    "required": true,
+                    "type" : "integer",
+                    "example" : "8"
+                }
+            }
+        },
+         "delete_interview": {
+            "properties": {
+                "interview_id": {
+                    "required": true,
+                    "type" : "integer",
+                    "example" : "6"
+                }
+            }
+        },
+        "create_interview_customer": {
+            "properties": {
+                "interview_customer_id": {
+                    "required": true,
+                    "type" : "integer",
+                    "example" : "44"
                 }
             }
         }
