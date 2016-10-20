@@ -479,7 +479,6 @@
         "create_idea": {
             "properties": {
                 "idea_id": {
-                    "required": true,
                     "type" : "integer",
                     "example" : "2"
                 }
@@ -488,7 +487,6 @@
         "update_idea": {
             "properties": {
                 "idea_id": {
-                    "required": true,
                     "type" : "integer",
                     "example" : "13"
                 }
@@ -497,7 +495,6 @@
          "delete_idea": {
             "properties": {
                 "idea_id": {
-                    "required": true,
                     "type" : "integer",
                     "example" : "12"
                 }
