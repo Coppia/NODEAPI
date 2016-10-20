@@ -10,11 +10,15 @@
     "tags" : [
         {
             "name": "Ideas", 
-            "description": "API for Ideas section of site"
+            "description": "API for Ideas"
         },
         {
             "name": "Interviews", 
-            "description": "API for Interview section of site"
+            "description": "API for Interview"
+        },
+        {
+            "name": "Customers", 
+            "description": "API for Customer"
         }
     ],
     "schemes": [
@@ -463,7 +467,7 @@
                 }
             }
         },
-         "/api/v1/interviews/interview_customer/": {
+        "/api/v1/interviews/interview_customer/": {
             "post":{
                 "tags": ["Interviews"],
                 "description": "Creates a new interview_customer association",
@@ -492,6 +496,236 @@
                         "description": "When creating a new interview_customer association, the id for the newly created intervew_customer will be returned",
                         "schema": {
                             "$ref": "#/definitions/create_interview_customer"
+                        }
+                    },
+                    "403": {
+                        "description": "Validation error or Server Failure",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/customers/": {
+            "get": {
+                "tags": ["Customers"],
+                "description": "Return list of Customers",
+                "operationId": "GetCustomers",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Customer object returned in list",
+                        "schema": {
+                            "$ref": "#/definitions/customer"
+                        }
+                    },
+                    "403": {
+                        "description": "Validation error or Server Failure",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post":{
+                "tags": [
+                    "Customers"
+                ],
+                "description": "Creates a new Customer",
+                "operationId": "CreateCustomer",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "first_name",
+                        "in": "body",
+                        "description": "First Name of the Customer",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "last_name",
+                        "in": "body",
+                        "description": "Last Name of the Customer",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "body",
+                        "description": "Email Address of the Customer",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "image_link",
+                        "in": "body",
+                        "description": "Image/Avatar url of the Customer",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "create_user",
+                        "in": "body",
+                        "description": "User Id for the logged in user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "When creating a new customer, the id for the newly created Customer will be returned",
+                        "schema": {
+                            "$ref": "#/definitions/create_customer"
+                        }
+                    },
+                    "403": {
+                        "description": "Validation error or Server Failure",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/customers/{customer_id}": {
+            "get":{
+                "tags": [
+                    "Customers"
+                ],
+                "description": "Returns a single Customer object",
+                "operationId": "GetCustomerById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "customer_id",
+                        "in": "path",
+                        "paramType" : "path",
+                        "description": "id of the Customer to return",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns single Customer object",
+                        "schema": {
+                            "$ref": "#/definitions/customer"
+                        }
+                    },
+                    "403": {
+                        "description": "Validation error or Server Failure",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "put":{
+                "tags": [
+                    "Customers"
+                ],
+                "description": "Returns a success message with count of customer updates",
+                "operationId": "UpdateCustomerById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "customer_id",
+                        "in": "path",
+                        "paramType" : "path",
+                        "description": "id for the customer to update",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "first_name",
+                        "in": "body",
+                        "paramType" : "body",
+                        "description": "First Name of the Customer",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "last_name",
+                        "in": "body",
+                        "paramType" : "body",
+                        "description": "Last Name of the Customer",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "body",
+                        "paramType" : "body",
+                        "description": "Email Address of the Customer",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "image_link",
+                        "in": "body",
+                        "paramType" : "body",
+                        "description": "Image/Avatar url of the Customer",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "update_user",
+                        "in": "body",
+                        "paramType" : "body",
+                        "description": "id for the logged in user",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response when calling to update a Customer",
+                        "schema": {
+                            "$ref": "#/definitions/update_customer"
+                        }
+                    },
+                    "403": {
+                        "description": "Validation error or Server Failure",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete":{
+                "tags":[
+                    "Customers"
+                ],
+                "description":"Deletes a customer from the database",
+                "operationId":"DeleteCustomer",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters":[
+                    {
+                        "name": "customer_id",
+                        "in": "path",
+                        "paramType" : "path",
+                        "description": "customer_id of the Customer to be deleted from the database.",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response for the deleted Customer",
+                        "schema":{
+                            "$ref":"#/definitions/delete_customer"
                         }
                     },
                     "403": {
@@ -679,6 +913,89 @@
                     "type" : "number",
                     "format" : "Int32",
                     "example" : "44"
+                }
+            }
+        },
+        "customer": {
+            "required": [
+                "id",
+                "first_name",
+                "last_name",
+                "email",
+                "image_link",
+                "create_user",
+                "create_datetime",
+                "update_user",
+                "update_datetime"
+            ],
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "format": "Int32",
+                    "example": "6"
+                },
+                "first_name": {
+                    "type": "string",
+                    "example": "Eric"
+                },
+                "last_name": {
+                    "type": "string",
+                    "example": "Hillenbrand"
+                },
+                "email": {
+                    "type": "string",
+                    "example": "eric@coppia.co"
+                },
+                "image_link": {
+                    "type": "string",
+                    "example": "https://d1ts43dypk8bqh.cloudfront.net/v1/avatars/88a1184e-964b-495b-86fc-92c2867c5427"
+                },
+                "create_user": {
+                    "type": "number",
+                    "format" : "Int32",
+                    "example": "1"
+                },
+                "create_datetime": {
+                    "type": "string",
+                    "format" : "datetime",
+                    "example": "2016-10-17T23:10:23.000Z"
+                },
+                "update_user": {
+                    "type": "number",
+                    "format" : "Int32",
+                    "example": "1"
+                },
+                "update_datetime": {
+                    "type": "string",
+                    "format" : "datetime",
+                    "example": "2016-10-17T23:10:23.000Z"
+                }
+            }
+        },
+        "create_customer": {
+            "properties": {
+                "customer_id": {
+                    "type" : "number",
+                    "format" : "Int32",
+                    "example" : "3"
+                }
+            }
+        },
+         "update_customer": {
+            "properties": {
+                "customer_id": {
+                    "type" : "number",
+                    "format" : "Int32",
+                    "example" : "8"
+                }
+            }
+        },
+         "delete_customer": {
+            "properties": {
+                "customer_id": {
+                    "type" : "number",
+                    "format" : "Int32",
+                    "example" : "6"
                 }
             }
         }
