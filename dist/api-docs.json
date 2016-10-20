@@ -428,49 +428,41 @@
             "properties": {
                 "id": {
                     "required":true,
-                    "optional" : false,
                     "type": "integer",
                     "example": "12"
                 },
                 "title": {
                     "required":true,
-                    "optional" : false,
                     "type": "string",
                     "example": "Need to improve onboarding in order to increase activation"
                 },
                 "goal": {
                     "required":true,
-                    "optional" : false,
                     "type": "string",
                     "example": "Increase activation rate at least by 20%"
                 },
                 "status": {
                     "required":true,
-                    "optional" : false,
                     "type": "string",
                     "example": "UNTESTED"
                 },
                 "create_user": {
                     "required":true,
-                    "optional" : false,
                     "type": "integer",
                     "example": "1"
                 },
                 "create_datetime": {
                     "required":true,
-                    "optional" : false,
                     "type": "datetime",
                     "example": "2016-10-17T23:10:23.000Z"
                 },
                 "update_user": {
                     "required":true,
-                    "optional" : false,
                     "type": "integer",
                     "example": "1"
                 },
                 "update_datetime": {
                     "required":true,
-                    "optional" : false,
                     "type": "datetime",
                     "example": "2016-10-17T23:10:23.000Z"
                 }
@@ -503,7 +495,6 @@
         "create_idea_snippet": {
             "properties": {
                 "idea_snippet_id": {
-                    "required": true,
                     "type" : "integer",
                     "example" : "4"
                 }
@@ -559,7 +550,6 @@
         "create_interview": {
             "properties": {
                 "interview_id": {
-                    "required": true,
                     "type" : "integer",
                     "example" : "3"
                 }
@@ -568,7 +558,6 @@
          "update_interview": {
             "properties": {
                 "interview_id": {
-                    "required": true,
                     "type" : "integer",
                     "example" : "8"
                 }
@@ -577,7 +566,6 @@
          "delete_interview": {
             "properties": {
                 "interview_id": {
-                    "required": true,
                     "type" : "integer",
                     "example" : "6"
                 }
@@ -586,7 +574,6 @@
         "create_interview_customer": {
             "properties": {
                 "interview_customer_id": {
-                    "required": true,
                     "type" : "integer",
                     "example" : "44"
                 }
