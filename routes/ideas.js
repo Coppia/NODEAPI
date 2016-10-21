@@ -49,6 +49,7 @@ router.get('/', function(req, res, next) {
                     res.json(rows);
                 });
             }
+            conn.end();
         });
     }
     catch(ex) {
@@ -77,6 +78,7 @@ router.get('/:idea_id', function(req, res, next) {
                     res.json(rows);
                 });
             }
+            conn.end();
         });
     }
     catch(ex) {
@@ -116,6 +118,7 @@ router.post('/', function(req, res, next) {
                     res.json({"idea_id":idea_id});
                 });
             }
+            conn.end();
         });
     }
     catch(ex) {
@@ -150,6 +153,7 @@ router.post('/idea_snippet/', function(req, res, next) {
                     res.json({"idea_snippet_id":idea_snippet_id});
                 });
             }
+            conn.end();
         });
     }
     catch(ex) {
@@ -191,6 +195,7 @@ router.put('/:idea_id', function(req, res, next) {
                     res.json(result);
                 });
             }
+            conn.end();
         });
     }
     catch(ex) {
@@ -240,6 +245,7 @@ router.delete('/:idea_id', function(req, res, next) {
                     });
                 });
             }
+            conn.end();
         });
     }
     catch(ex) {
