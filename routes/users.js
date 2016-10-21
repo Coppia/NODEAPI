@@ -45,6 +45,8 @@ router.post('/', function(req, res, next) {
 
         var username = request.username;
         var password = request.password;
+        var first_name = request.first_name;
+        var last_name = request.last_name;
 
         req.getConnection(function(err, conn) {
             if (err) {
@@ -58,7 +60,9 @@ router.post('/', function(req, res, next) {
                 var insertSql = "INSERT INTO users SET ?";
                 var insertValues = {
                     "username" : username,
-                    "password" : hash
+                    "password" : hash,
+                    "first_name" : first_name,
+                    "last_name" : last_name
                 };
 
                 var query = conn.query(insertSql, insertValues, function(err, result) {
