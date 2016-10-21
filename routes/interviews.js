@@ -80,7 +80,19 @@ router.get('/:interview_id', function(req, res, next) {
                 return next(err);
             }
             else {
-                conn.query('SELECT id, title, notes, create_user, create_datetime, update_user, update_datetime FROM interviews WHERE id = ?', [interview_id], function(err, rows, fields) {
+                conn.query(`SELECT 	interviews.id AS interview_id, 
+                                    interviews.title, 
+                                    interviews.notes, 
+                                    CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
+                                    interviews.create_datetime as created_date, 
+                                    CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
+                                    interviews.update_datetime as updated_date
+                            FROM 	interviews
+                            JOIN	users as create_users
+                                ON	interviews.create_user = create_users.id
+                            JOIN	users as update_users
+                                ON	interviews.update_user = update_users.id
+                            WHERE   interviews.id = ?`, [interview_id], function(err, rows, fields) {
                     if (err) {
                         console.error('SQL Error: ', err);
                         return next(err);
