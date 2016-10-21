@@ -47,7 +47,7 @@ router.get('/', function(req, res, next) {
                                     CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
                                     interviews.create_datetime as created_date, 
                                     CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
-                                    interviews.updated_date
+                                    interviews.updated_datetime as updated_date
                             FROM 	interviews
                             JOIN	users as create_users
                                 ON	interviews.create_user = create_users.id
