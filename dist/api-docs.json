@@ -13,6 +13,10 @@
     },
     "basePath": "/",
     "tags" : [
+         {
+            "name": "Dashboard", 
+            "description": "API for Dashboard"
+        },
         {
             "name": "Ideas", 
             "description": "API for Ideas"
@@ -40,6 +44,26 @@
         "application/json"
     ],
     "paths": {
+        "/api/v1/dashboard/": {
+            "get": {
+                "tags": [
+                    "Dashboard"
+                ],
+                "description": "Returns a list of idea with associated snippets and customers",
+                "operationId": "GetDashboard",
+                "produces": [
+                    "application/json"
+                ],      
+                "responses": {
+                    "200": {
+                        "description": "Success response when returning a list of dashboard ideas",
+                        "schema": {
+                            "$ref": "#/definitions/dashboard"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/ideas/": {
             "get": {
                 "tags": [
@@ -827,6 +851,54 @@
         }
     },
     "definitions": {
+        "dashboard": {
+            "properties": {
+                "idea_id": {
+                    "type": "integer",
+                    "format" : "int32",
+                    "example": "12"
+                },
+                "idea_title": {
+                    "type": "string",
+                    "example": "Need to improve onboarding in order to increase activation"
+                },
+                "idea_goal": {
+                    "type": "string",
+                    "example": "Minimize customers leaving with automated marketing"
+                },
+                "idea_status": {
+                    "type": "string",
+                    "example": "UNTESTED"
+                },
+                "idea_create_user": {
+                    "type": "integer",
+                    "format" : "int32",
+                    "example": "2"
+                },
+                "idea_create_datetime": {
+                    "type": "string",
+                    "format" : "date-time",
+                    "example": "2016-10-17T23:10:23.000Z"
+                },
+                "snippet_text": {
+                    "type": "string",
+                    "example": "There are many things that make the customer happy, but maintaining communication is the most important."
+                },
+                "snippet_create_datetime": {
+                    "type": "string",
+                    "format" : "date-time",
+                    "example": "2016-10-17T23:10:23.000Z"
+                },
+                "customer_first_name": {
+                    "type": "string",
+                    "example": "Charolette"
+                },
+                "customer_last_name": {
+                    "type": "string",
+                    "example": "Bohnette"
+                }
+            }
+        },
         "idea": {
             "required": [
                 "id",
