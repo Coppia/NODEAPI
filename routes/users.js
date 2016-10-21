@@ -54,7 +54,7 @@ router.post('/', function(req, res, next) {
                 return next(err);
             }
             else {
-                var salt = bcrypt.genSaltSync(saltRounds);
+                var salt = bcrypt.genSaltSync(10);
                 var hash = bcrypt.hashSync(password, salt);
 
                 var insertSql = "INSERT INTO users SET ?";
