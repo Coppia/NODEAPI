@@ -1005,7 +1005,7 @@
                 "update_datetime"
             ],
             "properties": {
-                "id": {
+                "interview_id": {
                     "type": "integer",
                     "format" : "int32",
                     "example": "6"
@@ -1018,22 +1018,20 @@
                     "type": "string",
                     "example": "Industrial distributor for padlocks. Padlocks are very custom items. Shackle lengths, master keys, a lot of customization that goes into ordering padlocks. Can you explain this keying to me? Using chat would help reduce the phone traffic. Those conversations are relatively quick. They have 5 people with the company. They all take turns answering calls and 3 people are on Pure Chat every day."
                 },
-                "create_user": {
-                    "type": "integer",
-                    "format" : "int32",
-                    "example": "1"
+                "created_by": {
+                    "type": "string",
+                    "example": "Eric Hillenbrand"
                 },
-                "create_datetime": {
+                "created_date": {
                     "type": "string",
                     "format" : "date-time",
                     "example": "2016-10-17T23:10:23.000Z"
                 },
-                "update_user": {
-                    "type": "integer",
-                    "format" : "int32",
-                    "example": "1"
+                "updated_by": {
+                    "type": "string",
+                    "example": "Eric Hillenbrand"
                 },
-                "update_datetime": {
+                "updated_date": {
                     "type": "string",
                     "format" : "date-time",
                     "example": "2016-10-17T23:10:23.000Z"
