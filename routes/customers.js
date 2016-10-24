@@ -42,7 +42,20 @@ router.get('/', function(req, res, next) {
                 return next(err);
             }
             else {
-                conn.query('SELECT id, first_name, last_name, email, image_link, create_user, create_datetime, update_user, update_datetime FROM customers', function(err, rows, fields) {
+                conn.query(`SELECT  customers.id, 
+                                    customers.first_name, 
+                                    customers.last_name, 
+                                    customers.email, 
+                                    customers.image_link, 
+                                     CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
+                                    customers.create_datetime as created_date, 
+                                    CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
+                                    customers.update_datetime as updated_date
+                            FROM    customers
+                            JOIN	users as create_users
+                                ON	customers.create_user = create_users.id
+                            JOIN	users as update_users
+                                ON	customers.update_user = update_users.id;`, function(err, rows, fields) {
                     conn.release();
 
                     if (err) {
@@ -72,7 +85,20 @@ router.get('/:customer_id', function(req, res, next) {
                 return next(err);
             }
             else {
-                conn.query('SELECT id, first_name, last_name, email, image_link, create_user, create_datetime, update_user, update_datetime FROM customers WHERE id = ?', customer_id, function(err, rows, fields) {
+                conn.query(`SELECT  customers.id, 
+                                    customers.first_name, 
+                                    customers.last_name, 
+                                    customers.email, 
+                                    customers.image_link, 
+                                     CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
+                                    customers.create_datetime as created_date, 
+                                    CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
+                                    customers.update_datetime as updated_date
+                            FROM    customers
+                            JOIN	users as create_users
+                                ON	customers.create_user = create_users.id
+                            JOIN	users as update_users
+                                ON	customers.update_user = update_users.id WHERE id = ?`, customer_id, function(err, rows, fields) {
                     conn.release();
 
                     if (err) {
@@ -211,7 +237,7 @@ router.delete('/:customer_id', function(req, res, next) {
 
                     var query2 = conn.query(deleteSql2, whereValue, function(err, result) {
                         conn.release();
-                        
+
                         if (err) {
                             console.error('SQL Error: ' + err);
                             return next(err);
