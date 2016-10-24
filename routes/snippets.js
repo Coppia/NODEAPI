@@ -42,7 +42,16 @@ router.get('/', function(req, res, next) {
                 return next(err);
             }
             else {
-                conn.query('SELECT id, text, interview_id, create_user, create_datetime, update_user, update_datetime FROM snippets', function(err, rows, fields) {
+                conn.query(`SELECT  snippets.id, 
+                                    snippets.text, 
+                                    snippets.interview_id, 
+                                    CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
+                                    snippets.create_datetime as created_date, 
+                                    CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
+                                    snippets.update_datetime as updated_date
+                            FROM    snippets
+                            JOIN	users as update_users
+                                ON	snippets.update_user = update_users.id`, function(err, rows, fields) {
                     conn.release();
 
                     if (err) {
@@ -73,7 +82,17 @@ router.get('/:snippet_id', function(req, res, next) {
                 return next(err);
             }
             else {
-                conn.query('SELECT id, text, interview_id, create_user, create_datetime, update_user, update_datetime FROM snippets WHERE id = ?', snippet_id, function(err, rows, fields) {
+                conn.query(`SELECT  snippets.id, 
+                                    snippets.text, 
+                                    snippets.interview_id, 
+                                    CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
+                                    snippets.create_datetime as created_date, 
+                                    CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
+                                    snippets.update_datetime as updated_date
+                            FROM    snippets
+                            JOIN	users as update_users
+                                ON	snippets.update_user = update_users.id 
+                            WHERE   snippets.id = ?`, snippet_id, function(err, rows, fields) {
                     conn.release();
 
                     if (err) {
