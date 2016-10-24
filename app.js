@@ -19,6 +19,7 @@ var config = require('./config/config');
 var jwt    = require('jsonwebtoken'); 
 var argv = require('minimist')(process.argv.slice(2));
 var swagger = require("swagger-node-express");
+var cors = require('cors')
 
 var app = express();
 var subpath = express();
@@ -34,6 +35,7 @@ app.config = config;
 // }, 'request'));
 
 app.use(morgan('dev'));
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
