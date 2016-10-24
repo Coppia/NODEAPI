@@ -1,6 +1,6 @@
 var express = require('express');
 var jwt    = require('jsonwebtoken'); 
-var config = require('./config/conn');
+var config = require('../config/conn');
 
 var router = express.Router();
 
@@ -241,7 +241,7 @@ router.delete('/:idea_id', function(req, res, next) {
 
                     var query2 = conn.query(deleteSql2, whereValue, function(err, result) {
                        pool.release();
-                       
+
                         if (err) {
                             console.error('SQL Error: ' + err);
                             return next(err);
