@@ -55,6 +55,7 @@ router.post('/', function(req, res, next) {
                                     success: true, 
                                     token: token,
                                     id:  user_id,
+                                    username: returnUser,
                                     first_name: first_name,
                                     last_name: last_name
                                 });
