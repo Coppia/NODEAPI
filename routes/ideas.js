@@ -42,7 +42,29 @@ router.get('/', function(req, res, next) {
                 return next(err); 
             }
             else {
-                conn.query('SELECT id, title, goal, status, create_user, create_datetime, update_user, update_datetime FROM ideas', function(err, rows, fields) {
+                conn.query(`SELECT	    ideas.id AS idea_id,
+                                        ideas.title AS idea_title,
+                                        ideas.goal AS idea_goal,
+                                        ideas.status AS idea_status,
+                                        CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
+                                        ideas.create_datetime as created_date, 
+                                        snippets.text AS snippet_text,
+                                        snippets.create_datetime AS snippet_create_datetime,
+                                        customers.first_name AS customer_first_name,
+                                        customers.last_name AS customer_last_name
+                            FROM		ideas
+                            LEFT JOIN	idea_snippet
+                                ON		ideas.id = idea_snippet.idea_id
+                            LEFT JOIN	snippets
+                                ON		idea_snippet.snippet_id = snippets.id
+                            LEFT JOIN	interviews
+                                ON		snippets.interview_id = interviews.id
+                            LEFT JOIN	interview_customer
+                                ON		interviews.id = interview_customer.interview_id
+                            LEFT JOIN	customers
+                                ON		interview_customer.customer_id = customers.id
+                            JOIN	    users as create_users
+                                ON	    ideas.create_user = create_users.id`, function(err, rows, fields) {
                     conn.release();
                     if (err) {
                         console.error('SQL Error: ', err);
@@ -71,7 +93,30 @@ router.get('/:idea_id', function(req, res, next) {
                 return next(err);
             }
             else {
-                conn.query('SELECT id, title, goal, status, create_user, create_datetime, update_user, update_datetime FROM ideas WHERE id = ?', idea_id, function(err, rows, fields) {
+                conn.query(`SELECT	    ideas.id AS idea_id,
+                                        ideas.title AS idea_title,
+                                        ideas.goal AS idea_goal,
+                                        ideas.status AS idea_status,
+                                        CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
+                                        ideas.create_datetime as created_date, 
+                                        snippets.text AS snippet_text,
+                                        snippets.create_datetime AS snippet_create_datetime,
+                                        customers.first_name AS customer_first_name,
+                                        customers.last_name AS customer_last_name
+                            FROM		ideas
+                            LEFT JOIN	idea_snippet
+                                ON		ideas.id = idea_snippet.idea_id
+                            LEFT JOIN	snippets
+                                ON		idea_snippet.snippet_id = snippets.id
+                            LEFT JOIN	interviews
+                                ON		snippets.interview_id = interviews.id
+                            LEFT JOIN	interview_customer
+                                ON		interviews.id = interview_customer.interview_id
+                            LEFT JOIN	customers
+                                ON		interview_customer.customer_id = customers.id
+                            JOIN	    users as create_users
+                                ON	    ideas.create_user = create_users.id 
+                            WHERE       ideas.id = ?`, idea_id, function(err, rows, fields) {
                     conn.release();
                     if (err) {
                         console.error('SQL Error: ', err);
