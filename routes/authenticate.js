@@ -8,7 +8,7 @@ var router = express.Router();
 const saltRounds = 10;
 
 /* GET JWT TOKEN FROM USERNAME - PASSWORD */
-router.get('/', function(req, res, next) {
+router.post('/', function(req, res, next) {
     try {
         var secret = req.app.get('jwtkey');
         var request = req.body;
