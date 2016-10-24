@@ -42,7 +42,7 @@ router.get('/', function(req, res, next) {
             }
             else {
                 conn.query('SELECT id, title, goal, status, create_user, create_datetime, update_user, update_datetime FROM ideas', function(err, rows, fields) {
-                    conn.end(); // close the connection
+                    
                     if (err) {
                         console.error('SQL Error: ', err);
                         return next(err);
@@ -71,7 +71,7 @@ router.get('/:idea_id', function(req, res, next) {
             }
             else {
                 conn.query('SELECT id, title, goal, status, create_user, create_datetime, update_user, update_datetime FROM ideas WHERE id = ?', idea_id, function(err, rows, fields) {
-                    conn.end(); // close the connection
+                    
                     if (err) {
                         console.error('SQL Error: ', err);
                         return next(err);
@@ -110,7 +110,7 @@ router.post('/', function(req, res, next) {
                 };
 
                 var query = conn.query(insertSql, insertValues, function(err, result) {
-                    conn.end(); // close the connection
+                    
                     if (err) {
                         console.error('SQL Error: ', err);
                         return next(err);
@@ -145,7 +145,7 @@ router.post('/idea_snippet/', function(req, res, next) {
                 };
 
                 var query = conn.query(insertSql, insertValues, function(err, result) {
-                    conn.end(); // close the connection
+                    
                     if (err) {
                         console.error('SQL Error: ', err);
                         return next(err);
@@ -188,7 +188,7 @@ router.put('/:idea_id', function(req, res, next) {
                 };
 
                 var query = conn.query(updateSql, [updateValues, whereValue], function(err, result) {
-                    conn.end(); // close the connection
+                    
                     if (err) {
                         console.error('SQL Error: ', err);
                         return next(err);
@@ -236,7 +236,7 @@ router.delete('/:idea_id', function(req, res, next) {
                     };
 
                     var query2 = conn.query(deleteSql2, whereValue, function(err, result) {
-                        conn.end(); // close the connection
+                       
                         if (err) {
                             console.error('SQL Error: ' + err);
                             return next(err);
