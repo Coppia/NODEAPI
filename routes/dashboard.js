@@ -47,8 +47,8 @@ router.get('/', function(req, res, next) {
                                         ideas.title AS idea_title,
                                         ideas.goal AS idea_goal,
                                         ideas.status AS idea_status,
-                                        ideas.create_user AS idea_create_user,
-                                        ideas.create_datetime AS idea_create_datetime,
+                                        CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
+                                        ideas.create_datetime as created_date, 
                                         snippets.text AS snippet_text,
                                         snippets.create_datetime AS snippet_create_datetime,
                                         customers.first_name AS customer_first_name,
@@ -63,9 +63,11 @@ router.get('/', function(req, res, next) {
                             LEFT JOIN	interview_customer
                                 ON		interviews.id = interview_customer.interview_id
                             LEFT JOIN	customers
-                                ON		interview_customer.customer_id = customers.id`, function(err, rows, fields) {
+                                ON		interview_customer.customer_id = customers.id
+                            JOIN	    users as create_users
+                                ON	    ideas.create_user = create_users.id`, function(err, rows, fields) {
                     conn.release();
-                    
+
                     if (err) {
                         console.error('SQL Error: ', err);
                         return res.json({ success: false, message: 'SQL Error occurred: ' + err }); 
