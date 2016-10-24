@@ -1,6 +1,6 @@
 var express = require('express');
 var jwt    = require('jsonwebtoken'); 
-var config = require('../config/conn');
+var pool = require('../config/conn');
 
 var router = express.Router();
 
