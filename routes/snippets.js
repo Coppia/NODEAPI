@@ -50,6 +50,8 @@ router.get('/', function(req, res, next) {
                                     CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
                                     snippets.update_datetime as updated_date
                             FROM    snippets
+                            JOIN	users as create_users
+                                ON	snippets.create_user = create_users.id 
                             JOIN	users as update_users
                                 ON	snippets.update_user = update_users.id`, function(err, rows, fields) {
                     conn.release();
@@ -90,6 +92,8 @@ router.get('/:snippet_id', function(req, res, next) {
                                     CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
                                     snippets.update_datetime as updated_date
                             FROM    snippets
+                            JOIN	users as create_users
+                                ON	snippets.create_user = create_users.id 
                             JOIN	users as update_users
                                 ON	snippets.update_user = update_users.id 
                             WHERE   snippets.id = ?`, snippet_id, function(err, rows, fields) {
