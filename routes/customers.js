@@ -47,7 +47,7 @@ router.get('/', function(req, res, next) {
                                     customers.last_name, 
                                     customers.email, 
                                     customers.image_link, 
-                                     CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
+                                    CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
                                     customers.create_datetime as created_date, 
                                     CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
                                     customers.update_datetime as updated_date
