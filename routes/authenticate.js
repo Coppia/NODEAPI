@@ -22,7 +22,7 @@ router.post('/', function(req, res, next) {
                 return next(err);
             }
             else {
-                conn.query('SELECT id, username, password FROM users WHERE username = ?', username, function(err, rows, fields) {
+                conn.query('SELECT id, username, password, first_name, last_name FROM users WHERE username = ?', username, function(err, rows, fields) {
                     conn.release();
 
                     if (err) {
@@ -35,6 +35,9 @@ router.post('/', function(req, res, next) {
                     } else {
                         var returnUser = rows[0].username;
                         var returnPassword = rows[0].password;
+                        var user_id = rows[0].id;
+                        var first_name = rows[0].first_name;
+                        var last_name = rows[0].last_name;
 
                         if (returnUser != username) {
                             res.json({ success: false, message: 'Authentication failed. Wrong username.' });
@@ -48,7 +51,13 @@ router.post('/', function(req, res, next) {
                                     exp:   Math.floor(new Date().getTime()/1000) + 7*24*60*60 // Note: in seconds!
                                 }, secret);  // secret is defined in the environment variable JWT_SECRET
                                 
-                                res.json({ success: true, message: 'Enjoy your token!', token: token });
+                                res.json({ 
+                                    success: true, 
+                                    token: token,
+                                    id:  user_id,
+                                    first_name: first_name,
+                                    last_name: last_name
+                                });
                             }   
                         }
                     }  
