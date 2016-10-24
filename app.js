@@ -25,13 +25,13 @@ var subpath = express();
 
 app.config = config;
 
-app.use(connection(mysql, {
-    host: config.database.host,
-    user: config.database.user,
-    password: config.database.password,
-    port: config.database.port,
-    database: config.database.database
-}, 'request'));
+// app.use(connection(mysql, {
+//     host: config.database.host,
+//     user: config.database.user,
+//     password: config.database.password,
+//     port: config.database.port,
+//     database: config.database.database
+// }, 'request'));
 
 app.use(morgan('dev'));
 

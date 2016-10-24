@@ -1,5 +1,6 @@
 var express = require('express');
 var jwt    = require('jsonwebtoken'); 
+var pool = require('../config/conn');
 
 var router = express.Router();
 
@@ -35,7 +36,7 @@ router.use(function(req, res, next) {
 // GET ALL IDEAS AND ASSOCIATIONS
 router.get('/', function(req, res, next) {
     try {
-        req.getConnection(function(err, conn) {
+        pool.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection error: ', err);
                 return res.json({ success: false, message: 'Failed to connect to MySQL.' });   
@@ -63,6 +64,8 @@ router.get('/', function(req, res, next) {
                                 ON		interviews.id = interview_customer.interview_id
                             LEFT JOIN	customers
                                 ON		interview_customer.customer_id = customers.id`, function(err, rows, fields) {
+                    conn.release();
+                    
                     if (err) {
                         console.error('SQL Error: ', err);
                         return res.json({ success: false, message: 'SQL Error occurred: ' + err }); 

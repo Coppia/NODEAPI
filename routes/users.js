@@ -1,6 +1,7 @@
 var express = require('express');
 var jwt    = require('jsonwebtoken'); 
 var bcrypt = require('bcrypt-nodejs');
+var pool = require('../config/conn');
 
 var router = express.Router();
 
@@ -48,7 +49,7 @@ router.post('/', function(req, res, next) {
         var first_name = request.first_name;
         var last_name = request.last_name;
 
-        req.getConnection(function(err, conn) {
+        pool.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection error: ', err); 
                 return next(err);
@@ -66,6 +67,8 @@ router.post('/', function(req, res, next) {
                 };
 
                 var query = conn.query(insertSql, insertValues, function(err, result) {
+                    conn.release();
+                    
                     if (err) {
                         console.error('SQL Error: ', err);
                         return next(err);

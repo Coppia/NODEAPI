@@ -1,5 +1,6 @@
 var express = require('express');
 var jwt    = require('jsonwebtoken'); 
+var pool = require('../config/conn');
 
 var router = express.Router();
 
@@ -35,13 +36,15 @@ router.use(function(req, res, next) {
 // GET ALL SNIPPET - will probably be never used in codeS
 router.get('/', function(req, res, next) {
     try {
-        req.getConnection(function(err, conn) {
+        pool.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection error: ', err);
                 return next(err);
             }
             else {
                 conn.query('SELECT id, text, interview_id, create_user, create_datetime, update_user, update_datetime FROM snippets', function(err, rows, fields) {
+                    conn.release();
+
                     if (err) {
                         console.error('SQL Error: ', err);
                         return next(err);
@@ -64,13 +67,15 @@ router.get('/:snippet_id', function(req, res, next) {
         var request = req.params;
         var snippet_id = request.snippet_id;
 
-        req.getConnection(function(err, conn) {
+        pool.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection error: ', err);
                 return next(err);
             }
             else {
                 conn.query('SELECT id, text, interview_id, create_user, create_datetime, update_user, update_datetime FROM snippets WHERE id = ?', snippet_id, function(err, rows, fields) {
+                    conn.release();
+
                     if (err) {
                         console.error('SQL Error: ', err);
                         return next(err);
@@ -92,7 +97,7 @@ router.post('/', function(req, res, next) {
         var currdatetime = new Date();
         var request = req.body;
 
-        req.getConnection(function(err, conn) {
+        pool.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection Error: ', err);
                 return next(err);
@@ -109,6 +114,8 @@ router.post('/', function(req, res, next) {
                 };
 
                 var query = conn.query(insertSql, insertValues, function(err, result) {
+                    conn.release();
+
                     if (err) {
                         console.error('SQL Error: ', err);
                         return next(err);
@@ -133,7 +140,7 @@ router.put('/:snippet_id', function(req, res, next) {
         var snippet_id = req.params.snippet_id;
         var request = req.body;
 
-        req.getConnection(function(err, conn) {
+        pool.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection Error: ', err);
                 return next(err);
@@ -150,6 +157,8 @@ router.put('/:snippet_id', function(req, res, next) {
                 };
 
                 var query = conn.query(updateSql, [updateValues, whereValue], function(err, result) {
+                    conn.release();
+
                     if (err) {
                         console.error('SQL Error: ', err);
                         return next(err);
@@ -172,7 +181,7 @@ router.delete('/:snippet_id', function(req, res, next) {
         var snippet_id = req.params.snippet_id;
         var request = req.body;
 
-        req.getConnection(function(err, conn) {
+        pool.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection Error: ', err);
                 return next(err);
@@ -197,6 +206,7 @@ router.delete('/:snippet_id', function(req, res, next) {
                     };
 
                     var query2 = conn.query(deleteSql2, whereValue, function(err, result) {
+                        conn.release();
                         if (err) {
                             console.error('SQL Error: ' + err);
                             return next(err);

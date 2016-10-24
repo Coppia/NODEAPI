@@ -1,6 +1,7 @@
 var express = require('express');
 var jwt    = require('jsonwebtoken'); 
 var bcrypt = require('bcrypt-nodejs');
+var pool = require('../config/conn');
 
 var router = express.Router();
 
@@ -10,19 +11,20 @@ const saltRounds = 10;
 router.get('/', function(req, res, next) {
     try {
         var secret = req.app.get('jwtkey');
-        var request = req.headers;
+        var request = req.body;
 
         var username = request.username;
         var password = request.password;
 
-        req.getConnection(function(err, conn) {
+        pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection error: ', err);
-                return res.json({ success: false, message: 'Failed to connect to MySQL.' });   
-                //return next(err);
+                console.error('SQL Connection error: ', err);   
+                return next(err);
             }
             else {
                 conn.query('SELECT id, username, password FROM users WHERE username = ?', username, function(err, rows, fields) {
+                    conn.release();
+
                     if (err) {
                         console.error('SQL Error: ', err);
                         return next(err);

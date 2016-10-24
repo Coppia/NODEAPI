@@ -1,5 +1,6 @@
 var express = require('express');
 var jwt    = require('jsonwebtoken'); 
+var pool = require('../config/conn');
 
 var router = express.Router();
 
@@ -35,13 +36,15 @@ router.use(function(req, res, next) {
 // GET CUSTOMERS
 router.get('/', function(req, res, next) {
     try {
-        req.getConnection(function(err, conn) {
+        pool.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection error: ', err);
                 return next(err);
             }
             else {
                 conn.query('SELECT id, first_name, last_name, email, image_link, create_user, create_datetime, update_user, update_datetime FROM customers', function(err, rows, fields) {
+                    conn.release();
+
                     if (err) {
                         console.error('SQL Error: ', err);
                         return next(err);
@@ -63,13 +66,15 @@ router.get('/:customer_id', function(req, res, next) {
         var request = req.params;
         var customer_id = request.customer_id;
 
-        req.getConnection(function(err, conn) {
+        pool.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection error: ', err);
                 return next(err);
             }
             else {
                 conn.query('SELECT id, first_name, last_name, email, image_link, create_user, create_datetime, update_user, update_datetime FROM customers WHERE id = ?', customer_id, function(err, rows, fields) {
+                    conn.release();
+
                     if (err) {
                         console.error('SQL Error: ', err);
                         return next(err);
@@ -91,7 +96,7 @@ router.post('/', function(req, res, next) {
         var currdatetime = new Date();
         var request = req.body;
 
-        req.getConnection(function(err, conn) {
+        pool.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection Error: ', err);
                 return next(err);
@@ -110,6 +115,8 @@ router.post('/', function(req, res, next) {
                 };
 
                 var query = conn.query(insertSql, insertValues, function(err, result) {
+                    conn.release();
+
                     if (err) {
                         console.error('SQL Error: ', err);
                         return next(err);
@@ -134,7 +141,7 @@ router.put('/:customer_id', function(req, res, next) {
         var customer_id = req.params.customer_id;
         var request = req.body;
 
-        req.getConnection(function(err, conn) {
+        pool.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection Error: ', err);
                 return next(err);
@@ -154,6 +161,8 @@ router.put('/:customer_id', function(req, res, next) {
                 };
 
                 var query = conn.query(updateSql, [updateValues, whereValue], function(err, result) {
+                    conn.release();
+
                     if (err) {
                         console.error('SQL Error: ', err);
                         return next(err);
@@ -176,7 +185,7 @@ router.delete('/:customer_id', function(req, res, next) {
         var customer_id = req.params.customer_id;
         var request = req.body;
 
-        req.getConnection(function(err, conn) {
+        pool.getConnection(function(err, conn) {
             if (err) {
                 console.error('SQL Connection Error: ', err);
                 return next(err);
@@ -201,6 +210,8 @@ router.delete('/:customer_id', function(req, res, next) {
                     };
 
                     var query2 = conn.query(deleteSql2, whereValue, function(err, result) {
+                        conn.release();
+                        
                         if (err) {
                             console.error('SQL Error: ' + err);
                             return next(err);
