@@ -48,23 +48,13 @@ router.get('/', function(req, res, next) {
                                         ideas.status AS idea_status,
                                         CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
                                         ideas.create_datetime as created_date, 
-                                        snippets.text AS snippet_text,
-                                        snippets.create_datetime AS snippet_create_datetime,
-                                        customers.first_name AS customer_first_name,
-                                        customers.last_name AS customer_last_name
+                                        CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
+                                        ideas.update_datetime 
                             FROM		ideas
-                            LEFT JOIN	idea_snippet
-                                ON		ideas.id = idea_snippet.idea_id
-                            LEFT JOIN	snippets
-                                ON		idea_snippet.snippet_id = snippets.id
-                            LEFT JOIN	interviews
-                                ON		snippets.interview_id = interviews.id
-                            LEFT JOIN	interview_customer
-                                ON		interviews.id = interview_customer.interview_id
-                            LEFT JOIN	customers
-                                ON		interview_customer.customer_id = customers.id
-                            JOIN	    users as create_users
-                                ON	    ideas.create_user = create_users.id`, function(err, rows, fields) {
+                            JOIN		users as create_users
+                                ON		ideas.create_user = create_users.id
+                            JOIN		users as update_users
+                                ON		ideas.update_user = update_users.id`, function(err, rows, fields) {
                     conn.release();
                     if (err) {
                         console.error('SQL Error: ', err);
@@ -99,23 +89,13 @@ router.get('/:idea_id', function(req, res, next) {
                                         ideas.status AS idea_status,
                                         CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
                                         ideas.create_datetime as created_date, 
-                                        snippets.text AS snippet_text,
-                                        snippets.create_datetime AS snippet_create_datetime,
-                                        customers.first_name AS customer_first_name,
-                                        customers.last_name AS customer_last_name
+                                        CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
+                                        ideas.update_datetime 
                             FROM		ideas
-                            LEFT JOIN	idea_snippet
-                                ON		ideas.id = idea_snippet.idea_id
-                            LEFT JOIN	snippets
-                                ON		idea_snippet.snippet_id = snippets.id
-                            LEFT JOIN	interviews
-                                ON		snippets.interview_id = interviews.id
-                            LEFT JOIN	interview_customer
-                                ON		interviews.id = interview_customer.interview_id
-                            LEFT JOIN	customers
-                                ON		interview_customer.customer_id = customers.id
-                            JOIN	    users as create_users
-                                ON	    ideas.create_user = create_users.id 
+                            JOIN		users as create_users
+                                ON		ideas.create_user = create_users.id
+                            JOIN		users as update_users
+                                ON		ideas.update_user = update_users.id
                             WHERE       ideas.id = ?`, idea_id, function(err, rows, fields) {
                     conn.release();
                     if (err) {
