@@ -133,6 +133,49 @@ router.get('/:idea_id', function(req, res, next) {
     }
 });
 
+// GET IDEA BY idea_id
+router.get('/idea_snippet/:idea_id', function(req, res, next) {
+    try {
+        var request = req.params;
+        var idea_id = request.idea_id;
+
+        pool.getConnection(function(err, conn) {
+            if (err) {
+                console.error('SQL Connection error: ', err);
+                return next(err);
+            }
+            else {
+                conn.query(`SELECT	snippets.id,
+                                    snippets.text,
+                                    snippets.interview_id,
+                                    CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
+                                    snippets.create_datetime as created_date, 
+                                    CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
+                                    snippets.update_datetime 
+                            FROM 	snippets
+                            JOIN	idea_snippet
+                                ON	snippets.id = idea_snippet.snippet_id
+                            JOIN	users as create_users
+                                ON	snippets.create_user = create_users.id
+                            JOIN	users as update_users
+                                ON	snippets.update_user = update_users.id
+                            WHERE	idea_snippet.idea_id = ?;`, idea_id, function(err, rows, fields) {
+                    conn.release();
+                    if (err) {
+                        console.error('SQL Error: ', err);
+                        return next(err);
+                    }
+                    res.json(rows);
+                });
+            }
+        });
+    }
+    catch(ex) {
+        console.error("Internal error: ", ex);
+        return next(ex);
+    }
+});
+
 // POST IDEA
 router.post('/', function(req, res, next) {
     try {
