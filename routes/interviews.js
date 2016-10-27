@@ -113,6 +113,51 @@ router.get('/:interview_id', function(req, res, next) {
     }
 });
 
+// GET INTERVIEW CUSTOMER BY interview_id
+router.get('/interview_customer/:interview_id', function(req, res, next) {
+    try {
+        var request = req.params;
+        var interview_id = request.interview_id;
+
+        pool.getConnection(function(err, conn) {
+            if (err) {
+                console.error('SQL Connection error: ', err);
+                return next(err);
+            }
+            else {
+                conn.query(`SELECT	customers.id,
+                                    customers.first_name,
+                                    customers.last_name,
+                                    customers.image_link,
+                                    CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
+                                    customers.create_datetime as created_date, 
+                                    CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
+                                    customers.update_datetime 
+                            FROM 	customers
+                            JOIN	interview_customer
+                                ON	customers.id = interview_customer.interview_id
+                            JOIN	users as create_users
+                                ON	customers.create_user = create_users.id
+                            JOIN	users as update_users
+                                ON	customers.update_user = update_users.id
+                            WHERE  	interview_customer.interview_id = ?`, [interview_id], function(err, rows, fields) {
+                    conn.release();
+
+                    if (err) {
+                        console.error('SQL Error: ', err);
+                        return next(err);
+                    }
+                    res.json(rows);
+                });
+            }
+        });
+    }
+    catch(ex) {
+        console.error("Internal error: ", ex);
+        return next(ex);
+    }
+});
+
 // POST INTERVIEW
 router.post('/', function(req, res, next) {
     try {
