@@ -272,88 +272,6 @@
                         }
                     }
                 }
-            },
-            "put":{
-                "tags": ["Ideas"],
-                "description": "Returns a success message for the updated idea object",
-                "operationId": "UpdateIdeaById",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "idea_id",
-                        "in": "path",
-                        "description": "id of the Idea to update",
-                        "required": true,
-                        "type": "integer",
-                        "format" : "int32"
-                    },
-                    {
-                        "name": "title",
-                        "in": "body",
-                        "description": "Title for the Idea",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "goal",
-                        "in": "body",
-                        "description": "Goal for the Idea",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "status",
-                        "in": "body",
-                        "description": "Status for the Idea",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "update_user",
-                        "in": "body",
-                        "description": "id for the logged in user",
-                        "required": true,
-                        "optional" : false,
-                        "type": "integer",
-                        "format" : "int32"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success response when calling to update an Idea",
-                        "schema": {
-                            "$ref": "#/definitions/update_idea"
-                        }
-                    }
-                }
-            },
-            "delete":{
-                "tags":["Ideas"],
-                "description":"Deletes an idea object from the database. This will also remove the idea_snippet association as well (if any)",
-                "operationId":"delete",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters":[
-                    {
-                        "name": "idea_id",
-                        "in": "path",
-                        "description": "id of the Idea to delete",
-                        "required": true,
-                        "type": "integer",
-                        "format" : "int32"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success response for the delete operation",
-                        "schema":{
-                            "$ref":"#/definitions/delete_idea"
-                        }
-                    }
-                }
             }
         },
         "/api/v1/ideas/idea_snippet/": {
@@ -1272,40 +1190,40 @@
                 "id",
                 "text",
                 "interview_id",
-                "create_user",
-                "create_datetime",
-                "update_user",
+                "created_by",
+                "created_date",
+                "updated_by",
                 "update_datetime"
             ],
             "properties": {
                 "id": {
                     "type": "integer",
                     "format" : "int32",
-                    "example": "6"
+                    "example": "2"
                 },
                 "text": {
                     "type": "string",
-                    "example": "Eric"
+                    "example": "They are shifting their website to be more mobile friendly. They could see who was using mobile devices. They saw that they needed to make a shift to make the website mobile friendly."
                 },
                 "interview_id": {
                     "type": "integer",
                     "format": "int32",
-                    "example": "Hillenbrand"
+                    "example": "2"
                 },
                 "create_user": {
                     "type": "integer",
                     "format" : "int32",
-                    "example": "1"
+                    "example": "Eric Hillenbrand"
                 },
-                "create_datetime": {
+                "created_date": {
                     "type": "string",
                     "format" : "date-time",
                     "example": "2016-10-17T23:10:23.000Z"
                 },
-                "update_user": {
+                "updated_by": {
                     "type": "integer",
                     "format" : "int32",
-                    "example": "1"
+                    "example": "Eric Hillenbrand"
                 },
                 "update_datetime": {
                     "type": "string",
