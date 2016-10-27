@@ -42,10 +42,10 @@ router.get('/', function(req, res, next) {
                 return next(err); 
             }
             else {
-                conn.query(`SELECT	    ideas.id AS idea_id,
-                                        ideas.title AS idea_title,
-                                        ideas.goal AS idea_goal,
-                                        ideas.status AS idea_status,
+                conn.query(`SELECT	    ideas.id,
+                                        ideas.title,
+                                        ideas.goal,
+                                        ideas.status,
                                         CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
                                         ideas.create_datetime as created_date, 
                                         CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
@@ -83,10 +83,10 @@ router.get('/:idea_id', function(req, res, next) {
                 return next(err);
             }
             else {
-                conn.query(`SELECT	    ideas.id AS idea_id,
-                                        ideas.title AS idea_title,
-                                        ideas.goal AS idea_goal,
-                                        ideas.status AS idea_status,
+                conn.query(`SELECT	    ideas.id,
+                                        ideas.title,
+                                        ideas.goal,
+                                        ideas.status,
                                         CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
                                         ideas.create_datetime as created_date, 
                                         CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
