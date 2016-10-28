@@ -47,6 +47,8 @@ router.get('/', function(req, res, next) {
                                     customers.last_name, 
                                     customers.email, 
                                     customers.image_link, 
+                                    customers.title, 
+                                    customers.company_name, 
                                     CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
                                     customers.create_datetime as created_date, 
                                     CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
@@ -90,7 +92,9 @@ router.get('/:customer_id', function(req, res, next) {
                                     customers.last_name, 
                                     customers.email, 
                                     customers.image_link, 
-                                     CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
+                                    customers.title, 
+                                    customers.company_name, 
+                                    CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
                                     customers.create_datetime as created_date, 
                                     CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
                                     customers.update_datetime as updated_date
@@ -134,6 +138,8 @@ router.post('/', function(req, res, next) {
                     "last_name" : request.last_name,
                     "email" : request.email,
                     "image_link" : request.image_link,
+                    "title" : request.title, 
+                    "company_name" : request.company_name, 
                     "create_user" : request.create_user,
                     "create_datetime" : currdatetime,
                     "update_user" : request.create_user,
@@ -179,6 +185,8 @@ router.put('/:customer_id', function(req, res, next) {
                     "last_name" : request.last_name,
                     "email" : request.email,
                     "image_link" : request.image_link,
+                    "title" : request.title, 
+                    "company_name" : request.company_name, 
                     "update_user" : request.update_user,
                     "update_datetime" : currdatetime
                 };
