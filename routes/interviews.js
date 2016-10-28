@@ -129,6 +129,8 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
                                     customers.first_name,
                                     customers.last_name,
                                     customers.image_link,
+                                    customers.title, 
+                                    customers.company_name, 
                                     CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
                                     customers.create_datetime as created_date, 
                                     CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
