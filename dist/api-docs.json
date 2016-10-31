@@ -471,6 +471,34 @@
                 }
             }
         },
+        "/api/v1/interviews/interview_customer/{interview_id}": {
+            "get":{
+                "tags": ["Interviews"],
+                "description": "Returns a single Customer object",
+                "operationId": "findCustomerByInterviewId",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "interview_id",
+                        "in": "path",
+                        "description": "id for the Interview associated to the customer",
+                        "required": true,
+                        "type": "integer",
+                        "format" : "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns single Customer object",
+                        "schema": {
+                            "$ref": "#/definitions/customer"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/interviews/interview_customer/": {
             "post":{
                 "tags": ["Interviews"],
@@ -1107,12 +1135,7 @@
                 "id",
                 "first_name",
                 "last_name",
-                "email",
-                "image_link",
-                "create_user",
-                "create_datetime",
-                "update_user",
-                "update_datetime"
+                "email"
             ],
             "properties": {
                 "id": {
@@ -1136,20 +1159,26 @@
                     "type": "string",
                     "example": "https://d1ts43dypk8bqh.cloudfront.net/v1/avatars/88a1184e-964b-495b-86fc-92c2867c5427"
                 },
-                "create_user": {
-                    "type": "integer",
-                    "format" : "int32",
-                    "example": "1"
+                "title": {
+                    "type": "string",
+                    "example": "Product Marketing Manager"
                 },
-                "create_datetime": {
+                "company_name": {
+                    "type": "string",
+                    "example": "Web PT"
+                },
+                "created_by": {
+                    "type": "string",
+                    "example": "Eric Hillenbrand"
+                },
+                "created_date": {
                     "type": "string",
                     "format" : "date-time",
                     "example": "2016-10-17T23:10:23.000Z"
                 },
-                "update_user": {
-                    "type": "integer",
-                    "format" : "int32",
-                    "example": "1"
+                "updated_by": {
+                    "type": "string",
+                    "example": "Eric Hillenbrand"
                 },
                 "update_datetime": {
                     "type": "string",
