@@ -50,9 +50,11 @@ router.get('/', function(req, res, next) {
                                     customers.title, 
                                     customers.company_name, 
                                     CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
-                                    customers.create_datetime as created_date, 
+                                    customers.create_datetime,
+                                    create_users.image_link as created_image_link, 
                                     CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
-                                    customers.update_datetime as updated_date
+                                    customers.update_datetime,
+                                    update_users.image_link as updated_image_link
                             FROM    customers
                             JOIN	users as create_users
                                 ON	customers.create_user = create_users.id
@@ -94,10 +96,12 @@ router.get('/:customer_id', function(req, res, next) {
                                     customers.image_link, 
                                     customers.title, 
                                     customers.company_name, 
-                                    CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
-                                    customers.create_datetime as created_date, 
+                                    CCONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
+                                    customers.create_datetime,
+                                    create_users.image_link as created_image_link, 
                                     CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
-                                    customers.update_datetime as updated_date
+                                    customers.update_datetime,
+                                    update_users.image_link as updated_image_link
                             FROM    customers
                             JOIN	users as create_users
                                 ON	customers.create_user = create_users.id
