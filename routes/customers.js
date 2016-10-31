@@ -96,7 +96,7 @@ router.get('/:customer_id', function(req, res, next) {
                                     customers.image_link, 
                                     customers.title, 
                                     customers.company_name, 
-                                    CCONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
+                                    CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
                                     customers.create_datetime,
                                     create_users.image_link as created_image_link, 
                                     CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
