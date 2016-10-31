@@ -592,6 +592,20 @@
                         "type": "string"
                     },
                     {
+                        "name": "title",
+                        "in": "body",
+                        "description": "Title/Position of the Customer",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "company_name",
+                        "in": "body",
+                        "description": "Company of the Customer",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
                         "name": "create_user",
                         "in": "body",
                         "description": "User Id for the logged in user",
