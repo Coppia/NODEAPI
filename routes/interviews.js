@@ -46,9 +46,11 @@ router.get('/', function(req, res, next) {
                                     interviews.title, 
                                     interviews.notes, 
                                     CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
-                                    interviews.create_datetime as created_date, 
+                                    interviews.create_datetime,
+                                    create_users.image_link as created_image_link, 
                                     CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
-                                    interviews.update_datetime as updated_date
+                                    interviews.update_datetime,
+                                    update_users.image_link as updated_image_link
                             FROM 	interviews
                             JOIN	users as create_users
                                 ON	interviews.create_user = create_users.id
@@ -87,9 +89,11 @@ router.get('/:interview_id', function(req, res, next) {
                                     interviews.title, 
                                     interviews.notes, 
                                     CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
-                                    interviews.create_datetime as created_date, 
+                                    interviews.create_datetime,
+                                    create_users.image_link as created_image_link, 
                                     CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
-                                    interviews.update_datetime as updated_date
+                                    interviews.update_datetime,
+                                    update_users.image_link as updated_image_link
                             FROM 	interviews
                             JOIN	users as create_users
                                 ON	interviews.create_user = create_users.id
@@ -132,9 +136,11 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
                                     customers.title, 
                                     customers.company_name, 
                                     CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
-                                    customers.create_datetime as created_date, 
+                                    customers.create_datetime,
+                                    create_users.image_link as created_image_link, 
                                     CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
-                                    customers.update_datetime 
+                                    customers.update_datetime,
+                                    update_users.image_link as updated_image_link 
                             FROM 	customers
                             JOIN	interview_customer
                                 ON	customers.id = interview_customer.interview_id
