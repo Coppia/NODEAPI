@@ -941,14 +941,17 @@
                     "example": "UNTESTED"
                 },
                 "idea_create_user": {
-                    "type": "integer",
-                    "format" : "int32",
-                    "example": "2"
+                    "type": "string",
+                    "example": "Eric Hillenbrand"
                 },
                 "idea_create_datetime": {
                     "type": "string",
                     "format" : "date-time",
                     "example": "2016-10-17T23:10:23.000Z"
+                },
+                 "created_image_link": {
+                    "type": "string",
+                    "example": "//image-url/"
                 },
                 "snippet_text": {
                     "type": "string",
@@ -976,9 +979,9 @@
                 "goal",
                 "status",
                 "created_by",
-                "created_date",
+                "created_datetime",
                 "updated_by",
-                "update_datetime"
+                "updated_datetime"
             ],
             "properties": {
                 "id": {
@@ -999,24 +1002,30 @@
                     "example": "UNTESTED"
                 },
                 "created_by": {
-                    "type": "integer",
-                    "format" : "int32",
-                    "example": "1"
+                    "type": "string",
+                    "example": "Eric Hillenbrand"
                 },
-                "created_date": {
+                "created_datetime": {
                     "type": "string",
                     "format" : "date-time",
                     "example": "2016-10-17T23:10:23.000Z"
+                },
+                "created_image_link": {
+                    "type": "string",
+                    "example": "https://d1ts43dypk8bqh.cloudfront.net/v1/avatars/88a1184e-964b-495b-86fc-92c2867c5427"
                 },
                 "updated_by": {
-                    "type": "integer",
-                    "format" : "int32",
-                    "example": "1"
+                    "type": "string",
+                    "example": "Eric Hillenbrand"
                 },
-                "update_datetime": {
+                "updated_datetime": {
                     "type": "string",
                     "format" : "date-time",
                     "example": "2016-10-17T23:10:23.000Z"
+                },
+                "updated_image_link": {
+                    "type": "string",
+                    "example": "https://d1ts43dypk8bqh.cloudfront.net/v1/avatars/88a1184e-964b-495b-86fc-92c2867c5427"
                 }
             }
         },

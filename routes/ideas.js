@@ -47,9 +47,11 @@ router.get('/', function(req, res, next) {
                                         ideas.goal,
                                         ideas.status,
                                         CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
-                                        ideas.create_datetime as created_date, 
+                                        ideas.create_datetime as created_datetime,
+                                        create_users.image_link as created_image_link, 
                                         CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
-                                        ideas.update_datetime 
+                                        ideas.update_datetime as updated_datetime,
+                                        update_users.image_link as updated_image_link 
                             FROM		ideas
                             JOIN		users as create_users
                                 ON		ideas.create_user = create_users.id
@@ -88,10 +90,10 @@ router.get('/:idea_id', function(req, res, next) {
                                         ideas.goal,
                                         ideas.status,
                                         CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
-                                        ideas.create_datetime,
+                                        ideas.create_datetime as created_datetime,
                                         create_users.image_link as created_image_link, 
                                         CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
-                                        ideas.update_datetime,
+                                        ideas.update_datetime as updated_datetime,
                                         update_users.image_link as updated_image_link 
                             FROM		ideas
                             JOIN		users as create_users
@@ -131,10 +133,10 @@ router.get('/idea_snippet/:idea_id', function(req, res, next) {
                                     snippets.text,
                                     snippets.interview_id,
                                     CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
-                                    snippets.create_datetime,
+                                    snippets.create_datetime as created_datetime,
                                     create_users.image_link as created_image_link, 
                                     CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
-                                    snippets.update_datetime,
+                                    snippets.update_datetime as updated_datetime,
                                     update_users.image_link as updated_image_link 
                             FROM 	snippets
                             JOIN	idea_snippet
