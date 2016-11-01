@@ -1101,19 +1101,27 @@
                     "type": "string",
                     "example": "Eric Hillenbrand"
                 },
-                "created_date": {
+                "created_datetime": {
                     "type": "string",
                     "format" : "date-time",
                     "example": "2016-10-17T23:10:23.000Z"
+                },
+                "created_image_link": {
+                    "type": "string",
+                    "example": "https://d1ts43dypk8bqh.cloudfront.net/v1/avatars/88a1184e-964b-495b-86fc-92c2867c5427"
                 },
                 "updated_by": {
                     "type": "string",
                     "example": "Eric Hillenbrand"
                 },
-                "updated_date": {
+                "updated_datetime": {
                     "type": "string",
                     "format" : "date-time",
                     "example": "2016-10-17T23:10:23.000Z"
+                },
+                 "updated_image_link": {
+                    "type": "string",
+                    "example": "https://d1ts43dypk8bqh.cloudfront.net/v1/avatars/88a1184e-964b-495b-86fc-92c2867c5427"
                 }
             }
         },
@@ -1199,14 +1207,22 @@
                     "format" : "date-time",
                     "example": "2016-10-17T23:10:23.000Z"
                 },
+                "created_image_link": {
+                    "type": "string",
+                    "example": "https://d1ts43dypk8bqh.cloudfront.net/v1/avatars/88a1184e-964b-495b-86fc-92c2867c5427"
+                },
                 "updated_by": {
                     "type": "string",
                     "example": "Eric Hillenbrand"
                 },
-                "update_datetime": {
+                "updated_datetime": {
                     "type": "string",
                     "format" : "date-time",
                     "example": "2016-10-17T23:10:23.000Z"
+                },
+                "updated_image_link": {
+                    "type": "string",
+                    "example": "https://d1ts43dypk8bqh.cloudfront.net/v1/avatars/88a1184e-964b-495b-86fc-92c2867c5427"
                 }
             }
         },
@@ -1262,9 +1278,8 @@
                     "format": "int32",
                     "example": "2"
                 },
-                "create_user": {
-                    "type": "integer",
-                    "format" : "int32",
+                "created_by": {
+                    "type": "string",
                     "example": "Eric Hillenbrand"
                 },
                 "created_date": {
@@ -1272,15 +1287,23 @@
                     "format" : "date-time",
                     "example": "2016-10-17T23:10:23.000Z"
                 },
+                "created_image_link": {
+                    "type": "string",
+                    "example": "https://d1ts43dypk8bqh.cloudfront.net/v1/avatars/88a1184e-964b-495b-86fc-92c2867c5427"
+                },
                 "updated_by": {
                     "type": "integer",
                     "format" : "int32",
                     "example": "Eric Hillenbrand"
                 },
-                "update_datetime": {
+                "updated_datetime": {
                     "type": "string",
                     "format" : "date-time",
                     "example": "2016-10-17T23:10:23.000Z"
+                },
+                "updated_image_link": {
+                    "type": "string",
+                    "example": "https://d1ts43dypk8bqh.cloudfront.net/v1/avatars/88a1184e-964b-495b-86fc-92c2867c5427"
                 }
             }
         },

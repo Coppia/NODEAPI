@@ -46,10 +46,10 @@ router.get('/', function(req, res, next) {
                                     snippets.text, 
                                     snippets.interview_id, 
                                     CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
-                                    snippets.create_datetime,
+                                    snippets.create_datetime as created_datetime,
                                     create_users.image_link as created_image_link, 
                                     CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
-                                    snippets.update_datetime,
+                                    snippets.update_datetime as updated_datetime,
                                     update_users.image_link as updated_image_link
                             FROM    snippets
                             JOIN	users as create_users
@@ -90,10 +90,10 @@ router.get('/:snippet_id', function(req, res, next) {
                                     snippets.text, 
                                     snippets.interview_id, 
                                     CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
-                                    snippets.create_datetime,
+                                    snippets.create_datetime as created_datetime,
                                     create_users.image_link as created_image_link, 
                                     CONCAT(update_users.first_name, ' ', update_users.last_name) as updated_by,
-                                    snippets.update_datetime,
+                                    snippets.update_datetime as updated_datetime,
                                     update_users.image_link as updated_image_link
                             FROM    snippets
                             JOIN	users as create_users

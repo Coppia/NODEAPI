@@ -48,6 +48,8 @@ router.post('/', function(req, res, next) {
         var password = request.password;
         var first_name = request.first_name;
         var last_name = request.last_name;
+        var email = request.email;
+        var image_link = request.image_link;
 
         pool.getConnection(function(err, conn) {
             if (err) {
@@ -63,7 +65,8 @@ router.post('/', function(req, res, next) {
                     "username" : username,
                     "password" : hash,
                     "first_name" : first_name,
-                    "last_name" : last_name
+                    "last_name" : last_name,
+                    "image_link" : image_link
                 };
 
                 var query = conn.query(insertSql, insertValues, function(err, result) {
