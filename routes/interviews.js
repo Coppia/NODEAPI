@@ -42,7 +42,7 @@ router.get('/', function(req, res, next) {
                 return next(err);
             }
             else {
-                conn.query(`SELECT 	interviews.id AS interview_id, 
+                conn.query(`SELECT 	interviews.id, 
                                     interviews.title, 
                                     interviews.notes, 
                                     CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
