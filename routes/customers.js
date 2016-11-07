@@ -1,6 +1,9 @@
 var express = require('express');
 var jwt    = require('jsonwebtoken'); 
+var config = require('../config/config');
 var pool = require('../config/conn');
+
+var clearbit = require('clearbit')('sk_8c4f1e46f0f1f4f3c4bdb7720ccc6260');
 
 var router = express.Router();
 
@@ -117,6 +120,38 @@ router.get('/:customer_id', function(req, res, next) {
                 });
             }
         });
+    }
+    catch(ex) {
+        console.error("Internal error: ", ex);
+        return next(ex);
+    }
+});
+
+// GET CUSTOMERS BY :id
+router.get('/lookup/:email_address', function(req, res, next) {
+    try {
+        var request = req.params;
+        var email_address = request.email_address;
+
+        clearbit.Enrichment.find({email: email_address, stream: true})
+            .then(function (person) {
+                res.json(person);
+                //console.log(person);
+            })
+            .catch(clearbit.Enrichment.NotFoundError, function (err) {
+                // Email address could not be found
+                res.json(
+                    {
+                        "success" : "false",
+                        "customer_id":customer_id
+                    });
+                console.log(err);
+            })
+            .catch(function (err) {
+                console.error('Clearbit Connection Error: ', err);
+                return next(err);
+            }
+        );
     }
     catch(ex) {
         console.error("Internal error: ", ex);

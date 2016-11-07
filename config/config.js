@@ -22,6 +22,9 @@ module.exports = {
     secret: {
         key: 'a720496337f7bf3e27a6b763e34a7662f1961709daf7e506c590c6ba502bd783'
     },
+    clearbit: {
+        key: 'sk_8c4f1e46f0f1f4f3c4bdb7720ccc6260'
+    },
     key: {
         privateKey: 'BbZJjyoXAdr8BUZuiKKARWimKfrSmQ6fv8kZ7OFfc',
         issuer: 'coppia.co',
