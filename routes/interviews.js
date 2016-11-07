@@ -112,7 +112,7 @@ router.get('/:interview_id', function(req, res, next) {
                     var notes = rows[0].notes;
                     var created_by = rows[0].created_by;
                     var created_datetime = rows[0].created_datetime;
-                    var created_datetime = rows[0].created_image_link;
+                    var created_image_link = rows[0].created_image_link;
                     var updated_by = rows[0].updated_by;
                     var updated_datetime = rows[0].updated_datetime;
                     var updated_image_link = rows[0].updated_image_link;
