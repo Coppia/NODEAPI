@@ -135,31 +135,32 @@ router.get('/lookup/:email_address', function(req, res, next) {
 
         clearbit.Enrichment.find({email: email_address, stream: true})
             .then(function (person) {
-                //var fullname = person.name.fullName;
-                var firstname = person.name.givenName;
-                var lastname = person.name.familyName;
-                var avatar = person.avatar;
-                var email = person.email;
-                var location = person.location;
-                var domain = person.employment.domain;
-                var company_name = person.employment.name;
-                var title = person.employment.title;
-                var role = person.employment.role;
+                res.json(person.name);
+                // var fullname = person.name.fullName;
+                // var firstname = person.name.givenName;
+                // var lastname = person.name.familyName;
+                // var avatar = person.avatar;
+                // var email = person.email;
+                // var location = person.location;
+                // var domain = person.employment.domain;
+                // var company_name = person.employment.name;
+                // var title = person.employment.title;
+                // var role = person.employment.role;
                 
-                res.json(
-                    {
-                        "success" : "true",
-                        "full_name" : fullname,
-                        "last_name" : lastname,
-                        "first_name" : firstname,
-                        "email" : email,
-                        "image_link" : avatar,
-                        "location" : location,
-                        "domain" : domain,
-                        "company_name" : company_name,
-                        "title" : title,
-                        "role" : role
-                    });
+                // res.json(
+                //     {
+                //         "success" : "true",
+                //         "full_name" : fullname,
+                //         "last_name" : lastname,
+                //         "first_name" : firstname,
+                //         "email" : email,
+                //         "image_link" : avatar,
+                //         "location" : location,
+                //         "domain" : domain,
+                //         "company_name" : company_name,
+                //         "title" : title,
+                //         "role" : role
+                //     });
                 //console.log(person);
             })
             .catch(clearbit.Enrichment.NotFoundError, function (err) {
