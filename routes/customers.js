@@ -135,7 +135,7 @@ router.get('/lookup/:email_address', function(req, res, next) {
 
         clearbit.Enrichment.find({email: email_address, stream: true})
             .then(function (person) {
-                res.json(person.name);
+                res.json(person);
                 // var fullname = person.name.fullName;
                 // var firstname = person.name.givenName;
                 // var lastname = person.name.familyName;
