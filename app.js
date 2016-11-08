@@ -12,7 +12,6 @@ var interviews = require('./routes/interviews');
 var snippets = require('./routes/snippets');
 var customers = require('./routes/customers');
 var authenticate = require('./routes/authenticate');
-var dashboard = require('./routes/dashboard');
 var mysql = require('mysql');
 var connection = require('express-myconnection');
 var config = require('./config/config');
@@ -93,7 +92,6 @@ app.use('/api/v1/interviews', interviews);
 app.use('/api/v1/snippets', snippets);
 app.use('/api/v1/customers', customers);
 app.use('/api/v1/authenticate', authenticate);
-app.use('/api/v1/dashboard', dashboard);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
