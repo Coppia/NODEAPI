@@ -322,13 +322,12 @@ router.put('/:idea_id', function(req, res, next) {
 
                     var affectedRows = result.affectedRows;
                     var changedRows = result.changedRows;
+                    var message = result.message;
 
                     if (affectedRows === 1 && changedRows === 1) {
-                        res.json(result);
-                        //res.json({ "success" : true });
+                        res.json({ "success" : true, "message" : message });
                     } else {
-                        //res.json({ "success" : false });
-                        res.json(result);
+                        res.json({ "success" : false, "message" : message });
                     }
                 });
             }
