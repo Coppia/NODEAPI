@@ -324,9 +324,11 @@ router.put('/:idea_id', function(req, res, next) {
                     var changedRows = result.changedRows;
 
                     if (affectedRows === 1 && changedRows === 1) {
-                        res.json({ "success" : true });
+                        res.json(result);
+                        //res.json({ "success" : true });
                     } else {
-                        res.json({ "success" : false });
+                        //res.json({ "success" : false });
+                        res.json(result);
                     }
                 });
             }
