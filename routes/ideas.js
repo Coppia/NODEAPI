@@ -106,7 +106,32 @@ router.get('/:idea_id', function(req, res, next) {
                         console.error('SQL Error: ', err);
                         return next(err);
                     }
-                    res.json(rows);
+
+                    var id = rows[0].id,
+                        title = rows[0].title,
+                        goal = rows[0].goal,
+                        status = rows[0].status,
+                        created_by = rows[0].created_by,
+                        created_datetime = rows[0].created_datetime,
+                        created_image_link = rows[0].created_image_link, 
+                        updated_by = rows[0].updated_by,
+                        updated_datetime = rows[0].updated_datetime,
+                        updated_image_link = rows[0].updated_image_link
+
+                    res.json(
+                        {
+                            "id" : id,
+                            "title" : title,
+                            "goal" : goal,
+                            "status" : status,
+                            "created_by" : created_by,
+                            "created_datetime" : created_datetime,
+                            "created_image_link" : created_image_link,
+                            "updated_by" : created_by,
+                            "updated_datetime" : updated_datetime,
+                            "updated_image_link" : updated_image_link
+                        }
+                    );
                 });
             }
         });
@@ -151,7 +176,30 @@ router.get('/idea_snippet/:idea_id', function(req, res, next) {
                         console.error('SQL Error: ', err);
                         return next(err);
                     }
-                    res.json(rows);
+
+                    var id = rows[0].id,
+                        text = rows[0].text,
+                        interview_id = rows[0].interview_id,
+                        created_by = rows[0].created_by,
+                        created_datetime = rows[0].created_datetime,
+                        created_image_link = rows[0].created_image_link, 
+                        updated_by = rows[0].updated_by,
+                        updated_datetime = rows[0].updated_datetime,
+                        updated_image_link = rows[0].updated_image_link
+
+                    res.json(
+                        {
+                            "id" : id,
+                            "text" : text,
+                            "interview_id" : interview_id,
+                            "created_by" : created_by,
+                            "created_datetime" : created_datetime,
+                            "created_image_link" : created_image_link,
+                            "updated_by" : updated_by,
+                            "updated_datetime" : updated_datetime,
+                            "updated_image_link" : updated_image_link
+                        }
+                    );
                 });
             }
         });
