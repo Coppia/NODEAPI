@@ -118,8 +118,8 @@ router.get('/:customer_id', function(req, res, next) {
                     }
 
                     var id = rows[0].id,
-                        first_name = rows[0].firstname,
-                        lastname = rows[0].lastname,
+                        first_name = rows[0].first_name,
+                        last_name = rows[0].last_name,
                         email = rows[0].email,
                         image_link = rows[0].image_link, 
                         title = rows[0].title, 
