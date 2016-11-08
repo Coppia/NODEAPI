@@ -134,8 +134,8 @@ router.get('/:customer_id', function(req, res, next) {
                     res.json(
                         {
                             "id" : id,
-                            "first_name" : firstname,
-                            "lastname" : lastname,
+                            "first_name" : first_name,
+                            "last_name" : last_name,
                             "email" : email,
                             "image_link" : image_link, 
                             "title" : title, 
