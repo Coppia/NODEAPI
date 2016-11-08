@@ -319,7 +319,15 @@ router.put('/:idea_id', function(req, res, next) {
                         console.error('SQL Error: ', err);
                         return next(err);
                     }
-                    res.json(result);
+
+                    var affectedRows = result.affectedRows;
+                    var changedRows = result.changedRows;
+
+                    if (affectedRows === 1 && changedRows === 1) {
+                        res.json({ "success" : true });
+                    } else {
+                        res.json({ "success" : false });
+                    }
                 });
             }
         });
