@@ -965,19 +965,25 @@
         },
         "update_idea": {
             "properties": {
-                "idea_id": {
-                    "type": "integer",
-                    "format" : "int32",
-                    "example" : "13"
+                "success": {
+                    "type": "string",
+                    "example" : "true"
+                },
+                "message" : {
+                    "type" : "string",
+                    "example" : "(Rows matched: 1  Changed: 1  Warnings: 0)"
                 }
             }
         },
          "delete_idea": {
             "properties": {
-                "idea_id": {
-                    "type": "integer",
-                    "format" : "int32",
-                    "example" : "12"
+                 "success": {
+                    "type": "string",
+                    "example" : "true"
+                },
+                "message" : {
+                    "type" : "string",
+                    "example" : "(Rows matched: 1  Changed: 1  Warnings: 0)"
                 }
             }
         },
