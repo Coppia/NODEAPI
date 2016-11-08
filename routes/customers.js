@@ -165,17 +165,17 @@ router.get('/lookup/:email_address', function(req, res, next) {
         var email_address = request.email_address;
 
         clearbit.Enrichment.find({email: email_address, stream: true})
-            .then(function (person) {
-                var fullname = person.person.name.fullName;
-                var firstname = person.person.name.givenName;
-                var lastname = person.person.name.familyName;
-                var avatar = person.person.avatar;
-                var email = person.person.email;
-                var location = person.person.location;
-                var domain = person.person.employment.domain;
-                var company_name = person.person.employment.name;
-                var title = person.person.employment.title;
-                var role = person.person.employment.role;
+            .then(function (result) {
+                var fullname = result.person.name.fullName;
+                var firstname = result.person.name.givenName;
+                var lastname = result.person.name.familyName;
+                var avatar = result.person.avatar;
+                var email = result.person.email;
+                var location = result.person.location;
+                var domain = result.person.employment.domain;
+                var company_name = result.person.employment.name;
+                var title = result.person.employment.title;
+                var role = result.person.employment.role;
                 
                 res.json(
                     {
