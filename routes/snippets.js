@@ -107,7 +107,30 @@ router.get('/:snippet_id', function(req, res, next) {
                         console.error('SQL Error: ', err);
                         return next(err);
                     }
-                    res.json(rows);
+
+                    var id = rows[0].id, 
+                        text = rows[0].text, 
+                        interview_id = rows[0].interview_id, 
+                        created_by = rows[0].created_by,
+                        created_datetime = rows[0].created_datetime,
+                        created_image_link = rows[0].created_image_link, 
+                        updated_by = rows[0].updated_by,
+                        updated_datetime = rows[0].updated_datetime,
+                        updated_image_link = rows[0].updated_image_link
+
+                    res.json(
+                        {
+                            "id" : id,
+                            "text" : text,
+                            "interview_id" : interview_id,
+                            "created_by" : created_by,
+                            "created_datetime" : created_datetime,
+                            "created_image_link" : created_image_link,
+                            "updated_by" : updated_by,
+                            "updated_datetime" : updated_datetime,
+                            "updated_image_link" : updated_image_link
+                        }
+                    );
                 });
             }
         });
