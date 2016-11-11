@@ -2,6 +2,7 @@ var express = require('express');
 var jwt    = require('jsonwebtoken'); 
 var config = require('../config/config');
 var pool = require('../config/conn');
+var validator = require('validator');
 
 var clearbit = require('clearbit')('sk_8c4f1e46f0f1f4f3c4bdb7720ccc6260');
 
@@ -164,49 +165,59 @@ router.get('/lookup/:email_address', function(req, res, next) {
         var request = req.params;
         var email_address = request.email_address;
 
-        clearbit.Enrichment.find({email: email_address, stream: true})
-            .then(function (result) {
-                var fullname = result.person.name.fullName;
-                var firstname = result.person.name.givenName;
-                var lastname = result.person.name.familyName;
-                var avatar = result.person.avatar;
-                var email = result.person.email;
-                var location = result.person.location;
-                var domain = result.person.employment.domain;
-                var company_name = result.person.employment.name;
-                var title = result.person.employment.title;
-                var role = result.person.employment.role;
-                
-                res.json(
-                    {
-                        "success" : "true",
-                        "full_name" : fullname,
-                        "last_name" : lastname,
-                        "first_name" : firstname,
-                        "email" : email,
-                        "image_link" : avatar,
-                        "location" : location,
-                        "domain" : domain,
-                        "company_name" : company_name,
-                        "title" : title,
-                        "role" : role
-                    });
-                //console.log(person);
-            })
-            .catch(clearbit.Enrichment.NotFoundError, function (err) {
-                // Email address could not be found
-                res.json(
-                    {
-                        "success" : "false",
-                        "customer_id":customer_id
-                    });
-                console.log(err);
-            })
-            .catch(function (err) {
-                console.error('Clearbit Connection Error: ', err);
-                return next(err);
-            }
-        );
+        if (validator.isEmail(email_address)) {
+            clearbit.Enrichment.find({email: email_address, stream: true})
+                .then(function (result) {
+                    var fullname = result.person.name.fullName;
+                    var firstname = result.person.name.givenName;
+                    var lastname = result.person.name.familyName;
+                    var avatar = result.person.avatar;
+                    var email = result.person.email;
+                    var location = result.person.location;
+                    var domain = result.person.employment.domain;
+                    var company_name = result.person.employment.name;
+                    var title = result.person.employment.title;
+                    var role = result.person.employment.role;
+                    
+                    res.json(
+                        {
+                            "success" : "true",
+                            "full_name" : fullname,
+                            "last_name" : lastname,
+                            "first_name" : firstname,
+                            "email" : email,
+                            "image_link" : avatar,
+                            "location" : location,
+                            "domain" : domain,
+                            "company_name" : company_name,
+                            "title" : title,
+                            "role" : role
+                        });
+                    //console.log(person);
+                })
+                .catch(clearbit.Enrichment.NotFoundError, function (err) {
+                    // Email address could not be found
+                    res.json(
+                        {
+                            "success" : "false",
+                            "customer_id":customer_id
+                        });
+                    console.log(err);
+                })
+                .catch(function (err) {
+                    console.error('Clearbit Connection Error: ', err);
+                    return next(err);
+                }
+            );
+        } else {
+            res.json(
+                {
+                    "success" : false,
+                    "message" : "email has invalid format"
+                }
+            );
+        }
+        
     }
     catch(ex) {
         console.error("Internal error: ", ex);
