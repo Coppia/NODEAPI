@@ -213,7 +213,7 @@ router.get('/lookup/:email_address', function(req, res, next) {
             res.json(
                 {
                     "success" : false,
-                    "message" : "email has invalid format"
+                    "message" : "email is not valid"
                 }
             );
         }
