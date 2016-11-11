@@ -155,6 +155,7 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
                 conn.query(`SELECT	customers.id,
                                     customers.first_name,
                                     customers.last_name,
+                                    customers.email,
                                     customers.image_link,
                                     customers.title, 
                                     customers.company_name, 
@@ -182,6 +183,7 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
                     var id = rows[0].id;
                     var first_name = rows[0].first_name;
                     var last_name = rows[0].last_name;
+                    var email = rows[0].email;
                     var image_link = rows[0].image_link;
                     var title = rows[0].title; 
                     var company_name = rows[0].company_name; 
@@ -197,6 +199,7 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
                             "id" : id,
                             "first_name" : first_name,
                             "last_name" : last_name,
+                            "email" : email,
                             "image_link" : image_link,
                             "title" : title,
                             "company_name" : company_name,
