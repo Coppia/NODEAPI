@@ -199,7 +199,7 @@ router.get('/lookup/:email_address', function(req, res, next) {
                             return next(err);
                         }
 
-                        if (rows) {
+                        if (rows.length > 0) {
                             var id = rows[0].id,
                                 first_name = rows[0].first_name,
                                 last_name = rows[0].last_name,
@@ -249,7 +249,7 @@ router.get('/lookup/:email_address', function(req, res, next) {
                                     
                                     res.json(
                                         {
-                                            "success" : "true",
+                                            "success" : true,
                                             "full_name" : fullname,
                                             "last_name" : lastname,
                                             "first_name" : firstname,
@@ -267,8 +267,8 @@ router.get('/lookup/:email_address', function(req, res, next) {
                                     // Email address could not be found
                                     res.json(
                                         {
-                                            "success" : "false",
-                                            "customer_id":customer_id
+                                            "success" : false,
+                                            "message": "email address could not be found"
                                         });
                                     console.log(err);
                                 })
