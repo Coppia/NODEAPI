@@ -217,6 +217,7 @@ router.get('/lookup/:email_address', function(req, res, next) {
                         
                             res.json(
                                 {
+                                    "success" : true,
                                     "id" : id,
                                     "first_name" : first_name,
                                     "last_name" : last_name,
@@ -265,7 +266,7 @@ router.get('/lookup/:email_address', function(req, res, next) {
                                     res.json(
                                         {
                                             "success" : false,
-                                            "message": "email address could not be found"
+                                            "message": "Email Address could not be found"
                                         });
                                     console.log(err);
                                 })
@@ -282,7 +283,7 @@ router.get('/lookup/:email_address', function(req, res, next) {
             res.json(
                 {
                     "success" : false,
-                    "message" : "email is not valid"
+                    "message" : "Email Address is not valid"
                 }
             );
         }
