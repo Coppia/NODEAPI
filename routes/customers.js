@@ -191,7 +191,7 @@ router.get('/lookup/:email_address', function(req, res, next) {
                                 JOIN	users as create_users
                                     ON	customers.create_user = create_users.id
                                 JOIN	users as update_users
-                                    ON	customers.update_user = update_users.id WHERE customers.id = ?`, customer_id, function(err, rows, fields) {
+                                    ON	customers.update_user = update_users.id WHERE customers.email = ?`, email_address, function(err, rows, fields) {
                         conn.release();
 
                         if (err) {
@@ -199,7 +199,7 @@ router.get('/lookup/:email_address', function(req, res, next) {
                             return next(err);
                         }
 
-                        if (result.affectedRows > 0) {
+                        if (result.affectedRows === 1) {
                             var id = rows[0].id,
                                 first_name = rows[0].first_name,
                                 last_name = rows[0].last_name,
