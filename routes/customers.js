@@ -250,16 +250,12 @@ router.get('/lookup/:email_address', function(req, res, next) {
                                     res.json(
                                         {
                                             "success" : true,
-                                            "full_name" : fullname,
-                                            "last_name" : lastname,
                                             "first_name" : firstname,
+                                            "last_name" : lastname,
                                             "email" : email,
                                             "image_link" : avatar,
-                                            "location" : location,
-                                            "domain" : domain,
-                                            "company_name" : company_name,
                                             "title" : title,
-                                            "role" : role
+                                            "company_name" : company_name
                                         });
                                     //console.log(person);
                                 })
