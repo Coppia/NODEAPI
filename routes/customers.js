@@ -250,6 +250,7 @@ router.get('/lookup/:email_address', function(req, res, next) {
                                     res.json(
                                         {
                                             "success" : true,
+                                            "id" : 0,
                                             "first_name" : firstname,
                                             "last_name" : lastname,
                                             "email" : email,
