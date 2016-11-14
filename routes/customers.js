@@ -199,7 +199,7 @@ router.get('/lookup/:email_address', function(req, res, next) {
                             return next(err);
                         }
 
-                        if (result.affectedRows === 1) {
+                        if (rows.count > 0) {
                             var id = rows[0].id,
                                 first_name = rows[0].first_name,
                                 last_name = rows[0].last_name,
