@@ -213,7 +213,16 @@ router.put('/:snippet_id', function(req, res, next) {
                         console.error('SQL Error: ', err);
                         return next(err);
                     }
-                    res.json(result);
+
+                    var affectedRows = result.affectedRows;
+                    var changedRows = result.changedRows;
+                    var message = result.message;
+
+                    if (affectedRows === 1 && changedRows === 1) {
+                        res.json({ "success" : true, "message" : message });
+                    } else {
+                        res.json({ "success" : false, "message" : message });
+                    }
                 });
             }
         });
@@ -262,7 +271,15 @@ router.delete('/:snippet_id', function(req, res, next) {
                             return next(err);
                         }
 
-                        res.json(result);
+                        var affectedRows = result.affectedRows;
+                        var changedRows = result.changedRows;
+                        var message = result.message;
+
+                        if (affectedRows === 1 && changedRows === 1) {
+                            res.json({ "success" : true, "message" : message });
+                        } else {
+                            res.json({ "success" : false, "message" : message });
+                        }
                     });
                 });
             }

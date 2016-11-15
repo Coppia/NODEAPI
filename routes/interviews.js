@@ -252,7 +252,11 @@ router.post('/', function(req, res, next) {
                     }
                   
                     var interview_id = result.insertId;
-                    res.json({"interview_id":interview_id});
+                    res.json(
+                        {
+                            "interview_id" : interview_id
+                        }
+                    );
                 });
             }
         });
@@ -289,7 +293,11 @@ router.post('/interview_customer/', function(req, res, next) {
                     }
                
                     var interview_customer_id = result.insertId;
-                    res.json({"interview_customer_id":interview_customer_id});
+                    res.json(
+                        {
+                            "interview_customer_id" : interview_customer_id
+                        }
+                    );
                 });
             }
         });
@@ -331,7 +339,16 @@ router.put('/:interview_id', function(req, res, next) {
                         console.error('SQL Error: ', err);
                         return next(err);
                     }
-                    res.json(result);
+
+                    var affectedRows = result.affectedRows;
+                    var changedRows = result.changedRows;
+                    var message = result.message;
+
+                    if (affectedRows === 1 && changedRows === 1) {
+                        res.json({ "success" : true, "message" : message });
+                    } else {
+                        res.json({ "success" : false, "message" : message });
+                    }
                 });
             }
         });
@@ -381,7 +398,15 @@ router.delete('/:interview_id', function(req, res, next) {
                             return next(err);
                         }
 
-                        res.json(result);
+                        var affectedRows = result.affectedRows;
+                        var changedRows = result.changedRows;
+                        var message = result.message;
+
+                        if (affectedRows === 1 && changedRows === 1) {
+                            res.json({ "success" : true, "message" : message });
+                        } else {
+                            res.json({ "success" : false, "message" : message });
+                        }
                     });
                 });
             }
