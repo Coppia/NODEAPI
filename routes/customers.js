@@ -148,7 +148,7 @@ router.get('/:customer_id', function(req, res, next) {
                         // return next(err);
                     }
 
-                    if (!rows[0].id) {
+                    if (rows.length <= 0) {
                         res.json(
                             {
                                 "success" : false,
