@@ -148,37 +148,46 @@ router.get('/:customer_id', function(req, res, next) {
                         // return next(err);
                     }
 
-                    var id = rows[0].id,
-                        first_name = rows[0].first_name,
-                        last_name = rows[0].last_name,
-                        email = rows[0].email,
-                        image_link = rows[0].image_link, 
-                        title = rows[0].title, 
-                        company_name = rows[0].company_name, 
-                        created_by = rows[0].created_by,
-                        created_datetime = rows[0].created_datetime,
-                        created_image_link = rows[0].created_image_link, 
-                        updated_by = rows[0].updated_by,
-                        updated_datetime = rows[0].updated_datetime,
-                        updated_image_link = rows[0].updated_image_link
+                    if (!rows[0].id) {
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "Customer could not be found with id: " + customer_id
+                            }
+                        );
+                    } else {
+                        var id = rows[0].id,
+                            first_name = rows[0].first_name,
+                            last_name = rows[0].last_name,
+                            email = rows[0].email,
+                            image_link = rows[0].image_link, 
+                            title = rows[0].title, 
+                            company_name = rows[0].company_name, 
+                            created_by = rows[0].created_by,
+                            created_datetime = rows[0].created_datetime,
+                            created_image_link = rows[0].created_image_link, 
+                            updated_by = rows[0].updated_by,
+                            updated_datetime = rows[0].updated_datetime,
+                            updated_image_link = rows[0].updated_image_link
 
-                    res.json(
-                        {
-                            "id" : id,
-                            "first_name" : first_name,
-                            "last_name" : last_name,
-                            "email" : email,
-                            "image_link" : image_link, 
-                            "title" : title, 
-                            "company_name" : company_name, 
-                            "created_by" : created_by,
-                            "created_datetime" : created_datetime,
-                            "created_image_link" : created_image_link, 
-                            "updated_by" : updated_by,
-                            "updated_datetime" : updated_datetime,
-                            "updated_image_link" : updated_image_link
-                        }
-                    );
+                        res.json(
+                            {
+                                "id" : id,
+                                "first_name" : first_name,
+                                "last_name" : last_name,
+                                "email" : email,
+                                "image_link" : image_link, 
+                                "title" : title, 
+                                "company_name" : company_name, 
+                                "created_by" : created_by,
+                                "created_datetime" : created_datetime,
+                                "created_image_link" : created_image_link, 
+                                "updated_by" : updated_by,
+                                "updated_datetime" : updated_datetime,
+                                "updated_image_link" : updated_image_link
+                            }
+                        );
+                    }
                 });
             }
         });
