@@ -174,8 +174,14 @@ router.get('/:interview_id', function(req, res, next) {
         });
     }
     catch(ex) {
-        console.error("Internal error: ", ex);
-        return next(ex);
+        res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + ex
+            }
+        );
+        // console.error("Internal error: ", ex);
+        // return next(ex);
     }
 });
 
@@ -187,8 +193,14 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
 
         pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection error: ', err);
-                return next(err);
+                res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+                // console.error('SQL Connection error: ', err);
+                // return next(err);
             }
             else {
                 conn.query(`SELECT	customers.id,
@@ -215,8 +227,14 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
                     conn.release();
 
                     if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                        // console.error('SQL Error: ', err);
+                        // return next(err);
                     }
 
                     if (rows.length <= 0) {
@@ -264,8 +282,14 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
         });
     }
     catch(ex) {
-        console.error("Internal error: ", ex);
-        return next(ex);
+        res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + ex
+            }
+        );
+        // console.error("Internal error: ", ex);
+        // return next(ex);
     }
 });
 
@@ -277,8 +301,14 @@ router.post('/', function(req, res, next) {
       
         pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection Error: ', err);
-                return next(err);
+                res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+                // console.error('SQL Connection Error: ', err);
+                // return next(err);
             }
             else {
                 var insertSql = "INSERT INTO interviews SET ?";
@@ -295,8 +325,14 @@ router.post('/', function(req, res, next) {
                     conn.release();
 
                     if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                        // console.error('SQL Error: ', err);
+                        // return next(err);
                     }
                   
                     var interview_id = result.insertId;
@@ -310,8 +346,14 @@ router.post('/', function(req, res, next) {
         });
     }
     catch(ex) {
-        console.error('Internal Error: ' + ex);
-        return next(ex);
+        res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + ex
+            }
+        );
+        // console.error('Internal Error: ' + ex);
+        // return next(ex);
     }
 });
 
@@ -322,8 +364,14 @@ router.post('/interview_customer/', function(req, res, next) {
       
         pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection Error: ', err);
-                return next(err);
+                res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+                // console.error('SQL Connection Error: ', err);
+                // return next(err);
             }
             else {
                 var insertSql = "INSERT INTO interview_customer SET ?";
@@ -336,8 +384,14 @@ router.post('/interview_customer/', function(req, res, next) {
                     conn.release();
 
                     if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                        // console.error('SQL Error: ', err);
+                        // return next(err);
                     }
                
                     var interview_customer_id = result.insertId;
@@ -351,8 +405,14 @@ router.post('/interview_customer/', function(req, res, next) {
         });
     }
     catch(ex) {
-        console.error('Internal Error: ' + ex);
-        return next(ex);
+        res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + ex
+            }
+        );
+        // console.error('Internal Error: ' + ex);
+        // return next(ex);
     }
 });
 
@@ -365,8 +425,14 @@ router.put('/:interview_id', function(req, res, next) {
 
         pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection Error: ', err);
-                return next(err);
+                res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+                // console.error('SQL Connection Error: ', err);
+                // return next(err);
             }
             else {
                 var updateSql = "UPDATE interviews SET ? WHERE ?";
@@ -384,8 +450,14 @@ router.put('/:interview_id', function(req, res, next) {
                     conn.release();
 
                     if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                        // console.error('SQL Error: ', err);
+                        // return next(err);
                     }
 
                     var affectedRows = result.affectedRows;
@@ -402,8 +474,14 @@ router.put('/:interview_id', function(req, res, next) {
         });
     }
     catch(ex) {
-        console.error('Internal Error: ' + ex);
-        return next(ex);
+        res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + ex
+            }
+        );
+        // console.error('Internal Error: ' + ex);
+        // return next(ex);
     }
 });
 
@@ -416,8 +494,14 @@ router.delete('/:interview_id', function(req, res, next) {
 
         pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection Error: ', err);
-                return next(err);
+                res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+                // console.error('SQL Connection Error: ', err);
+                // return next(err);
             }
             else {
                 var deleteSql1 = "DELETE FROM interview_customer WHERE ?";
@@ -428,8 +512,14 @@ router.delete('/:interview_id', function(req, res, next) {
 
                 var query = conn.query(deleteSql1, whereValue, function(err, result) {
                     if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                        // console.error('SQL Error: ', err);
+                        // return next(err);
                     }
 
                     var deleteSql2 = "DELETE FROM interviews WHERE ?";
@@ -442,8 +532,14 @@ router.delete('/:interview_id', function(req, res, next) {
                         conn.release();
                         
                         if (err) {
-                            console.error('SQL Error: ' + err);
-                            return next(err);
+                            res.json(
+                                {
+                                    "success" : false,
+                                    "message" : "SQL Error: " + err
+                                }
+                            );
+                            // console.error('SQL Error: ' + err);
+                            // return next(err);
                         }
 
                         var affectedRows = result.affectedRows;
@@ -461,8 +557,14 @@ router.delete('/:interview_id', function(req, res, next) {
         });
     }
     catch(ex) {
-        console.error('Internal Error: ' + ex);
-        return next(ex);
+        res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + ex
+            }
+        );
+        // console.error('Internal Error: ' + ex);
+        // return next(ex);
     }
 });
 

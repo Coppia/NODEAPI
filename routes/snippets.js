@@ -38,8 +38,14 @@ router.get('/', function(req, res, next) {
     try {
         pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection error: ', err);
-                return next(err);
+                res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+                // console.error('SQL Connection error: ', err);
+                // return next(err);
             }
             else {
                 conn.query(`SELECT  snippets.id, 
@@ -59,8 +65,14 @@ router.get('/', function(req, res, next) {
                     conn.release();
 
                     if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                        // console.error('SQL Error: ', err);
+                        // return next(err);
                     }
                     res.json(rows);
                 });
@@ -68,8 +80,14 @@ router.get('/', function(req, res, next) {
         });
     }
     catch(ex) {
-        console.error("Internal error: ", ex);
-        return next(ex);
+        res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + ex
+            }
+        );
+        // console.error("Internal error: ", ex);
+        // return next(ex);
     }
 });
 
@@ -82,8 +100,14 @@ router.get('/:snippet_id', function(req, res, next) {
 
         pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection error: ', err);
-                return next(err);
+                res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+                // console.error('SQL Connection error: ', err);
+                // return next(err);
             }
             else {
                 conn.query(`SELECT  snippets.id, 
@@ -104,8 +128,14 @@ router.get('/:snippet_id', function(req, res, next) {
                     conn.release();
 
                     if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                        // console.error('SQL Error: ', err);
+                        // return next(err);
                     }
 
                     if (rows.length <= 0) {
@@ -145,8 +175,14 @@ router.get('/:snippet_id', function(req, res, next) {
         });
     }
     catch(ex) {
-        console.error("Internal error: ", ex);
-        return next(ex);
+        res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + ex
+            }
+        );
+        // console.error("Internal error: ", ex);
+        // return next(ex);
     }
 });
 
@@ -158,8 +194,14 @@ router.post('/', function(req, res, next) {
 
         pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection Error: ', err);
-                return next(err);
+                res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+                // console.error('SQL Connection Error: ', err);
+                // return next(err);
             }
             else {
                 var insertSql = "INSERT INTO snippets SET ?";
@@ -176,8 +218,14 @@ router.post('/', function(req, res, next) {
                     conn.release();
 
                     if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                        // console.error('SQL Error: ', err);
+                        // return next(err);
                     }
 
                     var snippet_id = result.insertId;
@@ -187,8 +235,14 @@ router.post('/', function(req, res, next) {
         });
     }
     catch(ex) {
-        console.error('Internal Error: ' + ex);
-        return next(ex);
+        res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + err
+            }
+        );
+        // console.error('Internal Error: ' + ex);
+        // return next(ex);
     }
 });
 
@@ -201,8 +255,14 @@ router.put('/:snippet_id', function(req, res, next) {
 
         pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection Error: ', err);
-                return next(err);
+                res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+                // console.error('SQL Connection Error: ', err);
+                // return next(err);
             }
             else {
                 var updateSql = "UPDATE snippets SET ? WHERE ?";
@@ -219,8 +279,14 @@ router.put('/:snippet_id', function(req, res, next) {
                     conn.release();
 
                     if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                        // console.error('SQL Error: ', err);
+                        // return next(err);
                     }
 
                     var affectedRows = result.affectedRows;
@@ -237,8 +303,14 @@ router.put('/:snippet_id', function(req, res, next) {
         });
     }
     catch(ex) {
-        console.error('Internal Error: ' + ex);
-        return next(ex);
+        res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + err
+            }
+        );
+        // console.error('Internal Error: ' + ex);
+        // return next(ex);
     }
 });
 
@@ -251,8 +323,14 @@ router.delete('/:snippet_id', function(req, res, next) {
 
         pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection Error: ', err);
-                return next(err);
+                res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+                // console.error('SQL Connection Error: ', err);
+                // return next(err);
             }
             else {
                 var deleteSql1 = "DELETE FROM idea_snippet WHERE ?";
@@ -263,8 +341,14 @@ router.delete('/:snippet_id', function(req, res, next) {
 
                 var query = conn.query(deleteSql1, whereValue, function(err, result) {
                     if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                        // console.error('SQL Error: ', err);
+                        // return next(err);
                     }
 
                     var deleteSql2 = "DELETE FROM snippets WHERE ?";
@@ -276,8 +360,14 @@ router.delete('/:snippet_id', function(req, res, next) {
                     var query2 = conn.query(deleteSql2, whereValue, function(err, result) {
                         conn.release();
                         if (err) {
-                            console.error('SQL Error: ' + err);
-                            return next(err);
+                            res.json(
+                                {
+                                    "success" : false,
+                                    "message" : "SQL Error: " + err
+                                }
+                            );
+                            // console.error('SQL Error: ' + err);
+                            // return next(err);
                         }
 
                         var affectedRows = result.affectedRows;
@@ -295,8 +385,14 @@ router.delete('/:snippet_id', function(req, res, next) {
         });
     }
     catch(ex) {
-        console.error('Internal Error: ' + ex);
-        return next(ex);
+        res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + ex
+            }
+        );
+        // console.error('Internal Error: ' + ex);
+        // return next(ex);
     }
 });
 
