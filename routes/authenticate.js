@@ -18,16 +18,28 @@ router.post('/', function(req, res, next) {
 
         pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection error: ', err);   
-                return next(err);
+                res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+                // console.error('SQL Connection error: ', err);   
+                // return next(err);
             }
             else {
                 conn.query('SELECT id, username, password, first_name, last_name FROM users WHERE username = ?', username, function(err, rows, fields) {
                     conn.release();
 
                     if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                        // console.error('SQL Error: ', err);
+                        // return next(err);
                     }
                     
                     if (!rows.length) {
@@ -67,8 +79,14 @@ router.post('/', function(req, res, next) {
         });
     }
     catch(ex) {
-        console.error("Internal error: ", ex);
-        return next(ex);
+        res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + ex
+            }
+        );
+        // console.error("Internal error: ", ex);
+        // return next(ex);
     }
 });
 
