@@ -38,8 +38,14 @@ router.get('/', function(req, res, next) {
     try {
         pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection error: ', err);
-                return next(err); 
+                res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+                // console.error('SQL Connection error: ', err);
+                // return next(err); 
             }
             else {
                 conn.query(`SELECT	    ideas.id,
@@ -59,8 +65,14 @@ router.get('/', function(req, res, next) {
                                 ON		ideas.update_user = update_users.id`, function(err, rows, fields) {
                     conn.release();
                     if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                        // console.error('SQL Error: ', err);
+                        // return next(err);
                     }
                     res.json(rows);
                 });
@@ -68,8 +80,14 @@ router.get('/', function(req, res, next) {
         });
     }
     catch(ex) {
-        console.error("Internal error: ", ex);
-        return next(ex);
+        res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + ex
+            }
+        );
+        // console.error("Internal error: ", ex);
+        // return next(ex);
     }
 });
 
@@ -81,8 +99,14 @@ router.get('/:idea_id', function(req, res, next) {
 
         pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection error: ', err);
-                return next(err);
+                res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+                // console.error('SQL Connection error: ', err);
+                // return next(err);
             }
             else {
                 conn.query(`SELECT	    ideas.id,
@@ -103,42 +127,63 @@ router.get('/:idea_id', function(req, res, next) {
                             WHERE       ideas.id = ?`, idea_id, function(err, rows, fields) {
                     conn.release();
                     if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                        // console.error('SQL Error: ', err);
+                        // return next(err);
                     }
 
-                    var id = rows[0].id,
-                        title = rows[0].title,
-                        goal = rows[0].goal,
-                        status = rows[0].status,
-                        created_by = rows[0].created_by,
-                        created_datetime = rows[0].created_datetime,
-                        created_image_link = rows[0].created_image_link, 
-                        updated_by = rows[0].updated_by,
-                        updated_datetime = rows[0].updated_datetime,
-                        updated_image_link = rows[0].updated_image_link
+                    if (rows.length <= 0) {
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "Customer could not be found with id: " + customer_id
+                            }
+                        );
+                    } else {
+                        var id = rows[0].id,
+                            title = rows[0].title,
+                            goal = rows[0].goal,
+                            status = rows[0].status,
+                            created_by = rows[0].created_by,
+                            created_datetime = rows[0].created_datetime,
+                            created_image_link = rows[0].created_image_link, 
+                            updated_by = rows[0].updated_by,
+                            updated_datetime = rows[0].updated_datetime,
+                            updated_image_link = rows[0].updated_image_link
 
-                    res.json(
-                        {
-                            "id" : id,
-                            "title" : title,
-                            "goal" : goal,
-                            "status" : status,
-                            "created_by" : created_by,
-                            "created_datetime" : created_datetime,
-                            "created_image_link" : created_image_link,
-                            "updated_by" : created_by,
-                            "updated_datetime" : updated_datetime,
-                            "updated_image_link" : updated_image_link
-                        }
-                    );
+                        res.json(
+                            {
+                                "id" : id,
+                                "title" : title,
+                                "goal" : goal,
+                                "status" : status,
+                                "created_by" : created_by,
+                                "created_datetime" : created_datetime,
+                                "created_image_link" : created_image_link,
+                                "updated_by" : created_by,
+                                "updated_datetime" : updated_datetime,
+                                "updated_image_link" : updated_image_link
+                            }
+                        );
+                    }
                 });
             }
         });
     }
     catch(ex) {
-        console.error("Internal error: ", ex);
-        return next(ex);
+        res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + ex
+            }
+        );
+        // console.error("Internal error: ", ex);
+        // return next(ex);
     }
 });
 
@@ -150,8 +195,14 @@ router.get('/idea_snippet/:idea_id', function(req, res, next) {
 
         pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection error: ', err);
-                return next(err);
+                res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+                // console.error('SQL Connection error: ', err);
+                // return next(err);
             }
             else {
                 conn.query(`SELECT	snippets.id,
@@ -173,42 +224,30 @@ router.get('/idea_snippet/:idea_id', function(req, res, next) {
                             WHERE	idea_snippet.idea_id = ?;`, idea_id, function(err, rows, fields) {
                     conn.release();
                     if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                        // console.error('SQL Error: ', err);
+                        // return next(err);
                     }
 
                     res.json(rows);
-
-                    // var id = rows[0].id,
-                    //     text = rows[0].text,
-                    //     interview_id = rows[0].interview_id,
-                    //     created_by = rows[0].created_by,
-                    //     created_datetime = rows[0].created_datetime,
-                    //     created_image_link = rows[0].created_image_link, 
-                    //     updated_by = rows[0].updated_by,
-                    //     updated_datetime = rows[0].updated_datetime,
-                    //     updated_image_link = rows[0].updated_image_link
-
-                    // res.json(
-                    //     {
-                    //         "id" : id,
-                    //         "text" : text,
-                    //         "interview_id" : interview_id,
-                    //         "created_by" : created_by,
-                    //         "created_datetime" : created_datetime,
-                    //         "created_image_link" : created_image_link,
-                    //         "updated_by" : updated_by,
-                    //         "updated_datetime" : updated_datetime,
-                    //         "updated_image_link" : updated_image_link
-                    //     }
-                    // );
                 });
             }
         });
     }
     catch(ex) {
-        console.error("Internal error: ", ex);
-        return next(ex);
+        res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + ex
+            }
+        );
+        // console.error("Internal error: ", ex);
+        // return next(ex);
     }
 });
 
@@ -219,8 +258,14 @@ router.post('/', function(req, res, next) {
         var request = req.body;
         pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection Error: ', err);
-                return next(err);
+                res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+                // console.error('SQL Connection Error: ', err);
+                // return next(err);
             }
             else {
                 var insertSql = "INSERT INTO ideas SET ?";
@@ -238,8 +283,14 @@ router.post('/', function(req, res, next) {
                     conn.release();
 
                     if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                        // console.error('SQL Error: ', err);
+                        // return next(err);
                     }
                     var idea_id = result.insertId;
                     res.json({"idea_id":idea_id});
@@ -248,8 +299,14 @@ router.post('/', function(req, res, next) {
         });
     }
     catch(ex) {
-        console.error('Internal Error: ' + ex);
-        return next(ex);
+        res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + ex
+            }
+        );
+        // console.error('Internal Error: ' + ex);
+        // return next(ex);
     }
 });
 
@@ -260,8 +317,14 @@ router.post('/idea_snippet/', function(req, res, next) {
 
         pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection Error: ', err);
-                return next(err);
+                res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+                // console.error('SQL Connection Error: ', err);
+                // return next(err);
             }
             else {
                 var insertSql = "INSERT INTO idea_snippet SET ?";
@@ -274,8 +337,14 @@ router.post('/idea_snippet/', function(req, res, next) {
                     conn.release();
 
                     if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                        // console.error('SQL Error: ', err);
+                        // return next(err);
                     }
                     var idea_snippet_id = result.insertId;
                     res.json({"idea_snippet_id":idea_snippet_id});
@@ -284,8 +353,14 @@ router.post('/idea_snippet/', function(req, res, next) {
         });
     }
     catch(ex) {
-        console.error('Internal Error: ' + ex);
-        return next(ex);
+        res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + ex
+            }
+        );
+        // console.error('Internal Error: ' + ex);
+        // return next(ex);
     }
 });
 
@@ -298,8 +373,14 @@ router.put('/:idea_id', function(req, res, next) {
 
         pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection Error: ', err);
-                return next(err);
+                res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+                // console.error('SQL Connection Error: ', err);
+                // return next(err);
             }
             else {
                 var updateSql = "UPDATE ideas SET ? WHERE ?";
@@ -318,8 +399,14 @@ router.put('/:idea_id', function(req, res, next) {
                     conn.release();
 
                     if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                        // console.error('SQL Error: ', err);
+                        // return next(err);
                     }
 
                     var affectedRows = result.affectedRows;
@@ -336,8 +423,14 @@ router.put('/:idea_id', function(req, res, next) {
         });
     }
     catch(ex) {
-        console.error('Internal Error: ' + ex);
-        return next(ex);
+        res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + ex
+            }
+        );
+        // console.error('Internal Error: ' + ex);
+        // return next(ex);
     }
 });
 
@@ -350,8 +443,14 @@ router.delete('/:idea_id', function(req, res, next) {
 
         pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection Error: ', err);
-                return next(err);
+                res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+                // console.error('SQL Connection Error: ', err);
+                // return next(err);
             }
             else {
                 var deleteSql1 = "DELETE FROM idea_snippet WHERE ?";
@@ -362,8 +461,14 @@ router.delete('/:idea_id', function(req, res, next) {
 
                 var query = conn.query(deleteSql1, whereValue, function(err, result) {
                     if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                        // console.error('SQL Error: ', err);
+                        // return next(err);
                     }
 
                     var deleteSql2 = "DELETE FROM ideas WHERE ?";
@@ -376,8 +481,14 @@ router.delete('/:idea_id', function(req, res, next) {
                        conn.release();
 
                         if (err) {
-                            console.error('SQL Error: ' + err);
-                            return next(err);
+                            res.json(
+                                {
+                                    "success" : false,
+                                    "message" : "SQL Error: " + err
+                                }
+                            );
+                            // console.error('SQL Error: ' + err);
+                            // return next(err);
                         }
 
                         var affectedRows = result.affectedRows;
@@ -395,8 +506,14 @@ router.delete('/:idea_id', function(req, res, next) {
         });
     }
     catch(ex) {
-        console.error('Internal Error: ' + ex);
-        return next(ex);
+        res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + ex
+            }
+        );
+        // console.error('Internal Error: ' + ex);
+        // return next(ex);
     }
 });
 

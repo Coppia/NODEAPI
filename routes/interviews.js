@@ -107,29 +107,38 @@ router.get('/:interview_id', function(req, res, next) {
                         return next(err);
                     }
 
-                    var id = rows[0].id;
-                    var title = rows[0].title;
-                    var notes = rows[0].notes;
-                    var created_by = rows[0].created_by;
-                    var created_datetime = rows[0].created_datetime;
-                    var created_image_link = rows[0].created_image_link;
-                    var updated_by = rows[0].updated_by;
-                    var updated_datetime = rows[0].updated_datetime;
-                    var updated_image_link = rows[0].updated_image_link;
+                    if (rows.length <= 0) {
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "Customer could not be found with id: " + customer_id
+                            }
+                        );
+                    } else {
+                        var id = rows[0].id;
+                        var title = rows[0].title;
+                        var notes = rows[0].notes;
+                        var created_by = rows[0].created_by;
+                        var created_datetime = rows[0].created_datetime;
+                        var created_image_link = rows[0].created_image_link;
+                        var updated_by = rows[0].updated_by;
+                        var updated_datetime = rows[0].updated_datetime;
+                        var updated_image_link = rows[0].updated_image_link;
 
-                    res.json(
-                        {
-                            "id" : id,
-                            "title" : title,
-                            "notes" : notes,
-                            "created_by" : created_by,
-                            "created_datetime" : created_datetime,
-                            "created_image_link" : created_image_link,
-                            "updated_by" : updated_by,
-                            "updated_datetime" : updated_datetime,
-                            "updated_image_link" : updated_image_link
-                        }
-                    );
+                        res.json(
+                            {
+                                "id" : id,
+                                "title" : title,
+                                "notes" : notes,
+                                "created_by" : created_by,
+                                "created_datetime" : created_datetime,
+                                "created_image_link" : created_image_link,
+                                "updated_by" : updated_by,
+                                "updated_datetime" : updated_datetime,
+                                "updated_image_link" : updated_image_link
+                            }
+                        );
+                    }
                 });
             }
         });
@@ -180,37 +189,46 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
                         return next(err);
                     }
 
-                    var id = rows[0].id;
-                    var first_name = rows[0].first_name;
-                    var last_name = rows[0].last_name;
-                    var email = rows[0].email;
-                    var image_link = rows[0].image_link;
-                    var title = rows[0].title; 
-                    var company_name = rows[0].company_name; 
-                    var created_by = rows[0].created_by;
-                    var created_datetime = rows[0].created_by;
-                    var created_image_link = rows[0].created_image_link;
-                    var updated_by = rows[0].updated_by;
-                    var updated_datetime = rows[0].updated_datetime;
-                    var updated_image_link = rows[0].updated_image_link;
-                    
-                    res.json(
-                        {
-                            "id" : id,
-                            "first_name" : first_name,
-                            "last_name" : last_name,
-                            "email" : email,
-                            "image_link" : image_link,
-                            "title" : title,
-                            "company_name" : company_name,
-                            "created_by" : created_by,
-                            "created_datetime" : created_datetime,
-                            "created_image_link" : created_image_link,
-                            "updated_by" : updated_by,
-                            "updated_datetime" : updated_datetime,
-                            "updated_image_link" : updated_image_link
-                        }
-                    );
+                    if (rows.length <= 0) {
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "Customer could not be found with id: " + customer_id
+                            }
+                        );
+                    } else {
+                        var id = rows[0].id;
+                        var first_name = rows[0].first_name;
+                        var last_name = rows[0].last_name;
+                        var email = rows[0].email;
+                        var image_link = rows[0].image_link;
+                        var title = rows[0].title; 
+                        var company_name = rows[0].company_name; 
+                        var created_by = rows[0].created_by;
+                        var created_datetime = rows[0].created_by;
+                        var created_image_link = rows[0].created_image_link;
+                        var updated_by = rows[0].updated_by;
+                        var updated_datetime = rows[0].updated_datetime;
+                        var updated_image_link = rows[0].updated_image_link;
+                        
+                        res.json(
+                            {
+                                "id" : id,
+                                "first_name" : first_name,
+                                "last_name" : last_name,
+                                "email" : email,
+                                "image_link" : image_link,
+                                "title" : title,
+                                "company_name" : company_name,
+                                "created_by" : created_by,
+                                "created_datetime" : created_datetime,
+                                "created_image_link" : created_image_link,
+                                "updated_by" : updated_by,
+                                "updated_datetime" : updated_datetime,
+                                "updated_image_link" : updated_image_link
+                            }
+                        );
+                    }
                 });
             }
         });
