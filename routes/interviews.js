@@ -38,8 +38,14 @@ router.get('/', function(req, res, next) {
     try {
         pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection error: ', err);
-                return next(err);
+                res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+                // console.error('SQL Connection error: ', err);
+                // return next(err);
             }
             else {
                 conn.query(`SELECT 	interviews.id, 
@@ -59,8 +65,14 @@ router.get('/', function(req, res, next) {
                     conn.release();
 
                     if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                        // console.error('SQL Error: ', err);
+                        // return next(err);
                     }
                     res.json(rows);
                 });
@@ -68,8 +80,14 @@ router.get('/', function(req, res, next) {
         });
     }
     catch(ex) {
-        console.error("Internal error: ", ex);
-        return next(ex);
+        res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + ex
+            }
+        );
+        // console.error("Internal error: ", ex);
+        // return next(ex);
     }
 });
 
@@ -81,8 +99,14 @@ router.get('/:interview_id', function(req, res, next) {
 
         pool.getConnection(function(err, conn) {
             if (err) {
-                console.error('SQL Connection error: ', err);
-                return next(err);
+                res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+                // console.error('SQL Connection error: ', err);
+                // return next(err);
             }
             else {
                 conn.query(`SELECT 	interviews.id, 
@@ -103,15 +127,21 @@ router.get('/:interview_id', function(req, res, next) {
                     conn.release();
 
                     if (err) {
-                        console.error('SQL Error: ', err);
-                        return next(err);
+                        res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                        // console.error('SQL Error: ', err);
+                        // return next(err);
                     }
 
                     if (rows.length <= 0) {
                         res.json(
                             {
                                 "success" : false,
-                                "message" : "Customer could not be found with id: " + customer_id
+                                "message" : "Interview could not be found with id: " + interview_id
                             }
                         );
                     } else {
@@ -193,7 +223,7 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
                         res.json(
                             {
                                 "success" : false,
-                                "message" : "Customer could not be found with id: " + customer_id
+                                "message" : "Interview Customer could not be found with id: " + interview_id
                             }
                         );
                     } else {

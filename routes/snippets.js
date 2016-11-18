@@ -112,7 +112,7 @@ router.get('/:snippet_id', function(req, res, next) {
                         res.json(
                             {
                                 "success" : false,
-                                "message" : "Customer could not be found with id: " + customer_id
+                                "message" : "Snippet could not be found with id: " + snippet_id
                             }
                         );
                     } else {

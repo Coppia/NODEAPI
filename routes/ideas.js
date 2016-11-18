@@ -141,7 +141,7 @@ router.get('/:idea_id', function(req, res, next) {
                         res.json(
                             {
                                 "success" : false,
-                                "message" : "Customer could not be found with id: " + customer_id
+                                "message" : "Idea could not be found with id: " + idea_id
                             }
                         );
                     } else {
