@@ -220,13 +220,15 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
                                     update_users.image_link as updated_image_link
                             FROM 	customers
                             JOIN	interview_customer
-                                ON	customers.id = interview_customer.interview_id
+                                ON	customers.id = interview_customer.customer_id
                             JOIN	users as create_users
                                 ON	customers.create_user = create_users.id
                             JOIN	users as update_users
                                 ON	customers.update_user = update_users.id
                             WHERE  	interview_customer.interview_id = ?`, [interview_id], function(err, rows, fields) {
-                    conn.release();
+
+                                console.log('row length: ' + rows.length);
+                    conn.release(); 
 
                     if (err) {
                         res.json(
