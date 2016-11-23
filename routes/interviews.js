@@ -1,6 +1,8 @@
 var express = require('express');
 var jwt    = require('jsonwebtoken'); 
 var pool = require('../config/conn');
+var validator = require('validator');
+
 
 var router = express.Router();
 
