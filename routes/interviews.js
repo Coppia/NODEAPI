@@ -3,7 +3,6 @@ var jwt    = require('jsonwebtoken');
 var pool = require('../config/conn');
 var validator = require('validator');
 
-
 var router = express.Router();
 
 router.use(function(req, res, next) {
@@ -365,6 +364,8 @@ router.post('/', function(req, res, next) {
 router.post('/interview_customer/', function(req, res, next) {
     try {
         var request = req.body;
+        var interview_id = request.interview_id;
+        var customer_id = request.customer_id;
       
         pool.getConnection(function(err, conn) {
             if (err) {
@@ -378,10 +379,29 @@ router.post('/interview_customer/', function(req, res, next) {
                 // return next(err);
             }
             else {
+
+                if (validator.isEmpty(interview_id)) {
+                    return res.json(
+                        {
+                            "success" : false,
+                            "message" : "Imterview ID cannot be empty or null"
+                        }
+                    );
+                }
+
+                if (validator.isEmpty(customer_id)) {
+                    return res.json(
+                        {
+                            "success" : false,
+                            "message" : "Customer ID cannot be empty or null"
+                        }
+                    );
+                }
+
                 var insertSql = "INSERT INTO interview_customer SET ?";
                 var insertValues = {
-                    "interview_id" : request.interview_id,
-                    "customer_id" : request.customer_id
+                    "interview_id" : interview_id,
+                    "customer_id" : customer_id
                 };
 
                 var query = conn.query(insertSql, insertValues, function(err, result) {
