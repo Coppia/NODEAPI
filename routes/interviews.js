@@ -110,6 +110,15 @@ router.get('/:interview_id', function(req, res, next) {
                 // return next(err);
             }
             else {
+                if (validator.isInt(interview_id + '')) {
+                    return res.json(
+                        {
+                            "success" : false,
+                            "message" : "Imterview ID cannot be empty or null"
+                        }
+                    );
+                }
+
                 conn.query(`SELECT 	interviews.id, 
                                     interviews.title, 
                                     interviews.notes, 
@@ -204,6 +213,15 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
                 // return next(err);
             }
             else {
+                if (validator.isInt(interview_id + '')) {
+                    return res.json(
+                        {
+                            "success" : false,
+                            "message" : "Imterview ID cannot be empty or null"
+                        }
+                    );
+                }
+
                 conn.query(`SELECT	customers.id,
                                     customers.first_name,
                                     customers.last_name,
@@ -379,7 +397,6 @@ router.post('/interview_customer/', function(req, res, next) {
                 // return next(err);
             }
             else {
-
                 if (validator.isInt(interview_id + '')) {
                     return res.json(
                         {
@@ -459,6 +476,15 @@ router.put('/:interview_id', function(req, res, next) {
                 // return next(err);
             }
             else {
+                if (validator.isInt(interview_id + '')) {
+                    return res.json(
+                        {
+                            "success" : false,
+                            "message" : "Imterview ID cannot be empty or null"
+                        }
+                    );
+                }
+
                 var updateSql = "UPDATE interviews SET ? WHERE ?";
                 var updateValues = {
                      "title" : request.title,
@@ -528,6 +554,15 @@ router.delete('/:interview_id', function(req, res, next) {
                 // return next(err);
             }
             else {
+                if (validator.isInt(interview_id + '')) {
+                    return res.json(
+                        {
+                            "success" : false,
+                            "message" : "Imterview ID cannot be empty or null"
+                        }
+                    );
+                }
+                
                 var deleteSql1 = "DELETE FROM interview_customer WHERE ?";
                 
                 var whereValue = {
