@@ -262,7 +262,7 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
                         res.json(
                             {
                                 "success" : false,
-                                "message" : "Interview Customer could not be found with id: " + interview_id
+                                "message" : "Interview Customer could not be found with interview id of: " + interview_id
                             }
                         );
                     } else {
