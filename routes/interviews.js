@@ -110,14 +110,14 @@ router.get('/:interview_id', function(req, res, next) {
                 // return next(err);
             }
             else {
-                if (validator.isInt(interview_id + '')) {
-                    return res.json(
-                        {
-                            "success" : false,
-                            "message" : "Imterview ID cannot be empty or null"
-                        }
-                    );
-                }
+                // if (validator.isInt(interview_id + '')) {
+                //     return res.json(
+                //         {
+                //             "success" : false,
+                //             "message" : "Imterview ID cannot be empty or null"
+                //         }
+                //     );
+                // }
 
                 conn.query(`SELECT 	interviews.id, 
                                     interviews.title, 
@@ -213,14 +213,14 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
                 // return next(err);
             }
             else {
-                if (validator.isInt(interview_id + '')) {
-                    return res.json(
-                        {
-                            "success" : false,
-                            "message" : "Imterview ID cannot be empty or null"
-                        }
-                    );
-                }
+                // if (validator.isInt(interview_id + '')) {
+                //     return res.json(
+                //         {
+                //             "success" : false,
+                //             "message" : "Imterview ID cannot be empty or null"
+                //         }
+                //     );
+                // }
 
                 conn.query(`SELECT	customers.id,
                                     customers.first_name,
@@ -562,7 +562,7 @@ router.delete('/:interview_id', function(req, res, next) {
                         }
                     );
                 }
-                
+
                 var deleteSql1 = "DELETE FROM interview_customer WHERE ?";
                 
                 var whereValue = {
