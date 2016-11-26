@@ -380,7 +380,7 @@ router.post('/interview_customer/', function(req, res, next) {
             }
             else {
 
-                if (validator.isInt(interview_id)) {
+                if (validator.isInt(interview_id + '')) {
                     return res.json(
                         {
                             "success" : false,
@@ -389,7 +389,7 @@ router.post('/interview_customer/', function(req, res, next) {
                     );
                 }
 
-                if (validator.isInt(customer_id)) {
+                if (validator.isInt(customer_id + '')) {
                     return res.json(
                         {
                             "success" : false,
