@@ -397,23 +397,23 @@ router.post('/interview_customer/', function(req, res, next) {
                 // return next(err);
             }
             else {
-                if (validator.isInt(interview_id + '')) {
-                    return res.json(
-                        {
-                            "success" : false,
-                            "message" : "Imterview ID cannot be empty or null"
-                        }
-                    );
-                }
+                // if (validator.isInt(interview_id + '')) {
+                //     return res.json(
+                //         {
+                //             "success" : false,
+                //             "message" : "Imterview ID cannot be empty or null"
+                //         }
+                //     );
+                // }
 
-                if (validator.isInt(customer_id + '')) {
-                    return res.json(
-                        {
-                            "success" : false,
-                            "message" : "Customer ID cannot be empty or null"
-                        }
-                    );
-                }
+                // if (validator.isInt(customer_id + '')) {
+                //     return res.json(
+                //         {
+                //             "success" : false,
+                //             "message" : "Customer ID cannot be empty or null"
+                //         }
+                //     );
+                // }
 
                 var insertSql = "INSERT INTO interview_customer SET ?";
                 var insertValues = {
