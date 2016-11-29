@@ -476,14 +476,14 @@ router.put('/:interview_id', function(req, res, next) {
                 // return next(err);
             }
             else {
-                if (validator.isInt(interview_id + '')) {
-                    return res.json(
-                        {
-                            "success" : false,
-                            "message" : "Imterview ID cannot be empty or null"
-                        }
-                    );
-                }
+                // if (validator.isInt(interview_id + '')) {
+                //     return res.json(
+                //         {
+                //             "success" : false,
+                //             "message" : "Imterview ID cannot be empty or null"
+                //         }
+                //     );
+                // }
 
                 var updateSql = "UPDATE interviews SET ? WHERE ?";
                 var updateValues = {
@@ -554,14 +554,14 @@ router.delete('/:interview_id', function(req, res, next) {
                 // return next(err);
             }
             else {
-                if (validator.isInt(interview_id + '')) {
-                    return res.json(
-                        {
-                            "success" : false,
-                            "message" : "Imterview ID cannot be empty or null"
-                        }
-                    );
-                }
+                // if (validator.isInt(interview_id + '')) {
+                //     return res.json(
+                //         {
+                //             "success" : false,
+                //             "message" : "Imterview ID cannot be empty or null"
+                //         }
+                //     );
+                // }
 
                 var deleteSql1 = "DELETE FROM interview_customer WHERE ?";
                 
