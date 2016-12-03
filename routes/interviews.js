@@ -39,14 +39,12 @@ router.get('/', function(req, res, next) {
     try {
         pool.getConnection(function(err, conn) {
             if (err) {
-                res.json(
+                return res.json(
                     {
                         "success" : false,
                         "message" : "SQL Connection Error: " + err
                     }
                 );
-                // console.error('SQL Connection error: ', err);
-                // return next(err);
             }
             else {
                 conn.query(`SELECT 	interviews.id, 
@@ -66,14 +64,12 @@ router.get('/', function(req, res, next) {
                     conn.release();
 
                     if (err) {
-                        res.json(
+                        return res.json(
                             {
                                 "success" : false,
                                 "message" : "SQL Error: " + err
                             }
                         );
-                        // console.error('SQL Error: ', err);
-                        // return next(err);
                     }
                     res.json(rows);
                 });
@@ -81,14 +77,12 @@ router.get('/', function(req, res, next) {
         });
     }
     catch(ex) {
-        res.json(
+        return res.json(
             {
                 "success" : false,
                 "message" : "Internal Error: " + ex
             }
         );
-        // console.error("Internal error: ", ex);
-        // return next(ex);
     }
 });
 
@@ -100,25 +94,14 @@ router.get('/:interview_id', function(req, res, next) {
 
         pool.getConnection(function(err, conn) {
             if (err) {
-                res.json(
+                return res.json(
                     {
                         "success" : false,
                         "message" : "SQL Connection Error: " + err
                     }
                 );
-                // console.error('SQL Connection error: ', err);
-                // return next(err);
             }
             else {
-                // if (validator.isInt(interview_id + '')) {
-                //     return res.json(
-                //         {
-                //             "success" : false,
-                //             "message" : "Imterview ID cannot be empty or null"
-                //         }
-                //     );
-                // }
-
                 conn.query(`SELECT 	interviews.id, 
                                     interviews.title, 
                                     interviews.notes, 
@@ -137,18 +120,16 @@ router.get('/:interview_id', function(req, res, next) {
                     conn.release();
 
                     if (err) {
-                        res.json(
+                        return res.json(
                             {
                                 "success" : false,
                                 "message" : "SQL Error: " + err
                             }
                         );
-                        // console.error('SQL Error: ', err);
-                        // return next(err);
                     }
 
                     if (rows.length <= 0) {
-                        res.json(
+                        return res.json(
                             {
                                 "success" : false,
                                 "message" : "Interview could not be found with id: " + interview_id
@@ -165,7 +146,7 @@ router.get('/:interview_id', function(req, res, next) {
                         var updated_datetime = rows[0].updated_datetime;
                         var updated_image_link = rows[0].updated_image_link;
 
-                        res.json(
+                        return res.json(
                             {
                                 "id" : id,
                                 "title" : title,
@@ -184,14 +165,12 @@ router.get('/:interview_id', function(req, res, next) {
         });
     }
     catch(ex) {
-        res.json(
+        return res.json(
             {
                 "success" : false,
                 "message" : "Internal Error: " + ex
             }
         );
-        // console.error("Internal error: ", ex);
-        // return next(ex);
     }
 });
 
@@ -203,25 +182,14 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
 
         pool.getConnection(function(err, conn) {
             if (err) {
-                res.json(
+                return res.json(
                     {
                         "success" : false,
                         "message" : "SQL Connection Error: " + err
                     }
                 );
-                // console.error('SQL Connection error: ', err);
-                // return next(err);
             }
             else {
-                // if (validator.isInt(interview_id + '')) {
-                //     return res.json(
-                //         {
-                //             "success" : false,
-                //             "message" : "Imterview ID cannot be empty or null"
-                //         }
-                //     );
-                // }
-
                 conn.query(`SELECT	customers.id,
                                     customers.first_name,
                                     customers.last_name,
@@ -248,18 +216,16 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
                     conn.release(); 
 
                     if (err) {
-                        res.json(
+                        return res.json(
                             {
                                 "success" : false,
                                 "message" : "SQL Error: " + err
                             }
                         );
-                        // console.error('SQL Error: ', err);
-                        // return next(err);
                     }
 
                     if (rows.length <= 0) {
-                        res.json(
+                        return res.json(
                             {
                                 "success" : false,
                                 "message" : "Interview Customer could not be found with interview id of: " + interview_id
@@ -280,7 +246,7 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
                         var updated_datetime = rows[0].updated_datetime;
                         var updated_image_link = rows[0].updated_image_link;
                         
-                        res.json(
+                        return res.json(
                             {
                                 "id" : id,
                                 "first_name" : first_name,
@@ -303,14 +269,12 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
         });
     }
     catch(ex) {
-        res.json(
+        return res.json(
             {
                 "success" : false,
                 "message" : "Internal Error: " + ex
             }
         );
-        // console.error("Internal error: ", ex);
-        // return next(ex);
     }
 });
 
@@ -322,14 +286,12 @@ router.post('/', function(req, res, next) {
       
         pool.getConnection(function(err, conn) {
             if (err) {
-                res.json(
+                return res.json(
                     {
                         "success" : false,
                         "message" : "SQL Connection Error: " + err
                     }
                 );
-                // console.error('SQL Connection Error: ', err);
-                // return next(err);
             }
             else {
                 var insertSql = "INSERT INTO interviews SET ?";
@@ -346,18 +308,16 @@ router.post('/', function(req, res, next) {
                     conn.release();
 
                     if (err) {
-                        res.json(
+                        return res.json(
                             {
                                 "success" : false,
                                 "message" : "SQL Error: " + err
                             }
                         );
-                        // console.error('SQL Error: ', err);
-                        // return next(err);
                     }
                   
                     var interview_id = result.insertId;
-                    res.json(
+                    return res.json(
                         {
                             "interview_id" : interview_id
                         }
@@ -367,14 +327,12 @@ router.post('/', function(req, res, next) {
         });
     }
     catch(ex) {
-        res.json(
+        return res.json(
             {
                 "success" : false,
                 "message" : "Internal Error: " + ex
             }
         );
-        // console.error('Internal Error: ' + ex);
-        // return next(ex);
     }
 });
 
@@ -387,34 +345,14 @@ router.post('/interview_customer/', function(req, res, next) {
       
         pool.getConnection(function(err, conn) {
             if (err) {
-                res.json(
+                return res.json(
                     {
                         "success" : false,
                         "message" : "SQL Connection Error: " + err
                     }
                 );
-                // console.error('SQL Connection Error: ', err);
-                // return next(err);
             }
             else {
-                // if (validator.isInt(interview_id + '')) {
-                //     return res.json(
-                //         {
-                //             "success" : false,
-                //             "message" : "Imterview ID cannot be empty or null"
-                //         }
-                //     );
-                // }
-
-                // if (validator.isInt(customer_id + '')) {
-                //     return res.json(
-                //         {
-                //             "success" : false,
-                //             "message" : "Customer ID cannot be empty or null"
-                //         }
-                //     );
-                // }
-
                 var insertSql = "INSERT INTO interview_customer SET ?";
                 var insertValues = {
                     "interview_id" : interview_id,
@@ -425,18 +363,16 @@ router.post('/interview_customer/', function(req, res, next) {
                     conn.release();
 
                     if (err) {
-                        res.json(
+                        return res.json(
                             {
                                 "success" : false,
                                 "message" : "SQL Error: " + err
                             }
                         );
-                        // console.error('SQL Error: ', err);
-                        // return next(err);
                     }
                
                     var interview_customer_id = result.insertId;
-                    res.json(
+                    return res.json(
                         {
                             "interview_customer_id" : interview_customer_id
                         }
@@ -446,14 +382,12 @@ router.post('/interview_customer/', function(req, res, next) {
         });
     }
     catch(ex) {
-        res.json(
+        return res.json(
             {
                 "success" : false,
                 "message" : "Internal Error: " + ex
             }
         );
-        // console.error('Internal Error: ' + ex);
-        // return next(ex);
     }
 });
 
@@ -466,25 +400,14 @@ router.put('/:interview_id', function(req, res, next) {
 
         pool.getConnection(function(err, conn) {
             if (err) {
-                res.json(
+                return res.json(
                     {
                         "success" : false,
                         "message" : "SQL Connection Error: " + err
                     }
                 );
-                // console.error('SQL Connection Error: ', err);
-                // return next(err);
             }
             else {
-                // if (validator.isInt(interview_id + '')) {
-                //     return res.json(
-                //         {
-                //             "success" : false,
-                //             "message" : "Imterview ID cannot be empty or null"
-                //         }
-                //     );
-                // }
-
                 var updateSql = "UPDATE interviews SET ? WHERE ?";
                 var updateValues = {
                      "title" : request.title,
@@ -500,14 +423,12 @@ router.put('/:interview_id', function(req, res, next) {
                     conn.release();
 
                     if (err) {
-                        res.json(
+                        return res.json(
                             {
                                 "success" : false,
                                 "message" : "SQL Error: " + err
                             }
                         );
-                        // console.error('SQL Error: ', err);
-                        // return next(err);
                     }
 
                     var affectedRows = result.affectedRows;
@@ -515,27 +436,25 @@ router.put('/:interview_id', function(req, res, next) {
                     var message = result.message;
 
                     if (affectedRows === 1 && changedRows === 1) {
-                        res.json({ "success" : true, "message" : message });
+                        return res.json({ "success" : true, "message" : message });
                     } else {
-                        res.json({ "success" : false, "message" : message });
+                        return res.json({ "success" : false, "message" : message });
                     }
                 });
             }
         });
     }
     catch(ex) {
-        res.json(
+        return res.json(
             {
                 "success" : false,
                 "message" : "Internal Error: " + ex
             }
         );
-        // console.error('Internal Error: ' + ex);
-        // return next(ex);
     }
 });
 
-//DELETE IDEA BY idea_id
+//DELETE Interview BY interview_id
 router.delete('/:interview_id', function(req, res, next) {
     try {
         var currdatetime = new Date();
@@ -544,25 +463,14 @@ router.delete('/:interview_id', function(req, res, next) {
 
         pool.getConnection(function(err, conn) {
             if (err) {
-                res.json(
+                return res.json(
                     {
                         "success" : false,
                         "message" : "SQL Connection Error: " + err
                     }
                 );
-                // console.error('SQL Connection Error: ', err);
-                // return next(err);
             }
             else {
-                // if (validator.isInt(interview_id + '')) {
-                //     return res.json(
-                //         {
-                //             "success" : false,
-                //             "message" : "Imterview ID cannot be empty or null"
-                //         }
-                //     );
-                // }
-
                 var deleteSql1 = "DELETE FROM interview_customer WHERE ?";
                 
                 var whereValue = {
@@ -571,14 +479,12 @@ router.delete('/:interview_id', function(req, res, next) {
 
                 var query = conn.query(deleteSql1, whereValue, function(err, result) {
                     if (err) {
-                        res.json(
+                        return res.json(
                             {
                                 "success" : false,
                                 "message" : "SQL Error: " + err
                             }
                         );
-                        // console.error('SQL Error: ', err);
-                        // return next(err);
                     }
 
                     var deleteSql2 = "DELETE FROM interviews WHERE ?";
@@ -591,14 +497,12 @@ router.delete('/:interview_id', function(req, res, next) {
                         conn.release();
                         
                         if (err) {
-                            res.json(
+                            return res.json(
                                 {
                                     "success" : false,
                                     "message" : "SQL Error: " + err
                                 }
                             );
-                            // console.error('SQL Error: ' + err);
-                            // return next(err);
                         }
 
                         var affectedRows = result.affectedRows;
@@ -606,9 +510,9 @@ router.delete('/:interview_id', function(req, res, next) {
                         var message = result.message;
 
                         if (affectedRows === 1 && changedRows === 1) {
-                            res.json({ "success" : true, "message" : message });
+                            return res.json({ "success" : true, "message" : message });
                         } else {
-                            res.json({ "success" : false, "message" : message });
+                            return res.json({ "success" : false, "message" : message });
                         }
                     });
                 });
@@ -616,14 +520,68 @@ router.delete('/:interview_id', function(req, res, next) {
         });
     }
     catch(ex) {
-        res.json(
+        return res.json(
             {
                 "success" : false,
                 "message" : "Internal Error: " + ex
             }
         );
-        // console.error('Internal Error: ' + ex);
-        // return next(ex);
+    }
+});
+
+//DELETE INTERVIEW CUSTOMER BY interview_id
+router.delete('/interview_customer/:interview_id', function(req, res, next) {
+    try {
+        var currdatetime = new Date();
+        var interview_id = req.params.interview_id;
+        var request = req.body;
+
+        pool.getConnection(function(err, conn) {
+            if (err) {
+                return res.json(
+                    {
+                        "success" : false,
+                        "message" : "SQL Connection Error: " + err
+                    }
+                );
+            }
+            else {
+                var deleteSql = "DELETE FROM interview_customer WHERE ?";
+                
+                var whereValue = {
+                    "interview_id" : interview_id
+                };
+
+                var query = conn.query(deleteSql, whereValue, function(err, result) {
+                    if (err) {
+                        return res.json(
+                            {
+                                "success" : false,
+                                "message" : "SQL Error: " + err
+                            }
+                        );
+                    }
+
+                    var affectedRows = result.affectedRows;
+                    var changedRows = result.changedRows;
+                    var message = result.message;
+
+                    if (affectedRows === 1 && changedRows === 1) {
+                        return res.json({ "success" : true, "message" : message });
+                    } else {
+                        return res.json({ "success" : false, "message" : message });
+                    }
+                });
+            }
+        });
+    }
+    catch(ex) {
+        return res.json(
+            {
+                "success" : false,
+                "message" : "Internal Error: " + ex
+            }
+        );
     }
 });
 

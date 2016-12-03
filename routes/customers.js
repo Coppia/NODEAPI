@@ -134,7 +134,8 @@ router.get('/:customer_id', function(req, res, next) {
                             JOIN	users as create_users
                                 ON	customers.create_user = create_users.id
                             JOIN	users as update_users
-                                ON	customers.update_user = update_users.id WHERE customers.id = ?`, customer_id, function(err, rows, fields) {
+                                ON	customers.update_user = update_users.id 
+                            WHERE   customers.id = ?`, customer_id, function(err, rows, fields) {
                     conn.release();
 
                     if (err) {
@@ -242,7 +243,8 @@ router.get('/lookup/:email_address', function(req, res, next) {
                                 JOIN	users as create_users
                                     ON	customers.create_user = create_users.id
                                 JOIN	users as update_users
-                                    ON	customers.update_user = update_users.id WHERE customers.email = ?`, email_address, function(err, rows, fields) {
+                                    ON	customers.update_user = update_users.id 
+                                WHERE   customers.email = ?`, email_address, function(err, rows, fields) {
                         conn.release();
 
                         if (err) {
