@@ -314,7 +314,7 @@ router.get('/lookup/:email_address', function(req, res, next) {
                                     var title = result.person.employment.title;
                                     var role = result.person.employment.role;
                                     
-                                    res.json(
+                                    return res.json(
                                         {
                                             "success" : true,
                                             "id" : 0,
@@ -330,14 +330,14 @@ router.get('/lookup/:email_address', function(req, res, next) {
                                 })
                                 .catch(clearbit.Enrichment.NotFoundError, function (err) {
                                     // Email address could not be found
-                                    res.json(
+                                    return res.json(
                                         {
                                             "success" : false,
                                             "message": "Email Address could not be found"
                                         });
                                 })
                                 .catch(function (err) {
-                                    res.json(
+                                    return res.json(
                                         {
                                             "success" : false,
                                             "message" : "Clearbit Connection Error: " + err

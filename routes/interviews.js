@@ -197,6 +197,7 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
                                     customers.image_link,
                                     customers.title, 
                                     customers.company_name, 
+                                    customers.found,
                                     CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
                                     customers.create_datetime as created_datetime,
                                     create_users.image_link as created_image_link, 
@@ -238,7 +239,8 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
                         var email = rows[0].email;
                         var image_link = rows[0].image_link;
                         var title = rows[0].title; 
-                        var company_name = rows[0].company_name; 
+                        var company_name = rows[0].company_name;
+                        var found = rows[0].found;
                         var created_by = rows[0].created_by;
                         var created_datetime = rows[0].created_by;
                         var created_image_link = rows[0].created_image_link;
@@ -255,6 +257,7 @@ router.get('/interview_customer/:interview_id', function(req, res, next) {
                                 "image_link" : image_link,
                                 "title" : title,
                                 "company_name" : company_name,
+                                "found" : found,
                                 "created_by" : created_by,
                                 "created_datetime" : created_datetime,
                                 "created_image_link" : created_image_link,
