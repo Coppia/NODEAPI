@@ -59,6 +59,7 @@ router.get('/', function(req, res, next) {
                                     customers.image_link, 
                                     customers.title, 
                                     customers.company_name, 
+                                    customers.found,
                                     CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
                                     customers.create_datetime as created_datetime,
                                     create_users.image_link as created_image_link, 
@@ -124,6 +125,7 @@ router.get('/:customer_id', function(req, res, next) {
                                     customers.image_link, 
                                     customers.title, 
                                     customers.company_name, 
+                                    customers.found,
                                     CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
                                     customers.create_datetime as created_datetime,
                                     create_users.image_link as created_image_link, 
@@ -164,6 +166,7 @@ router.get('/:customer_id', function(req, res, next) {
                             image_link = rows[0].image_link, 
                             title = rows[0].title, 
                             company_name = rows[0].company_name, 
+                            found = rows[0].found,
                             created_by = rows[0].created_by,
                             created_datetime = rows[0].created_datetime,
                             created_image_link = rows[0].created_image_link, 
@@ -180,6 +183,7 @@ router.get('/:customer_id', function(req, res, next) {
                                 "image_link" : image_link, 
                                 "title" : title, 
                                 "company_name" : company_name, 
+                                "found" : found,
                                 "created_by" : created_by,
                                 "created_datetime" : created_datetime,
                                 "created_image_link" : created_image_link, 
@@ -233,6 +237,7 @@ router.get('/lookup/:email_address', function(req, res, next) {
                                         customers.image_link, 
                                         customers.title, 
                                         customers.company_name, 
+                                        customers.found,
                                         CONCAT(create_users.first_name, ' ', create_users.last_name) as created_by,
                                         customers.create_datetime as created_datetime,
                                         create_users.image_link as created_image_link, 
@@ -266,6 +271,7 @@ router.get('/lookup/:email_address', function(req, res, next) {
                                 image_link = rows[0].image_link, 
                                 title = rows[0].title, 
                                 company_name = rows[0].company_name, 
+                                found = rows[0].found,
                                 created_by = rows[0].created_by,
                                 created_datetime = rows[0].created_datetime,
                                 created_image_link = rows[0].created_image_link, 
@@ -284,6 +290,7 @@ router.get('/lookup/:email_address', function(req, res, next) {
                                     "image_link" : image_link, 
                                     "title" : title, 
                                     "company_name" : company_name, 
+                                    "found" : found,
                                     "created_by" : created_by,
                                     "created_datetime" : created_datetime,
                                     "created_image_link" : created_image_link, 
@@ -316,7 +323,8 @@ router.get('/lookup/:email_address', function(req, res, next) {
                                             "email" : email,
                                             "image_link" : avatar,
                                             "title" : title,
-                                            "company_name" : company_name
+                                            "company_name" : company_name,
+                                            "found" : true
                                         });
                                     //console.log(person);
                                 })
@@ -391,6 +399,7 @@ router.post('/', function(req, res, next) {
                     "image_link" : request.image_link,
                     "title" : request.title, 
                     "company_name" : request.company_name, 
+                    "found" : request.found,
                     "create_user" : request.create_user,
                     "create_datetime" : currdatetime,
                     "update_user" : request.create_user,
